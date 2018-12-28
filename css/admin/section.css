@@ -1,0 +1,14 @@
+main {
+    display : flex;
+    justify-content: center;
+}
+
+main > section {
+    flex : 1;
+    max-width : 50vw;
+    min-width : 25vw;
+    height : 80vh;
+    margin : 10vh 10px;
+    border : 1px solid white;
+    border-radius : 5px;
+}

@@ -1,0 +1,3 @@
+$.ajaxSetup({
+    headers: { 'Authorization': 'adminToken' }
+});

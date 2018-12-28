@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/joueurs/compteur.css">
+    <link rel="stylesheet" href="css/joueurs/text-glitch.css">
+
+    <title>IHM Joueurs</title>
+</head>
+<body>
+    <main>
+        <section id="compteur" class="glitch cherry" data-text="GLITCH TEXT">
+        </section>
+    </main>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/joueurs/compteur.js"></script>
+
+    <script>
+        const compteur = new Compteur();
+        compteur.initTimer();
+        compteur.startTime();
+    </script>
+</body>
+</html>

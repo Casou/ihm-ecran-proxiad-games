@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    background-color : black;
+    color : white;
+    margin : 0;
+    padding : 0;
+}
+
+@font-face {
+    font-family: 'cherry';
+    src: url('fonts/cherry/cherry_monospace-light-webfont.woff2') format('woff2'),
+        url('fonts/cherry/cherry_monospace-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'code_new_roman';
+    src: url('fonts/code_new_roman/code_new_roman-webfont.woff2') format('woff2'),
+    url('fonts/code_new_roman/code_new_roman-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'monofur';
+    src: url('fonts/monofur/monof55-webfont.woff2') format('woff2'),
+    url('fonts/monofur/monof55-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'unispace';
+    src: url('fonts/unispace/unispace_rg-webfont.woff2') format('woff2'),
+    url('fonts/unispace/unispace_rg-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
