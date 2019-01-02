@@ -33,8 +33,6 @@ const setRiddles = (riddleDatas) => {
 };
 
 const renderRiddleTab = () => {
-    console.log(RIDDLES);
-
     $("#riddles").html(RIDDLES.map(riddle => riddle.render()).join(""));
     $("#riddles").append(new AddRiddle().render());
 };

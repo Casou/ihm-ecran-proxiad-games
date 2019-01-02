@@ -38,7 +38,7 @@
 
     <script>
         Promise.all([
-            retrieveRoomsData().then(renderRoomTab),
+            retrieveRoomsData().then(setRooms),
             retrieveRiddlesData().then(setRiddles)
         ]).then(() => showTab("rooms"));
 

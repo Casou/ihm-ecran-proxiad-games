@@ -16,17 +16,25 @@ const retrieveRoomsData = () => {
     });
 };
 
-const renderRoomTab = (rooms_data) => {
+const setRooms = (rooms_data) => {
     ROOMS = [];
 
     rooms_data.forEach(room => {
-        ROOMS.push(new Room("#rooms", room, RIDDLES_DATAS));
+        ROOMS.push(new Room(room, RIDDLES_DATAS));
     });
 
-    if (rooms_data.length < 4) {
-        new AddRoom("#rooms");
+    renderRoomTab();
+};
+
+const renderRoomTab = () => {
+    $("#rooms").html(ROOMS.map(room => room.render()).join(""));
+    $("#rooms .tooltip").tooltipster();
+
+    if (ROOMS.length < 4) {
+        $("#rooms").append(new AddRoom().render());
     }
 };
+
 
 const updateRoomName = (id, value) => {
     $.ajax({
