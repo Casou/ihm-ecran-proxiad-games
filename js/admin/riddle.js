@@ -33,7 +33,7 @@ const setRiddles = (riddleDatas) => {
 };
 
 const renderRiddleTab = () => {
-    $("#riddles").html(RIDDLES.map(riddle => riddle.render()).join(""));
+    $("#riddles").html(RIDDLES.sort((a, b) => a.data.name.localeCompare(b.data.name)).map(riddle => riddle.render()).join(""));
     $("#riddles").append(new AddRiddle().render());
 };
 
@@ -71,6 +71,8 @@ const updateRiddleName = (id, value) => {
                 .attr('title', newRiddle.name)
                 .tooltipster();
             RIDDLES.filter(r => r.id === id)[0].data.name = value;
+
+            renderRiddleTab();
         },
         error: (xmlHttpRequest, textStatus, errorThrown) => {
             console.error("xmlHttpRequest: ", xmlHttpRequest);

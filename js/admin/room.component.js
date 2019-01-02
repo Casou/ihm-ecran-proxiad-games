@@ -58,7 +58,7 @@ class Room {
 class AddRoom {
     render() {
         return `
-            <section id="addSection">
+            <section id="addSection" onClick="newRoom()">
                 <div>Cliquez pour ajouter une salle</div>
             </section>
         `;
