@@ -25,14 +25,14 @@ class Room {
                         }
                     </nav>
                     <div class="riddlePc disconnected">
-                        <h2>PC énigme (déconnecté)</h2>
+                        <h2>PC énigme <span class="connection_status">(déconnecté)</span></h2>
                         <div class="terminal">
                             $ >
                         </div>
                     </div>
                     <div class="raspberry disconnected">
                         <h2>
-                            IHM joueurs - Raspberry (déconnecté)
+                            IHM joueurs <span class="connection_status">(déconnecté)</span>
                             <select>
                                 <option disabled selected>Choisir l'IP</option>
                                 <option>127.0.0.1</option>
@@ -58,8 +58,8 @@ class Room {
 class AddRoom {
     render() {
         return `
-            <section id="addSection" onClick="newRoom()">
-                <div>Cliquez pour ajouter une salle</div>
+            <section id="addRoom" onClick="newRoom()">
+                <div>Ajouter</div>
             </section>
         `;
     }

@@ -21,13 +21,15 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222326', endColorstr='#000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-#rooms > section#addSection {
+#rooms > section#addRoom {
+    flex: 0 0 100px;
+    min-width: 100px;
     border : 3px dashed white;
-    font-size : 25px;
+    font-size : 22px;
     cursor : pointer;
 }
 
-#rooms > section#addSection > div {
+#rooms > section#addRoom > div {
     line-height : 80vh;
     text-align : center;
 }
