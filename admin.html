@@ -6,24 +6,46 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <link rel="stylesheet" href="css/tooltipster.bundle.min.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/admin/admin.css">
-    <link rel="stylesheet" href="css/admin/section.css">
+    <link rel="stylesheet" href="css/admin/aside.css">
+    <link rel="stylesheet" href="css/admin/room.css">
+    <link rel="stylesheet" href="css/admin/riddle.css">
 
     <title>Admin - Proxiad Games</title>
 </head>
 <body>
-    <main>
-    </main>
+    <div id="content">
+        <aside>
+            <button title="Gérer les salles" tab="rooms" class="tooltip">S</button>
+            <button title="Gérer les énigmes" tab="riddles" class="tooltip">?</button>
+        </aside>
+        <main>
+            <div id="rooms" class="tab"></div>
+            <div id="riddles" class="tab">
+            </div>
+        </main>
+    </div>
 
     <script src="js/jquery.js"></script>
+    <script src="js/tooltipster.bundle.min.js"></script>
     <script src="js/common.js"></script>
     <script src="js/admin/admin.js"></script>
-    <script src="js/admin/section.js"></script>
-    <script src="js/admin/section.ajax.js"></script>
+    <script src="js/admin/room.component.js"></script>
+    <script src="js/admin/room.js"></script>
+    <script src="js/admin/riddle.component.js"></script>
+    <script src="js/admin/riddle.js"></script>
 
     <script>
-        retrieveRoomsData();
+        Promise.all([
+            retrieveRoomsData().then(renderRoomTab),
+            retrieveRiddlesData().then(setRiddles)
+        ]).then(() => showTab("rooms"));
+
+        $(document).ready(function() {
+            $('.tooltip').tooltipster();
+        });
     </script>
 </body>
 </html>

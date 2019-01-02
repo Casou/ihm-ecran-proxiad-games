@@ -1,0 +1,25 @@
+aside {
+    display: flex;
+    flex-direction: column;
+    padding-top: 10%;
+}
+
+aside button {
+    height: 35px;
+    width: 35px;
+    line-height: 29px;
+    text-align: center;
+    background: none;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border: 3px white solid;
+    border-radius: 20px;
+    margin : 10px 0;
+    cursor : pointer;
+}
+
+aside button.selected {
+    background-color : white;
+    color : black;
+}
