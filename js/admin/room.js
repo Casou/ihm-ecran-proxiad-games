@@ -72,3 +72,26 @@ const updateRoomName = (id, value) => {
         }
     });
 };
+
+const deleteRoom = (id) => {
+    if (!confirm("Etes-vous sûr de vouloir supprimer cette salle ?")) {
+        return;
+    }
+
+    $.ajax({
+        url: SERVEUR_URL + "room/" + id,
+        type: "DELETE",
+        contentType: "application/json",
+        success: () => {
+            ROOMS = ROOMS.filter(r => r.id !== id);
+            $("#room_" + id).fadeOut(500, function() { $(this).remove(); renderRoomTab(); });
+        },
+        error: (xmlHttpRequest, textStatus, errorThrown) => {
+            console.error("xmlHttpRequest: ", xmlHttpRequest);
+            console.error("Status: ", textStatus);
+            console.error("Error: ", errorThrown);
+            alert("Erreur lors de la création de l'énigme " + id + " : " + xmlHttpRequest.responseText);
+        }
+    });
+};
+

@@ -8,10 +8,10 @@ class Room {
 
     render() {
         return `
-            <section id="${this.id}">
+            <section id="room_${this.id}">
                 <header>
                     <input type="text" value="${ this.data.name }" onChange="updateRoomName(${ this.id }, this.value)"/> 
-                    <span class="delete_room" title="Supprimer la salle"></span>
+                    <span class="delete_room" title="Supprimer la salle" onClick="deleteRoom(${ this.id });"></span>
                 </header>
                 <div>
                     <nav>

@@ -128,6 +128,7 @@ const deleteRiddle = (id) => {
         url: SERVEUR_URL + "riddle/" + id,
         type: "DELETE",
         success: () => {
+            RIDDLES = RIDDLES.filter(r => r.id !== id);
             $("#riddle_" + id + ", .riddle_" + id).fadeOut(500, function() { $(this).remove() });
         },
         error: (xmlHttpRequest, textStatus, errorThrown) => {
