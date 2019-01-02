@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/tooltipster.bundle.min.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/admin/admin.css">
-    <link rel="stylesheet" href="css/admin/aside.css">
+    <link rel="stylesheet" href="css/admin/header.css">
     <link rel="stylesheet" href="css/admin/room.css">
     <link rel="stylesheet" href="css/admin/riddle.css">
 
@@ -17,14 +17,13 @@
 </head>
 <body>
     <div id="content">
-        <aside>
-            <button title="Gérer les salles" tab="rooms" class="tooltip">S</button>
-            <button title="Gérer les énigmes" tab="riddles" class="tooltip">?</button>
-        </aside>
+        <nav>
+            <button tab="rooms">Salles</button>
+            <button tab="riddles">Enigmes</button>
+        </nav>
         <main>
             <div id="rooms" class="tab"></div>
-            <div id="riddles" class="tab">
-            </div>
+            <div id="riddles" class="tab"></div>
         </main>
     </div>
 

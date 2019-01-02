@@ -7,13 +7,13 @@ $.ajaxSetup({
 });
 
 const showTab = (tab) => {
-    $("aside button").removeClass("selected");
-    $("aside button[tab=" + tab + "]").addClass("selected");
+    $("#content > nav button").removeClass("selected");
+    $("#content > nav button[tab=" + tab + "]").addClass("selected");
 
     $(".tab").hide();
     $("#" + tab).show();
 };
 
-$("aside button").click(function() {
+$("#content > nav button").click(function() {
     showTab($(this).attr("tab"));
 });
