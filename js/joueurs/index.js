@@ -13,11 +13,16 @@ const retrieveAllRooms = () => {
         type: "GET",
         success: (rooms) => {
             $("#configuration_select").html("<option value=''>Choisir une salle</option>");
+            let foundRoom = false;
             rooms.forEach(room => {
+                foundRoom = foundRoom || room.id === ROOM_ID;
                 $("#configuration_select").append(`
                     <option value="${ room.id }" ${ room.id === ROOM_ID && "selected" }>${ room.name }</option>
                 `)
             });
+            if (!foundRoom) {
+                ROOM_ID = null;
+            }
         },
         error: (xmlHttpRequest, textStatus, errorThrown) => {
             console.error("Status: " + textStatus);
@@ -31,5 +36,5 @@ const chooseRoom = (value) => {
     WEBSOCKET_CLIENT.headers = { "Room" : ROOM_ID };
     localStorage.setItem("roomId", ROOM_ID);
 
-    WEBSOCKET_CLIENT.disconnect(initWebSocket);
+    WEBSOCKET_CLIENT.restart();
 };

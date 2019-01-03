@@ -1,8 +1,12 @@
+let RECONNECT_TIMEOUT = 0;
+
 class WebSocketClient {
 
     constructor(url, headers) {
         const sockjs = new SockJS(url);
         this.stompClient = Stomp.over(sockjs);
+
+        this.url = url;
         this.headers = headers || {};
         this.waitingSubscriptions = [];
 
@@ -12,9 +16,11 @@ class WebSocketClient {
     connect() {
         let that = this;
         this.stompClient.connect(this.headers, function() {
+            RECONNECT_TIMEOUT = 0;
             that.waitingSubscriptions.forEach(subscribtion => that.subscribe(subscribtion.topic, subscribtion.callback));
         }, function(message) {
-            console.log("disconnect", message);
+            console.log("Disconnected : " + message);
+            that.onDisconnect();
         });
     }
 
@@ -31,7 +37,17 @@ class WebSocketClient {
         this.stompClient.send(topic, this.headers, JSON.stringify(body));
     }
 
-    disconnect(callback) {
-        this.stompClient.disconnect(callback);
+    restart() {
+        RECONNECT_TIMEOUT = 0;
+        this.stompClient.disconnect(this.onDisconnect.bind(this));
     }
+
+    onDisconnect() {
+        RECONNECT_TIMEOUT = Math.min(RECONNECT_TIMEOUT + 5000, 50000);
+        console.log("Disconnected... trying to reconnect in " + RECONNECT_TIMEOUT + "ms");
+        setTimeout(() => {
+            WEBSOCKET_CLIENT = new WebSocketClient(this.url, this.headers);
+        }, RECONNECT_TIMEOUT);
+    }
+
 }
