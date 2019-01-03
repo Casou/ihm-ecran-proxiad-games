@@ -43,7 +43,7 @@
     <script src="js/admin/riddle.js"></script>
 
     <script>
-        const webSocketClient = new WebSocketClient(SERVEUR_URL + "ws");
+        const WEBSOCKET_CLIENT = new WebSocketClient(SERVEUR_URL + "ws");
         subscribeAll();
 
         Promise.all([

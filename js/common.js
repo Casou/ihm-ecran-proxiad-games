@@ -1,5 +1,9 @@
 const SERVEUR_URL = "http://localhost:8000/";
 
+$.ajaxSetup({
+    headers: { 'Authorization': 'adminToken' }
+});
+
 const makeid = (length = 9) => {
     let text = "";
     const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

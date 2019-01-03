@@ -30,4 +30,8 @@ class WebSocketClient {
     send(topic, body) {
         this.stompClient.send(topic, this.headers, JSON.stringify(body));
     }
+
+    disconnect(callback) {
+        this.stompClient.disconnect(callback);
+    }
 }

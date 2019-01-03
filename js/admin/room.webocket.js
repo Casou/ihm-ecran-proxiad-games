@@ -1,6 +1,6 @@
 const subscribeRooms = () => {
-    webSocketClient.subscribe("/topic/room/connected", connectedRoom);
-    webSocketClient.subscribe("/topic/room/disconnected", disconnectedRoom);
+    WEBSOCKET_CLIENT.subscribe("/topic/room/connected", connectedRoom);
+    WEBSOCKET_CLIENT.subscribe("/topic/room/disconnected", disconnectedRoom);
 };
 
 const retrieveConnectedRooms = () => {

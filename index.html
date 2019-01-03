@@ -21,17 +21,29 @@
         </section>
     </main>
 
+    <dialog id="configuration" open>
+        <label for="configuration_select">Nom de la salle : </label>
+        <select id="configuration_select" onChange="chooseRoom(this.value);">
+            <option></option>
+        </select>
+        <button onClick="retrieveAllRooms()">Refresh</button>
+    </dialog>
+
     <script src="js/jquery.js"></script>
     <script src="js/common.js"></script>
+
     <script src="js/websocket/sockjs.js"></script>
     <script src="js/websocket/stomp.js"></script>
     <script src="js/websocket/websocketClient.js"></script>
+
+    <script src="js/joueurs/index.js"></script>
     <script src="js/joueurs/compteur.js"></script>
 
     <script>
-        let ROOM_NAME = 'TOKYO';
+        let ROOM_ID = (localStorage.getItem("roomId") && parseInt(localStorage.getItem("roomId"))) || "";
+        let WEBSOCKET_CLIENT;
 
-        const webSocketClient = new WebSocketClient(SERVEUR_URL + "ws", { "Room" : ROOM_NAME });
+        init();
 
         const compteur = new Compteur();
         compteur.initTimer();
