@@ -38,3 +38,8 @@ const chooseRoom = (value) => {
 
     WEBSOCKET_CLIENT.restart();
 };
+
+$(document).keydown(function(e) {
+    if (e.keyCode >= 65 && e.keyCode <= 90) $('#configuration')[0].show();
+    if (e.keyCode === 27) $('#configuration')[0].close();
+});
