@@ -17,3 +17,7 @@ const showTab = (tab) => {
 $("#content > nav button").click(function() {
     showTab($(this).attr("tab"));
 });
+
+const subscribeAll = () => {
+    subscribeRooms();
+};

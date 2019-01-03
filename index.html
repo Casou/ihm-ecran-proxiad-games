@@ -11,6 +11,9 @@
     <link rel="stylesheet" href="css/joueurs/text-glitch.css">
 
     <title>IHM Joueurs</title>
+    <script>
+        const SERVER_URL = 'http://localhost:8000/';
+    </script>
 </head>
 <body>
     <main>
@@ -20,9 +23,16 @@
 
     <script src="js/jquery.js"></script>
     <script src="js/common.js"></script>
+    <script src="js/websocket/sockjs.js"></script>
+    <script src="js/websocket/stomp.js"></script>
+    <script src="js/websocket/websocketClient.js"></script>
     <script src="js/joueurs/compteur.js"></script>
 
     <script>
+        let ROOM_NAME = 'TOKYO';
+
+        const webSocketClient = new WebSocketClient(SERVEUR_URL + "ws", { "Room" : ROOM_NAME });
+
         const compteur = new Compteur();
         compteur.initTimer();
         compteur.startTime();

@@ -25,20 +25,14 @@ class Room {
                         }
                     </nav>
                     <div class="riddlePc disconnected">
-                        <h2>PC énigme <span class="connection_status">(déconnecté)</span></h2>
+                        <h2><span class="connection_status"></span> PC énigme</h2>
                         <div class="terminal">
                             $ >
                         </div>
                     </div>
                     <div class="raspberry disconnected">
                         <h2>
-                            IHM joueurs <span class="connection_status">(déconnecté)</span>
-                            <select>
-                                <option disabled selected>Choisir l'IP</option>
-                                <option>127.0.0.1</option>
-                                <option>127.0.0.2</option>
-                                <option>127.0.0.3</option>
-                            </select>
+                            <span class="connection_status"></span> IHM joueurs
                         </h2>
                         <p class="compteur">
                             <span>00:00:00</span>

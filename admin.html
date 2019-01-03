@@ -29,18 +29,30 @@
 
     <script src="js/jquery.js"></script>
     <script src="js/tooltipster.bundle.min.js"></script>
+
+    <script src="js/websocket/sockjs.js"></script>
+    <script src="js/websocket/stomp.js"></script>
+    <script src="js/websocket/websocketClient.js"></script>
+
     <script src="js/common.js"></script>
     <script src="js/admin/admin.js"></script>
     <script src="js/admin/room.component.js"></script>
     <script src="js/admin/room.js"></script>
+    <script src="js/admin/room.webocket.js"></script>
     <script src="js/admin/riddle.component.js"></script>
     <script src="js/admin/riddle.js"></script>
 
     <script>
+        const webSocketClient = new WebSocketClient(SERVEUR_URL + "ws");
+        subscribeAll();
+
         Promise.all([
             retrieveRoomsData().then(setRooms),
             retrieveRiddlesData().then(setRiddles)
-        ]).then(() => showTab("rooms"));
+        ]).then(() => {
+            showTab("rooms");
+            retrieveConnectedRooms();
+        });
 
         $(document).ready(function() {
             $('.tooltip').tooltipster();
