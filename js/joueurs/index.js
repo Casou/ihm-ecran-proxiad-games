@@ -13,5 +13,8 @@ const subscribeAll = () => {
         COMPTEUR.initTimer();
         COMPTEUR.startTime();
         WEBSOCKET_CLIENT.send("/room/startTimer", { id : ROOM_ID });
-    })
+    });
+    WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/message", (messageDto) => {
+        readMessage(messageDto.message);
+    });
 };

@@ -23,6 +23,7 @@ const connectedRoomCallback = (room) => {
     console.log("Connected room", room);
     $('#room_' + room.id + " .raspberry").removeClass("disconnected");
     $('#room_' + room.id + " .raspberry .startButton").show();
+    $('#room_' + room.id + " .raspberry *").attr("disabled", false);
 };
 
 const disconnectedRoomCallback = (room) => {
@@ -48,7 +49,16 @@ const startTimerRoomCallback = (room) => {
     }
 };
 
-
 const startTimer = (id) => {
     WEBSOCKET_CLIENT.send("/room/start", { id });
+};
+
+
+const sendMessageToRoom = (roomId) => {
+    sendMessage(roomId, $("#room_" + roomId + " .boiteMessage textarea").val());
+    $("#room_" + roomId + " .boiteMessage textarea").val("");
+};
+
+const sendMessage = (roomId, message) => {
+    WEBSOCKET_CLIENT.send("/room/message", { room  : { id : roomId }, message });
 };
