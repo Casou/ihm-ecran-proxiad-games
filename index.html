@@ -36,11 +36,13 @@
     <script src="js/websocket/stomp.js"></script>
     <script src="js/websocket/websocketClient.js"></script>
 
-    <script src="js/joueurs/index.js"></script>
     <script src="js/common/compteur.js"></script>
+    <script src="js/joueurs/index.js"></script>
+    <script src="js/joueurs/room.js"></script>
 
     <script>
         let ROOM_ID = (localStorage.getItem("roomId") && parseInt(localStorage.getItem("roomId"))) || "";
+        let ROOMS_DATA;
         let WEBSOCKET_CLIENT;
         const COMPTEUR = new Compteur("#compteur");
 

@@ -4,6 +4,7 @@ class Room {
         this.id = data.id;
         this.data = data;
         this.riddles = riddles;
+        this.compteur = (data.startTime && new Compteur('#room_' + this.id + " .raspberry .compteur", data.startTime)) || null;
     }
 
     render() {
@@ -34,10 +35,13 @@ class Room {
                         <h2>
                             <span class="connection_status"></span> 
                             IHM joueurs 
-                            <button class="actionButton miniButton startButton" onClick="startTimer(${this.id})">Démarrer</button>
+                            ${ 
+                                this.compteur ? 
+                                    ""
+                                    : `<button class="actionButton miniButton startButton" onClick="startTimer(${this.id})">Démarrer</button>` } 
                         </h2>
                         <p class="compteur">
-                            <span>00:00:00</span>
+                            <span>-</span>
                         </p>
                         <div class="boiteMessage">
                             <textarea placeholder="Synthétiser un message" disabled></textarea>

@@ -19,3 +19,8 @@ const lpad = (number, width = 2, character = '0') => {
     number = number + '';
     return number.length >= width ? number : new Array(width - number.length + 1).join(character) + number;
 };
+
+const parseJavaLocalDateTimeToJsDate = (javaLocalDateTime) => {
+    return new Date(javaLocalDateTime[0], javaLocalDateTime[1] - 1, javaLocalDateTime[2],
+        javaLocalDateTime[3], javaLocalDateTime[4], javaLocalDateTime[5]);
+};

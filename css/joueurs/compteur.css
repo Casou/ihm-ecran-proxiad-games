@@ -22,6 +22,9 @@
 #compteur.alert {
     animation: blinkRed 0.5s linear infinite;
 }
+#compteur.finished {
+    animation: none;
+}
 
 @keyframes blinkRed {
     0% { color : white; }

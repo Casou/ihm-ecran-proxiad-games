@@ -10,7 +10,6 @@ const retrieveConnectedRooms = () => {
         url: SERVEUR_URL + "connectedRooms",
         type: "GET",
         success: (rooms) => {
-            console.log("ROOMS", rooms);
             rooms.forEach(connectedRoomCallback);
         },
         error: (xmlHttpRequest, textStatus, errorThrown) => {
@@ -40,6 +39,13 @@ const startTimerRoomCallback = (room) => {
     const compteur = new Compteur('#room_' + room.id + " .raspberry .compteur");
     compteur.initTimer();
     compteur.startTime();
+    const roomsFiltered = ROOMS.filter(r => room.id === r.id);
+    if (roomsFiltered) {
+        roomsFiltered[0].compteur = compteur;
+    } else {
+        console.error("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée", room);
+        alert("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée");
+    }
 };
 
 
