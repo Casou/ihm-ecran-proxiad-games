@@ -32,11 +32,12 @@ class Room {
                     </div>
                     <div class="raspberry disconnected">
                         <h2>
-                            <span class="connection_status"></span> IHM joueurs
+                            <span class="connection_status"></span> 
+                            IHM joueurs 
+                            <button class="actionButton miniButton startButton" onClick="startTimer(${this.id})">Démarrer</button>
                         </h2>
                         <p class="compteur">
                             <span>00:00:00</span>
-                            <button class="actionButton miniButton">Démarrer</button>
                         </p>
                         <div class="boiteMessage">
                             <textarea placeholder="Synthétiser un message" disabled></textarea>

@@ -14,6 +14,12 @@ $("#content > nav button").click(function() {
     showTab($(this).attr("tab"));
 });
 
+
+const initWebSocket = () => {
+    WEBSOCKET_CLIENT = new WebSocketClient(SERVEUR_URL + "ws", {}, initWebSocket);
+    subscribeAll();
+};
+
 const subscribeAll = () => {
     subscribeRooms();
 };

@@ -29,25 +29,22 @@
         <button onClick="retrieveAllRooms()">Refresh</button>
     </dialog>
 
-    <script src="js/jquery.js"></script>
-    <script src="js/common.js"></script>
+    <script src="js/common/jquery.js"></script>
+    <script src="js/common/common.js"></script>
 
     <script src="js/websocket/sockjs.js"></script>
     <script src="js/websocket/stomp.js"></script>
     <script src="js/websocket/websocketClient.js"></script>
 
     <script src="js/joueurs/index.js"></script>
-    <script src="js/joueurs/compteur.js"></script>
+    <script src="js/common/compteur.js"></script>
 
     <script>
         let ROOM_ID = (localStorage.getItem("roomId") && parseInt(localStorage.getItem("roomId"))) || "";
         let WEBSOCKET_CLIENT;
+        const COMPTEUR = new Compteur("#compteur");
 
         init();
-
-        const compteur = new Compteur();
-        compteur.initTimer();
-        compteur.startTime();
     </script>
 </body>
 </html>

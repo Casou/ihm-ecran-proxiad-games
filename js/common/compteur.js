@@ -2,7 +2,8 @@ const INIT_TIME_IN_SECONDS = 60 * 60;
 
 class Compteur {
 
-    constructor() {
+    constructor(selector) {
+        this.selector = selector;
         this.isStarted = false;
         this.currentTime = null;
         this.timerInterval = null;
@@ -45,7 +46,8 @@ class Compteur {
     }
 
     render() {
-        $('#compteur').html(this.formatTime(this.currentTime))
+        $(this.selector)
+            .html(this.formatTime(this.currentTime))
             .attr('data-text', this.formatTime(this.currentTime))
             .toggleClass('alert', this.currentTime < 300) // 5 mn
         ;

@@ -2,12 +2,13 @@ let RECONNECT_TIMEOUT = 0;
 
 class WebSocketClient {
 
-    constructor(url, headers) {
+    constructor(url, headers, onDisconnect) {
         const sockjs = new SockJS(url);
         this.stompClient = Stomp.over(sockjs);
 
         this.url = url;
         this.headers = headers || {};
+        this.onDisconnectCallback = onDisconnect;
         this.waitingSubscriptions = [];
 
         this.connect();
@@ -43,10 +44,10 @@ class WebSocketClient {
     }
 
     onDisconnect() {
-        RECONNECT_TIMEOUT = Math.min(RECONNECT_TIMEOUT + 5000, 50000);
+        RECONNECT_TIMEOUT = Math.min(RECONNECT_TIMEOUT + 500, 5000);
         console.log("Disconnected... trying to reconnect in " + RECONNECT_TIMEOUT + "ms");
         setTimeout(() => {
-            WEBSOCKET_CLIENT = new WebSocketClient(this.url, this.headers);
+            this.onDisconnectCallback();
         }, RECONNECT_TIMEOUT);
     }
 
