@@ -45,7 +45,11 @@ class Room {
                         </p>
                         <div class="boiteMessage">
                             <textarea placeholder="Synthétiser un message" disabled></textarea>
-                            <button class="actionButton" onClick="sendMessageToRoom(${this.id});">Envoyer</button>
+                            
+                            <div class="actionButtons">
+                                <button class="actionButton" onClick="testMessage(${this.id});">Test</button>
+                                <button class="actionButton" onClick="sendMessageToRoom(${this.id});">Envoyer</button>                            
+                            </div>
                         </div>
                     </div>
                 </div>

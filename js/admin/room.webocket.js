@@ -53,6 +53,9 @@ const startTimer = (id) => {
     WEBSOCKET_CLIENT.send("/room/start", { id });
 };
 
+const testMessage = (roomId) => {
+    readMessage($("#room_" + roomId + " .boiteMessage textarea").val());
+};
 
 const sendMessageToRoom = (roomId) => {
     sendMessage(roomId, $("#room_" + roomId + " .boiteMessage textarea").val());
