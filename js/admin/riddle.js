@@ -33,7 +33,10 @@ const setRiddles = (riddleDatas) => {
 };
 
 const renderRiddleTab = () => {
-    $("#riddles").html(RIDDLES.sort((a, b) => a.data.name.localeCompare(b.data.name)).map(riddle => riddle.render()).join(""));
+    $("#riddles").html(RIDDLES
+        .sort((a, b) => a.data.name.localeCompare(b.data.name))
+        .map(riddle => riddle.render())
+        .join(""));
     $("#riddles").append(new AddRiddle().render());
 };
 

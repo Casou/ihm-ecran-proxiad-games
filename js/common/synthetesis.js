@@ -3,7 +3,6 @@ window.speechSynthesis.onvoiceschanged = function() {
     let googleVoiceArray = window.speechSynthesis.getVoices().filter(voice => voice.voiceURI === "Google français");
     if (googleVoiceArray) {
         VOICE = googleVoiceArray[0];
-        console.log(VOICE);
     }
 };
 

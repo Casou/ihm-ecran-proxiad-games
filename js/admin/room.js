@@ -26,7 +26,10 @@ const setRooms = (rooms_data) => {
 };
 
 const renderRoomTab = () => {
-    $("#rooms").html(ROOMS.sort((a, b) => a.data.name.localeCompare(b.data.name)).map(room => room.render()).join(""));
+    $("#rooms").html(ROOMS
+        .sort((a, b) => a.data.name.localeCompare(b.data.name))
+        .map(room => room.render())
+        .join(""));
     $("#rooms .tooltip").tooltipster();
 
     if (ROOMS.length < 4) {

@@ -44,13 +44,22 @@ $(document).keydown(function(e) {
 
 
 const updateCurrentRoomData = () => {
-    if (!ROOM_ID) {
-        COMPTEUR.stopTime();
-        return;
-    }
+	if (!ROOM_ID) {
+		COMPTEUR.stopTime();
+		return;
+	}
 
-    const room = ROOMS_DATA.filter(r => r.id === ROOM_ID)[0];
-    const remainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(room.startTime));
-    COMPTEUR.initTimer(remainingTime);
-    COMPTEUR.startTime();
+	const room = ROOMS_DATA.filter(r => r.id === ROOM_ID)[0];
+	if (room.startTime) {
+        if (room.statusTime === "STARTED") {
+			const remainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(room.startTime));
+			COMPTEUR.initTimer(remainingTime);
+            COMPTEUR.startTime();
+        } else if (room.statusTime === "PAUSED") {
+			COMPTEUR.isStarted = true;
+			COMPTEUR.initTimer(room.remainingTime);
+			COMPTEUR.pauseTime();
+        }
+        COMPTEUR.render();
+    }
 };

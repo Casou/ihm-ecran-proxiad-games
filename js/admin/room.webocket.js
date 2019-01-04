@@ -3,6 +3,7 @@ const subscribeRooms = () => {
     WEBSOCKET_CLIENT.subscribe("/topic/room/disconnected", disconnectedRoomCallback);
     WEBSOCKET_CLIENT.subscribe("/topic/room/all/start", startRoomCallback);
     WEBSOCKET_CLIENT.subscribe("/topic/room/all/startTimer", startTimerRoomCallback);
+    WEBSOCKET_CLIENT.subscribe("/topic/room/all/pauseTimer", pauseTimerRoomCallback);
 };
 
 const retrieveConnectedRooms = () => {
@@ -22,7 +23,6 @@ const retrieveConnectedRooms = () => {
 const connectedRoomCallback = (room) => {
     console.log("Connected room", room);
     $('#room_' + room.id + " .raspberry").removeClass("disconnected");
-    $('#room_' + room.id + " .raspberry .startButton").show();
     $('#room_' + room.id + " .raspberry *").attr("disabled", false);
 };
 
@@ -33,6 +33,8 @@ const disconnectedRoomCallback = (room) => {
 };
 
 const startRoomCallback = (room) => {
+    console.log("startRoomCallback", room);
+    $('#room_' + room.id + " .raspberry .pauseButton").show();
     $('#room_' + room.id + " .raspberry .startButton").hide();
 };
 
@@ -49,8 +51,28 @@ const startTimerRoomCallback = (room) => {
     }
 };
 
+const pauseTimerRoomCallback = (room) => {
+	console.log("pauseTimerRoomCallback", room);
+    const roomsFiltered = ROOMS.filter(r => room.id === r.id);
+    if (roomsFiltered) {
+        roomsFiltered[0].compteur.pauseTime();
+		$('#room_' + room.id + " .raspberry .pauseButton").hide();
+		$('#room_' + room.id + " .raspberry .startButton").show();
+    } else {
+        console.error("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée", room);
+        alert("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée");
+    }
+};
+
 const startTimer = (id) => {
-    WEBSOCKET_CLIENT.send("/room/start", { id });
+    WEBSOCKET_CLIENT.send("/room/start", { id, remainingTime : 3600 });
+};
+
+const stopTimer = (id) => {
+    if (!confirm("Voulez-vous arrêter le timer pour cette salle (il ne sera pas possible de le relancer sans réinitialiser le temps) ?")) {
+        return;
+    }
+    WEBSOCKET_CLIENT.send("/room/pause", { id });
 };
 
 const testMessage = (roomId) => {

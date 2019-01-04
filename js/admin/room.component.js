@@ -4,10 +4,12 @@ class Room {
         this.id = data.id;
         this.data = data;
         this.riddles = riddles;
-        this.compteur = (data.startTime && new Compteur('#room_' + this.id + " .raspberry .compteur", data.startTime)) || null;
+        this.compteur = (data.startTime && new Compteur('#room_' + this.id + " .raspberry .compteur", data.startTime, data.statusTime, data.remainingTime)) || null;
     }
 
     render() {
+        const timerStarted = this.compteur && this.compteur.isStarted && !this.compteur.isPaused;
+
         return `
             <section id="room_${this.id}">
                 <header>
@@ -34,14 +36,13 @@ class Room {
                     <div class="raspberry disconnected">
                         <h2>
                             <span class="connection_status"></span> 
-                            IHM joueurs 
-                            ${ 
-                                this.compteur ? 
-                                    ""
-                                    : `<button class="actionButton miniButton startButton" onClick="startTimer(${this.id})">Démarrer</button>` } 
+                            IHM joueurs
+                            
+                            <button class="actionButton miniButton pauseButton ${ !timerStarted && 'hidden' }" onClick="stopTimer(${this.id})">Arrêter</button> 
+                            <button class="actionButton miniButton startButton ${ timerStarted && 'hidden' }" onClick="startTimer(${this.id})">Démarrer</button> 
                         </h2>
                         <p class="compteur">
-                            <span>-</span>
+                            ${ this.compteur && this.compteur.render() }
                         </p>
                         <div class="boiteMessage">
                             <textarea placeholder="Synthétiser un message" disabled></textarea>

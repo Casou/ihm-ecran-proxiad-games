@@ -7,7 +7,7 @@ const calculateRemainingTime = (startTimeDate) => {
 
 class Compteur {
 
-    constructor(selector, startTime) {
+    constructor(selector, startTime, statusTime, remainingTime) {
         this.selector = selector;
         this.isStarted = false;
         this.isPaused = false;
@@ -15,17 +15,22 @@ class Compteur {
         this.timerInterval = null;
 
         if (startTime) {
-            const remainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(startTime));
-
-            this.initTimer(remainingTime);
-            this.startTime();
-            this.render();
+            if (statusTime === "STARTED") {
+				const calculatedRemainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(startTime));
+				this.initTimer(calculatedRemainingTime);
+				this.startTime();
+            } else if (statusTime === "PAUSED") {
+				this.isStarted = true;
+				this.initTimer(remainingTime);
+				this.pauseTime();
+			}
+            this.renderAndApply();
         }
     }
 
     initTimer(remainingTime = INIT_TIME_IN_SECONDS) {
         this.currentTime = remainingTime;
-        this.render();
+        this.renderAndApply();
     }
 
     startTime() {
@@ -57,7 +62,7 @@ class Compteur {
             this.currentTime = 0;
             this.pauseTime();
         }
-        this.render();
+        this.renderAndApply();
     }
 
     formatTime(time) {
@@ -71,8 +76,12 @@ class Compteur {
     }
 
     render() {
+        return `<span>${ !this.isStarted ? "-" : this.formatTime(this.currentTime) }</span>`;
+    }
+
+    renderAndApply() {
         $(this.selector)
-            .html(!this.isStarted ? "-" : this.formatTime(this.currentTime))
+            .html(this.render())
             .attr('data-text', this.formatTime(this.currentTime))
             .toggleClass('alert', this.currentTime < 300) // 5 mn
             .toggleClass('finished', this.currentTime === 0)
