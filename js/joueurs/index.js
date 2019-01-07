@@ -1,6 +1,7 @@
 const init = () => {
-    initWebSocket();
-    retrieveAllRooms().then(updateCurrentRoomData);
+	$("#message").hide();
+	initWebSocket();
+	retrieveAllRooms().then(updateCurrentRoomData);
 };
 
 const initWebSocket = () => {
@@ -15,7 +16,7 @@ const subscribeAll = () => {
         WEBSOCKET_CLIENT.send("/room/startTimer", { id : ROOM_ID });
     });
     WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/message", (messageDto) => {
-        readMessage(messageDto.message);
+		incomingMessage(messageDto.message);
     });
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/pause", () => {
 		COMPTEUR.pauseTime();

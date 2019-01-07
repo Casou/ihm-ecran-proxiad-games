@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/joueurs/compteur.css">
     <link rel="stylesheet" href="css/joueurs/text-glitch.css">
+    <link rel="stylesheet" href="css/joueurs/message.css">
 
     <title>IHM Joueurs</title>
     <script>
@@ -17,9 +18,13 @@
 </head>
 <body>
     <main>
-        <section id="compteur" class="glitch cherry" data-text="GLITCH TEXT">
+        <section id="compteur" class="glitch cherry" data-text="-">
         </section>
     </main>
+
+    <div id="message" class="cherry">
+        <div id="message_content"></div>
+    </div>
 
     <dialog id="configuration">
         <label for="configuration_select">Nom de la salle : </label>
@@ -29,7 +34,7 @@
         <button onClick="retrieveAllRooms()">Refresh</button>
     </dialog>
 
-    <script src="js/common/jquery.js"></script>
+    <script src="js/common/jquery.min.js"></script>
     <script src="js/common/common.js"></script>
 
     <script src="js/websocket/sockjs.js"></script>
@@ -40,6 +45,7 @@
     <script src="js/common/synthetesis.js"></script>
     <script src="js/joueurs/index.js"></script>
     <script src="js/joueurs/room.js"></script>
+    <script src="js/joueurs/messages.js"></script>
 
     <script>
         let ROOM_ID = (localStorage.getItem("roomId") && parseInt(localStorage.getItem("roomId"))) || "";

@@ -6,9 +6,18 @@ window.speechSynthesis.onvoiceschanged = function() {
     }
 };
 
-const readMessage = (message) => {
-    const enonciation = new SpeechSynthesisUtterance(message);
-    enonciation.pitch = 0.1;
-    enonciation.voice = VOICE;
-    window.speechSynthesis.speak(enonciation);
+const readMessage = (message, callback) => {
+	window.utterances = []; // To fix the "onend not firing" bug
+
+    const utterance = new SpeechSynthesisUtterance(message);
+	utterance.pitch = 0.5;
+	utterance.voice = VOICE;
+	utterance.lang = "fr-FR";
+    if (callback) {
+		utterance.onend = () => {
+		    callback();
+		}
+    }
+	utterances.push( utterance ); // To fix the "onend not firing" bug
+    window.speechSynthesis.speak(utterance);
 };

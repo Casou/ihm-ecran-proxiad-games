@@ -77,10 +77,10 @@ const updateRoomName = (id, value) => {
 };
 
 const deleteRoom = (id) => {
-    if (!confirm("Etes-vous sûr de vouloir supprimer cette salle ?")) {
-        return;
-    }
+	confirmDialog("Etes-vous sûr de vouloir supprimer cette salle ?", () => deleteRoomCallback(id));
+};
 
+const deleteRoomCallback = (id) => {
     $.ajax({
         url: SERVEUR_URL + "room/" + id,
         type: "DELETE",

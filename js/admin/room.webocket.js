@@ -33,7 +33,6 @@ const disconnectedRoomCallback = (room) => {
 };
 
 const startRoomCallback = (room) => {
-    console.log("startRoomCallback", room);
     $('#room_' + room.id + " .raspberry .pauseButton").show();
     $('#room_' + room.id + " .raspberry .startButton").hide();
 };
@@ -52,7 +51,6 @@ const startTimerRoomCallback = (room) => {
 };
 
 const pauseTimerRoomCallback = (room) => {
-	console.log("pauseTimerRoomCallback", room);
     const roomsFiltered = ROOMS.filter(r => room.id === r.id);
     if (roomsFiltered) {
         roomsFiltered[0].compteur.pauseTime();
@@ -69,9 +67,9 @@ const startTimer = (id) => {
 };
 
 const stopTimer = (id) => {
-    if (!confirm("Voulez-vous arrêter le timer pour cette salle (il ne sera pas possible de le relancer sans réinitialiser le temps) ?")) {
-        return;
-    }
+    confirmDialog("Voulez-vous arrêter le timer pour cette salle (il ne sera pas possible de le relancer sans réinitialiser le temps) ?", () => stopTimerCallback(id));
+};
+const stopTimerCallback = (id) => {
     WEBSOCKET_CLIENT.send("/room/pause", { id });
 };
 

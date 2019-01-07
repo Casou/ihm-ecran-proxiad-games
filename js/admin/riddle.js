@@ -123,10 +123,10 @@ const updateRiddlePassword = (id, riddlePassword) => {
 };
 
 const deleteRiddle = (id) => {
-    if (!confirm("Etes-vous sûr de vouloir supprimer cette énigme ?")) {
-        return;
-    }
+	confirmDialog("Etes-vous sûr de vouloir supprimer cette énigme ?", () => deleteRiddleCallback(id));
+};
 
+const deleteRiddleCallback = (id) => {
     $.ajax({
         url: SERVEUR_URL + "riddle/" + id,
         type: "DELETE",

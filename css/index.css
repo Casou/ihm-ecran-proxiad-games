@@ -49,3 +49,9 @@ html, body {
     font-weight: normal;
     font-style: normal;
 }
+
+
+.cherry { font-family: cherry, serif; font-size : 7.3vw; }
+.code_new_roman { font-family: code_new_roman, serif; font-size : 8.2vw; }
+.monofur { font-family: monofur, serif; font-size : 8.9vw; }
+.unispace { font-family: unispace, serif; font-size : 7.3vw; }
