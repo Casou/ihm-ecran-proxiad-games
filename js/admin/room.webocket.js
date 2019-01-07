@@ -4,6 +4,7 @@ const subscribeRooms = () => {
     WEBSOCKET_CLIENT.subscribe("/topic/room/all/start", startRoomCallback);
     WEBSOCKET_CLIENT.subscribe("/topic/room/all/startTimer", startTimerRoomCallback);
     WEBSOCKET_CLIENT.subscribe("/topic/room/all/pauseTimer", pauseTimerRoomCallback);
+    WEBSOCKET_CLIENT.subscribe("/topic/riddle/unlock", unlockRiddleCallback);
 };
 
 const retrieveConnectedRooms = () => {
@@ -84,4 +85,10 @@ const sendMessageToRoom = (roomId) => {
 
 const sendMessage = (roomId, message) => {
     WEBSOCKET_CLIENT.send("/room/message", { room  : { id : roomId }, message });
+};
+
+const unlockRiddleCallback = (unlockDto) => {
+    $("#room_" + unlockDto.roomId + "_riddle_" + unlockDto.id)
+        .removeClass("unresolved")
+        .addClass("resolved");
 };

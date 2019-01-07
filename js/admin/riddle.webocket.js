@@ -25,7 +25,6 @@ const terminalConnected = (userSessionDto) => {
 	$('#room_' + userSessionDto.roomId + " .riddlePc *").attr("disabled", false);
 
 	$('#room_' + userSessionDto.roomId + " .riddlePc .terminal").html("$ > ");
-	console.log(userSessionDto.commands);
 	userSessionDto.commands.forEach(newTerminalCommand);
 };
 

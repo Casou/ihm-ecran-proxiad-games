@@ -83,7 +83,7 @@ span.connection_status                  { background: url("../../resources/image
 
 #rooms > section .terminal {
     display : inline-block;
-    width : calc(100% - 20px);;
+    width : calc(100% - 20px);
     height : 150px;
     color : #00c200;
     background-color : black;

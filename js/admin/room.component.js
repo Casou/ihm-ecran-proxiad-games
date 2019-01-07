@@ -19,7 +19,7 @@ class Room {
                 <div>
                     <nav>
                         ${ this.riddles.map(riddle => {
-                            let resolved = this.data.resolvedRiddleIds.filter(id => id === riddle.riddleId).length > 0;
+                            let resolved = this.data.resolvedRiddles.filter(r => r.riddleId === riddle.riddleId).length > 0;
                             return `<span id="room_${this.data.id}_riddle_${riddle.id}" 
                                             title="${riddle.name}" 
                                             class="tooltip riddle_${riddle.id} ${ resolved ? "resolved" : "unresolved" }">` + 
@@ -42,7 +42,7 @@ class Room {
                             <button class="actionButton miniButton startButton ${ timerStarted && 'hidden' }" onClick="startTimer(${this.id})">Démarrer</button> 
                         </h2>
                         <p class="compteur">
-                            ${ this.compteur && this.compteur.render() }
+                            ${ (this.compteur && this.compteur.render()) || "-" }
                         </p>
                         <div class="boiteMessage">
                             <textarea placeholder="Synthétiser un message" disabled></textarea>
