@@ -22,4 +22,5 @@ const initWebSocket = () => {
 
 const subscribeAll = () => {
     subscribeRooms();
+	subscribeRiddles();
 };

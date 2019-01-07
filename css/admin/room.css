@@ -80,11 +80,6 @@ span.delete_room {
 }
 
 
-#rooms > section .riddlePc,
-#rooms > section .raspberry {
-    margin-top : 15px;
-}
-
 #rooms > section .terminal {
     display : inline-block;
     width : calc(100% - 20px);;
@@ -92,8 +87,15 @@ span.delete_room {
     color : #00c200;
     background-color : black;
     font-family: Courier New, serif;
+    font-size: 12px;
     border : 1px solid #00c200;
     margin : 10px;
+    overflow: auto;
+}
+
+#rooms > section .riddlePc,
+#rooms > section .raspberry {
+    margin-top : 15px;
 }
 
 #rooms > section .riddlePc.disconnected .terminal {

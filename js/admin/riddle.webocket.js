@@ -1,0 +1,38 @@
+const subscribeRiddles = () => {
+    WEBSOCKET_CLIENT.subscribe("/topic/user/connected", terminalConnected);
+    WEBSOCKET_CLIENT.subscribe("/topic/user/disconnected", terminalDisconnected);
+    WEBSOCKET_CLIENT.subscribe("/topic/riddle/terminalCommand", newTerminalCommand);
+};
+
+
+const terminalConnected = (userSessionDto) => {
+    console.log("Connected terminal", userSessionDto);
+	$('#room_' + userSessionDto.roomId + " .riddlePc").removeClass("disconnected");
+	$('#room_' + userSessionDto.roomId + " .riddlePc *").attr("disabled", false);
+};
+
+const terminalDisconnected = (userSessionDto) => {
+    console.log("Disconnected terminal", userSessionDto);
+	$('#room_' + userSessionDto.roomId + " .riddlePc").addClass("disconnected");
+	$('#room_' + userSessionDto.roomId + " .riddlePc *").attr("disabled", true);
+};
+
+const newTerminalCommand = (terminalCommand) => {
+    console.log("Terminal command", terminalCommand);
+	let terminal = $('#room_' + terminalCommand.roomId + " .riddlePc .terminal");
+	terminal
+		.append(_formatCommand(terminalCommand))
+		.append("<br/>$ > ")
+		.animate({scrollTop: terminal[0].scrollHeight});;
+};
+
+const _formatCommand = (terminalCommand) => {
+	let result = terminalCommand.text;
+	if (terminalCommand.status === "ko") {
+		result = `<div class="errorCommand">${ result }</div>`;
+	} else if (terminalCommand.isProgress) {
+		result = `<div>[===========================>] 100%</div>${ result }`;
+	}
+
+	return `${terminalCommand.command}<br/>${ result }`;
+};
