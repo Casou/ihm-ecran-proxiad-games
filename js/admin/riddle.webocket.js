@@ -4,11 +4,29 @@ const subscribeRiddles = () => {
     WEBSOCKET_CLIENT.subscribe("/topic/riddle/terminalCommand", newTerminalCommand);
 };
 
+const retrieveConnectedUsers = () => {
+	$.ajax({
+		url: SERVEUR_URL + "connectedUsers",
+		type: "GET",
+		success: (users) => {
+			users.forEach(terminalConnected);
+		},
+		error: (xmlHttpRequest, textStatus, errorThrown) => {
+			console.error("Status: " + textStatus);
+			console.error("Error: " + errorThrown);
+		}
+	});
+};
+
 
 const terminalConnected = (userSessionDto) => {
     console.log("Connected terminal", userSessionDto);
 	$('#room_' + userSessionDto.roomId + " .riddlePc").removeClass("disconnected");
 	$('#room_' + userSessionDto.roomId + " .riddlePc *").attr("disabled", false);
+
+	$('#room_' + userSessionDto.roomId + " .riddlePc .terminal").html("$ > ");
+	console.log(userSessionDto.commands);
+	userSessionDto.commands.forEach(newTerminalCommand);
 };
 
 const terminalDisconnected = (userSessionDto) => {

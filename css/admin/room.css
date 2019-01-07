@@ -69,16 +69,17 @@ span.delete_room {
     width: 20px;
     height: 20px;
     margin : 0 5px;
-}
-#rooms > section nav span.resolved, span.connection_status {
-    background: url("../../resources/images/green-light.png") no-repeat top left transparent;
-    background-size: contain;
-}
-#rooms > section nav span.unresolved, .disconnected span.connection_status {
-    background: url("../../resources/images/red-light.png") no-repeat top left transparent;
-    background-size: contain;
+    vertical-align: top;
 }
 
+#rooms > section nav span.resolved      { background: url("../../resources/images/unlock.png") no-repeat top left transparent; }
+#rooms > section nav span.unresolved    { background: url("../../resources/images/lock.png") no-repeat top left transparent; }
+span.connection_status                  { background: url("../../resources/images/green-light.png") no-repeat top left transparent; }
+.disconnected span.connection_status    { background: url("../../resources/images/red-light.png") no-repeat top left transparent; }
+#rooms > section nav span.resolved, span.connection_status,
+#rooms > section nav span.unresolved, .disconnected span.connection_status{
+    background-size: contain;
+}
 
 #rooms > section .terminal {
     display : inline-block;
