@@ -100,4 +100,6 @@ input  {
     padding:4px 8px;
     text-decoration:none;
     text-shadow:0px -1px 0px #2b665e;
+    height: 26px;
+    vertical-align: middle;
 }

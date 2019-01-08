@@ -4,15 +4,16 @@ class Room {
         this.id = data.id;
         this.data = data;
         this.riddles = riddles;
-        this.compteur = (data.startTime && new Compteur('#room_' + this.id + " .raspberry .compteur", data.startTime, data.statusTime, data.remainingTime)) || null;
+
+        const compteurSeul = (data.startTime && new Compteur('#room_' + this.id + " .raspberry .compteur", data.startTime, data.statusTime, data.remainingTime)) || null;
+        this.compteur = new CompteurAvecBoutons('#room_' + this.id + " .raspberry .compteurWrapper", compteurSeul, this.id);
     }
 
     render() {
-        const timerStarted = this.compteur && this.compteur.isStarted && !this.compteur.isPaused;
-
         return `
             <section id="room_${this.id}">
                 <header>
+                    <span class="reinit_room" title="Réinitialiser la salle" onClick="reinitRoom(${ this.id });"></span>
                     <input type="text" value="${ this.data.name }" onChange="updateRoomName(${ this.id }, this.value)"/> 
                     <span class="delete_room" title="Supprimer la salle" onClick="deleteRoom(${ this.id });"></span>
                 </header>
@@ -22,7 +23,7 @@ class Room {
                             let resolved = this.data.resolvedRiddles.filter(r => r.riddleId === riddle.riddleId).length > 0;
                             return `<span id="room_${this.data.id}_riddle_${riddle.id}" 
                                             title="${riddle.name}" 
-                                            class="tooltip riddle_${riddle.id} ${ resolved ? "resolved" : "unresolved" }">` + 
+                                            class="tooltip riddle riddle_${riddle.id} ${ resolved ? "resolved" : "unresolved" }">` + 
                                     `</span>`;
                             }).join(" ") 
                         }
@@ -37,13 +38,10 @@ class Room {
                         <h2>
                             <span class="connection_status"></span> 
                             IHM joueurs
-                            
-                            <button class="actionButton miniButton pauseButton ${ !timerStarted && 'hidden' }" onClick="stopTimer(${this.id})">Arrêter</button> 
-                            <button class="actionButton miniButton startButton ${ timerStarted && 'hidden' }" onClick="startTimer(${this.id})">Démarrer</button> 
                         </h2>
-                        <p class="compteur">
-                            ${ (this.compteur && this.compteur.render()) || "-" }
-                        </p>
+                        <div class="compteurWrapper">
+                            ${ this.compteur && this.compteur.render() }
+                        </div>
                         <div class="boiteMessage">
                             <textarea placeholder="Synthétiser un message" disabled></textarea>
                             
@@ -57,6 +55,10 @@ class Room {
             </section>
         `;
     }
+
+	renderAndApply() {
+        $("#room_" + this.id).replaceWith(this.render());
+	}
 }
 
 class AddRoom {

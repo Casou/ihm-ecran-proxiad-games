@@ -20,7 +20,7 @@ const setRiddles = (riddleDatas) => {
     RIDDLES_DATAS = riddleDatas;
     ROOMS.forEach(room => {
         room.riddles = RIDDLES_DATAS;
-        room.render();
+        room.renderAndApply();
     });
 
     RIDDLES = [];
@@ -123,10 +123,10 @@ const updateRiddlePassword = (id, riddlePassword) => {
 };
 
 const deleteRiddle = (id) => {
-	confirmDialog("Etes-vous sûr de vouloir supprimer cette énigme ?", () => deleteRiddleCallback(id));
+	confirmDialog("Etes-vous sûr de vouloir supprimer cette énigme ?", () => deleteRiddleWS(id));
 };
 
-const deleteRiddleCallback = (id) => {
+const deleteRiddleWS = (id) => {
     $.ajax({
         url: SERVEUR_URL + "riddle/" + id,
         type: "DELETE",

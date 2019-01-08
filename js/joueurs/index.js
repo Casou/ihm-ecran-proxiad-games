@@ -20,6 +20,5 @@ const subscribeAll = () => {
     });
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/pause", () => {
 		COMPTEUR.pauseTime();
-		WEBSOCKET_CLIENT.send("/room/pauseTimer", { id : ROOM_ID });
 	});
 };

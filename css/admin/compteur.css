@@ -1,3 +1,13 @@
+.compteurWrapper {
+    text-align : center;
+    margin : 5px 0;
+}
+
+.compteur {
+    display : inline-block;
+    font-size : 18px;
+}
+
 .compteur.alert {
     animation: blinkRed 0.5s linear infinite;
 }
@@ -11,4 +21,10 @@
     49% { color : white; }
     50% { color : red; }
     99% { color : red; }
+}
+
+
+.compteurWrapper button.disabled {
+    cursor : default;
+    opacity : 0.5;
 }

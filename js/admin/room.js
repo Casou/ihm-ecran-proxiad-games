@@ -51,7 +51,7 @@ const newRoom = () => {
             console.error("xmlHttpRequest: ", xmlHttpRequest);
             console.error("Status: ", textStatus);
             console.error("Error: ", errorThrown);
-            alert("Erreur lors de la création de l'énigme " + id + " : " + xmlHttpRequest.responseText);
+            alert("Erreur lors de la création de la salle " + id + " : " + xmlHttpRequest.responseText);
         }
     });
 };
@@ -77,10 +77,10 @@ const updateRoomName = (id, value) => {
 };
 
 const deleteRoom = (id) => {
-	confirmDialog("Etes-vous sûr de vouloir supprimer cette salle ?", () => deleteRoomCallback(id));
+	confirmDialog("Etes-vous sûr de vouloir supprimer cette salle ?", () => deleteRoomAjax(id));
 };
 
-const deleteRoomCallback = (id) => {
+const deleteRoomAjax = (id) => {
     $.ajax({
         url: SERVEUR_URL + "room/" + id,
         type: "DELETE",
@@ -93,8 +93,31 @@ const deleteRoomCallback = (id) => {
             console.error("xmlHttpRequest: ", xmlHttpRequest);
             console.error("Status: ", textStatus);
             console.error("Error: ", errorThrown);
-            alert("Erreur lors de la création de l'énigme " + id + " : " + xmlHttpRequest.responseText);
+            alert("Erreur lors de la suppression de la salle " + id + " : " + xmlHttpRequest.responseText);
         }
     });
 };
 
+const reinitRoom = (id) => {
+	confirmDialog("Etes-vous sûr de vouloir réinitialiser cette salle ?", () => reinitRoomAjax(id));
+};
+
+const reinitRoomAjax = (id) => {
+	$.ajax({
+		url: SERVEUR_URL + "room/" + id,
+		type: "PATCH",
+		contentType: "application/json",
+		success: (room) => {
+			const roomIndex = ROOMS.findIndex(r => r.id === id);
+			ROOMS[roomIndex].data = room;
+			ROOMS[roomIndex].compteur && ROOMS[roomIndex].compteur.reinitTime();
+			$("#room_" + id + " .riddle").addClass("unresolved").removeClass("resolved");
+		},
+		error: (xmlHttpRequest, textStatus, errorThrown) => {
+			console.error("xmlHttpRequest: ", xmlHttpRequest);
+			console.error("Status: ", textStatus);
+			console.error("Error: ", errorThrown);
+			alert("Erreur lors de la réinitialisation de la salle " + id + " : " + xmlHttpRequest.responseText);
+		}
+	});
+};

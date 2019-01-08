@@ -5,6 +5,7 @@ class WebSocketClient {
     constructor(url, headers, onDisconnect) {
         const sockjs = new SockJS(url);
         this.stompClient = Stomp.over(sockjs);
+		this.stompClient.debug = null;
 
         this.url = url;
         this.headers = headers || {};

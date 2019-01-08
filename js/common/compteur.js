@@ -29,7 +29,7 @@ class Compteur {
     }
 
     initTimer(remainingTime = INIT_TIME_IN_SECONDS) {
-        this.currentTime = remainingTime;
+		this.currentTime = remainingTime;
         this.renderAndApply();
     }
 
@@ -39,7 +39,7 @@ class Compteur {
         }
         this.isStarted = true;
         this.isPaused = false;
-        this.timerInterval = setInterval(() => this.decreaseTime(), 1000);
+        this.timerInterval = setInterval(() => this._decreaseTime(), 1000);
     }
 
     pauseTime() {
@@ -53,10 +53,11 @@ class Compteur {
     stopTime() {
         this.isStarted = false;
         this.isPaused = false;
+		this.currentTime = null;
         this.timerInterval && clearInterval(this.timerInterval);
     }
 
-    decreaseTime(secondsToDecrease =  1) {
+    _decreaseTime(secondsToDecrease =  1) {
         this.currentTime -= secondsToDecrease;
         if (this.currentTime <= 0) {
             this.currentTime = 0;
@@ -65,7 +66,11 @@ class Compteur {
         this.renderAndApply();
     }
 
-    formatTime(time) {
+    _formatTime(time) {
+        if (!time) {
+            return "--:--:--";
+        }
+
         let totalSeconds = time;
         const hours = Math.floor(totalSeconds / 3600);
         totalSeconds %= 3600;
@@ -76,15 +81,15 @@ class Compteur {
     }
 
     render() {
-        return `<span>${ !this.isStarted ? "-" : this.formatTime(this.currentTime) }</span>`;
+        return `<span>${ !this.isStarted ? "--:--:--" : this._formatTime(this.currentTime) }</span>`;
     }
 
     renderAndApply() {
         $(this.selector)
             .html(this.render())
-            .attr('data-text', this.formatTime(this.currentTime))
-            .toggleClass('alert', this.currentTime < 300) // 5 mn
-            .toggleClass('finished', this.currentTime === 0)
+            .attr('data-text', this._formatTime(this.currentTime))
+            .toggleClass('alert', this.currentTime && this.currentTime < 300) // 5 mn
+            .toggleClass('finished', this.currentTime && this.currentTime === 0)
         ;
     }
 
