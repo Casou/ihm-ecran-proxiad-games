@@ -27,6 +27,10 @@ const connectedRoomCallback = (room) => {
     $('#room_' + room.id + ' .raspberry *').attr('disabled', false);
     $('#room_' + room.id + ' .room_name').attr('disabled', true);
     $('#room_' + room.id + ' .delete_room').addClass('disabled');
+	const roomsFiltered = ROOMS.filter(r => room.id === r.id);
+	if (roomsFiltered && roomsFiltered.length) {
+		roomsFiltered[0].compteur.renderAndApply();
+	}
 };
 
 const disconnectedRoomCallback = (room) => {
@@ -38,6 +42,7 @@ const disconnectedRoomCallback = (room) => {
 };
 
 const startRoomCallback = (room) => {
+    console.log("startRoomCallback");
     $('#room_' + room.id + ' .raspberry .pauseButton').removeClass('disabled');
     $('#room_' + room.id + ' .raspberry .startButton').addClass('disabled');
     // $('#room_' + room.id + ' .raspberry .resetButton').addClass('disabled');
@@ -53,6 +58,7 @@ const startTimerRoomCallback = (room) => {
 	$('#room_' + room.id + " .raspberry .pauseButton").removeClass("disabled");
 	// $('#room_' + room.id + " .raspberry .resetButton").addClass("disabled");
 	$('#room_' + room.id + " .raspberry .startButton").addClass("disabled");
+	console.log("startTimerRoomCallback");
 
     const roomsFiltered = ROOMS.filter(r => room.id === r.id);
     if (roomsFiltered) {
