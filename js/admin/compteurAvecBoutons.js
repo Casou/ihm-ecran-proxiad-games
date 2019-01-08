@@ -45,8 +45,11 @@ class CompteurAvecBoutons {
     }
 
     renderAndApply() {
+		console.log("reinit", this.selector, this.render());
         $(this.selector).html(this.render());
-		this.compteur && this.compteur.renderAndApply();
+		if (this.compteur) {
+			this.compteur.renderAndApply();
+		}
     }
 
 }

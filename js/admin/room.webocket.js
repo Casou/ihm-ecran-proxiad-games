@@ -44,7 +44,7 @@ const startTimerRoomCallback = (room) => {
     compteur.initTimer();
     compteur.startTime();
 
-	const compteurWrapper = new CompteurAvecBoutons('#room_' + this.id + " .raspberry .compteurWrapper", compteur, room.id);
+	const compteurWrapper = new CompteurAvecBoutons('#room_' + room.id + " .raspberry .compteurWrapper", compteur, room.id);
 
 	$('#room_' + room.id + " .raspberry .pauseButton").removeClass("disabled");
 	// $('#room_' + room.id + " .raspberry .resetButton").addClass("disabled");
