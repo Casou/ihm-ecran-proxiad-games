@@ -17,10 +17,13 @@ main {
     padding : 0 50px;
 }
 
-input  {
-    color : yellow;
+input {
+    color : white;
     background: transparent;
     border : none;
+}
+input:not([disabled]) {
+    color : yellow;
 }
 
 

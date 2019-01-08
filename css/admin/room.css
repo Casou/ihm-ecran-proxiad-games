@@ -36,7 +36,7 @@
 
 #rooms > section > header {
     text-align : center;
-    padding : 5px;
+    padding : 12px;
 }
 
 span.delete_room,
@@ -52,6 +52,9 @@ span.delete_room {
     right : 10px;
     background: url("../../resources/images/cross.png") no-repeat top left transparent;
     background-size: contain;
+}
+span.delete_room.disabled {
+    opacity : 0.5;
 }
 
 span.reinit_room {

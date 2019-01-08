@@ -25,12 +25,16 @@ const connectedRoomCallback = (room) => {
     console.log("Connected room", room);
     $('#room_' + room.id + ' .raspberry').removeClass('disconnected');
     $('#room_' + room.id + ' .raspberry *').attr('disabled', false);
+    $('#room_' + room.id + ' .room_name').attr('disabled', true);
+    $('#room_' + room.id + ' .delete_room').addClass('disabled');
 };
 
 const disconnectedRoomCallback = (room) => {
     console.log("Disconnected room", room);
     $('#room_' + room.id + ' .raspberry').addClass('disconnected');
     $('#room_' + room.id + ' .raspberry .compteurWrapper button').addClass('disabled');
+	$('#room_' + room.id + ' .room_name').attr('disabled', false);
+	$('#room_' + room.id + ' .delete_room').removeClass('disabled');
 };
 
 const startRoomCallback = (room) => {

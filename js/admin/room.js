@@ -77,6 +77,9 @@ const updateRoomName = (id, value) => {
 };
 
 const deleteRoom = (id) => {
+	if ($('#room_' + id + ' .delete_room').hasClass("disabled")) {
+		return;
+	}
 	confirmDialog("Etes-vous sûr de vouloir supprimer cette salle ?", () => deleteRoomAjax(id));
 };
 

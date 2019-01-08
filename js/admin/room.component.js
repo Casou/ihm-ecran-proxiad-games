@@ -14,7 +14,7 @@ class Room {
             <section id="room_${this.id}">
                 <header>
                     <span class="reinit_room" title="Réinitialiser la salle" onClick="reinitRoom(${ this.id });"></span>
-                    <input type="text" value="${ this.data.name }" onChange="updateRoomName(${ this.id }, this.value)"/> 
+                    <input class="room_name" type="text" value="${ this.data.name }" onChange="updateRoomName(${ this.id }, this.value)"/> 
                     <span class="delete_room" title="Supprimer la salle" onClick="deleteRoom(${ this.id });"></span>
                 </header>
                 <div>
