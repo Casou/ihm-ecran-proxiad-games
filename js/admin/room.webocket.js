@@ -29,6 +29,7 @@ const connectedRoomCallback = (room) => {
     $('#room_' + room.id + ' .delete_room').addClass('disabled');
 	const roomsFiltered = ROOMS.filter(r => room.id === r.id);
 	if (roomsFiltered && roomsFiltered.length) {
+		roomsFiltered.isConnected = true;
 		roomsFiltered[0].compteur.renderAndApply();
 	}
 };
@@ -39,6 +40,11 @@ const disconnectedRoomCallback = (room) => {
     $('#room_' + room.id + ' .raspberry .compteurWrapper button').addClass('disabled');
 	$('#room_' + room.id + ' .room_name').attr('disabled', false);
 	$('#room_' + room.id + ' .delete_room').removeClass('disabled');
+
+	const roomsFiltered = ROOMS.filter(r => room.id === r.id);
+	if (roomsFiltered && roomsFiltered.length) {
+		roomsFiltered[0].compteur.renderAndApply();
+	}
 };
 
 const startRoomCallback = (room) => {

@@ -45,7 +45,6 @@ class CompteurAvecBoutons {
     }
 
     renderAndApply() {
-		console.log("reinit", this.selector, this.render());
         $(this.selector).html(this.render());
 		if (this.compteur) {
 			this.compteur.renderAndApply();
