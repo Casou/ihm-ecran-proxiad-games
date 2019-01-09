@@ -114,6 +114,7 @@ const reinitRoomAjax = (id) => {
 			const roomIndex = ROOMS.findIndex(r => r.id === id);
 			ROOMS[roomIndex].data = room;
 			ROOMS[roomIndex].compteur && ROOMS[roomIndex].compteur.reinitTime();
+			$('#room_' + id).removeClass("terminated");
 			$("#room_" + id + " .riddle").addClass("unresolved").removeClass("resolved");
 		},
 		error: (xmlHttpRequest, textStatus, errorThrown) => {

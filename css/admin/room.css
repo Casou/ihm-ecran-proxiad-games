@@ -3,7 +3,7 @@
     justify-content: left;
 }
 
-#rooms > section {
+#rooms > .room {
     position : relative;
     flex : 1;
     max-width : 50vw;
@@ -21,7 +21,16 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222326', endColorstr='#000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-#rooms > section#addRoom {
+#rooms > .room.terminated {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2e4c16+0,293d19+100 */
+    background: #2e4c16; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #2e4c16 0%, #293d19 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #2e4c16 0%,#293d19 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #2e4c16 0%,#293d19 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2e4c16', endColorstr='#293d19',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+#rooms > .room#addRoom {
     flex: 0 0 100px;
     min-width: 100px;
     border : 3px dashed white;
@@ -29,12 +38,12 @@
     cursor : pointer;
 }
 
-#rooms > section#addRoom > div {
+#rooms > .room#addRoom > div {
     line-height : 80vh;
     text-align : center;
 }
 
-#rooms > section > header {
+#rooms > .room > header {
     text-align : center;
     padding : 12px;
 }
@@ -63,19 +72,19 @@ span.reinit_room {
     background-size: contain;
 }
 
-#rooms > section header input {
+#rooms > .room header input {
     font-size : 22px;
     width : 80%;
     text-align : center;
     z-index : 9;
 }
 
-#rooms > section h2 { font-size : 18px; font-weight : normal; text-align : center; }
+#rooms > .room h2 { font-size : 18px; font-weight : normal; text-align : center; }
 
-#rooms > section nav {
+#rooms > .room nav {
     text-align : center;
 }
-#rooms > section nav span, span.connection_status {
+#rooms > .room nav span, span.connection_status {
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -83,16 +92,16 @@ span.reinit_room {
     vertical-align: top;
 }
 
-#rooms > section nav span.resolved      { background: url("../../resources/images/unlock.png") no-repeat top left transparent; }
-#rooms > section nav span.unresolved    { background: url("../../resources/images/lock.png") no-repeat top left transparent; }
+#rooms > .room nav span.resolved      { background: url("../../resources/images/unlock.png") no-repeat top left transparent; }
+#rooms > .room nav span.unresolved    { background: url("../../resources/images/lock.png") no-repeat top left transparent; }
 span.connection_status                  { background: url("../../resources/images/green-light.png") no-repeat top left transparent; }
 .disconnected span.connection_status    { background: url("../../resources/images/red-light.png") no-repeat top left transparent; }
-#rooms > section nav span.resolved, span.connection_status,
-#rooms > section nav span.unresolved, .disconnected span.connection_status{
+#rooms > .room nav span.resolved, span.connection_status,
+#rooms > .room nav span.unresolved, .disconnected span.connection_status{
     background-size: contain;
 }
 
-#rooms > section .terminal {
+#rooms > .room .terminal {
     display : inline-block;
     width : calc(100% - 20px);
     height : 150px;
@@ -105,12 +114,12 @@ span.connection_status                  { background: url("../../resources/image
     overflow: auto;
 }
 
-#rooms > section .riddlePc,
-#rooms > section .raspberry {
+#rooms > .room .riddlePc,
+#rooms > .room .raspberry {
     margin-top : 15px;
 }
 
-#rooms > section .riddlePc.disconnected .terminal {
+#rooms > .room .riddlePc.disconnected .terminal {
     opacity : 0.4;
 }
 
@@ -118,17 +127,17 @@ span.connection_status                  { background: url("../../resources/image
 
 
 
-#rooms > section .raspberry .compteur {
+#rooms > .room .raspberry .compteur {
     text-align : center;
 }
 
-#rooms > section .boiteMessage {
+#rooms > .room .boiteMessage {
     display : inline-block;
     width : calc(100% - 20px);
     margin : 0 10px;
 }
 
-#rooms > section .boiteMessage textarea {
+#rooms > .room .boiteMessage textarea {
     width : 100%;
     height : 45px;
     color : white;
@@ -136,16 +145,16 @@ span.connection_status                  { background: url("../../resources/image
     background-color : black;
 }
 
-#rooms > section .raspberry.disconnected textarea {
+#rooms > .room .raspberry.disconnected textarea {
     /*border-color : grey;*/
     opacity : 0.5;
 }
 
-#rooms > section .boiteMessage .actionButtons {
+#rooms > .room .boiteMessage .actionButtons {
     text-align : right;
 }
 
-#rooms > section .boiteMessage button {
+#rooms > .room .boiteMessage button {
     margin-left : 25px;
 }
 

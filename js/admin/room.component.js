@@ -11,7 +11,7 @@ class Room {
 
     render() {
         return `
-            <section id="room_${this.id}">
+            <section id="room_${this.id}" class="room ${ this.data.isTerminated && "terminated" }">
                 <header>
                     <span class="reinit_room" title="Réinitialiser la salle" onClick="reinitRoom(${ this.id });"></span>
                     <input class="room_name" type="text" value="${ this.data.name }" onChange="updateRoomName(${ this.id }, this.value)"/> 

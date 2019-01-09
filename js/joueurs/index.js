@@ -26,4 +26,8 @@ const subscribeAll = () => {
 		COMPTEUR.stopTime();
 		$("#compteur").hide();
 	});
+	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/terminate", () => {
+		console.log("terminated");
+		COMPTEUR.pauseTime();
+	});
 };

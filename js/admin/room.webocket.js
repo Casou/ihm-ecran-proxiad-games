@@ -5,6 +5,7 @@ const subscribeRooms = () => {
     WEBSOCKET_CLIENT.subscribe("/topic/room/all/startTimer", startTimerRoomCallback);
     WEBSOCKET_CLIENT.subscribe("/topic/room/all/pause", pauseTimerRoomCallback);
     WEBSOCKET_CLIENT.subscribe("/topic/riddle/unlock", unlockRiddleCallback);
+	WEBSOCKET_CLIENT.subscribe("/topic/room/all/terminate", terminateRoomCallback);
 };
 
 const retrieveConnectedRooms = () => {
@@ -48,7 +49,6 @@ const disconnectedRoomCallback = (room) => {
 };
 
 const startRoomCallback = (room) => {
-    console.log("startRoomCallback");
     $('#room_' + room.id + ' .raspberry .pauseButton').removeClass('disabled');
     $('#room_' + room.id + ' .raspberry .startButton').addClass('disabled');
     // $('#room_' + room.id + ' .raspberry .resetButton').addClass('disabled');
@@ -64,7 +64,6 @@ const startTimerRoomCallback = (room) => {
 	$('#room_' + room.id + " .raspberry .pauseButton").removeClass("disabled");
 	// $('#room_' + room.id + " .raspberry .resetButton").addClass("disabled");
 	$('#room_' + room.id + " .raspberry .startButton").addClass("disabled");
-	console.log("startTimerRoomCallback");
 
     const roomsFiltered = ROOMS.filter(r => room.id === r.id);
     if (roomsFiltered) {
@@ -122,4 +121,12 @@ const unlockRiddleCallback = (unlockDto) => {
     $("#room_" + unlockDto.roomId + "_riddle_" + unlockDto.id)
         .removeClass("unresolved")
         .addClass("resolved");
+};
+
+const terminateRoomCallback = (room) => {
+	const roomsFiltered = ROOMS.filter(r => room.id === r.id);
+	if (roomsFiltered && roomsFiltered.length) {
+		roomsFiltered[0].compteur.terminate();
+	}
+	$('#room_' + room.id).addClass("terminated");
 };
