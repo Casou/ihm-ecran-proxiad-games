@@ -39,7 +39,10 @@ class Compteur {
         }
         this.isStarted = true;
         this.isPaused = false;
-        this.timerInterval = setInterval(() => this._decreaseTime(), 1000);
+        this.renderAndApply();
+        setTimeout(() => {
+			this.timerInterval = setInterval(() => this._decreaseTime(), 1000);
+        }, 1000);
     }
 
     pauseTime() {
