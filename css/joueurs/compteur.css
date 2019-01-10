@@ -2,13 +2,16 @@
     position : absolute;
     top : 50%;
     left : 50%;
-    margin-left : -480px;
+    /* margin-left : -480px;*/
+    margin-left : -350px;
     margin-top : -10vh;
-    width : 960px;
+    /* width : 960px; */
+    width : 700px;
     height : 20vh;
     line-height : 20vh;
     text-align : center;
-    font-size : 200px;
+    /* font-size : 200px; */
+    font-size : 142px;
     color : white;
     text-shadow: 0 0 25px #444;
 }

@@ -64,7 +64,7 @@ class Room {
 class AddRoom {
     render() {
         return `
-            <section id="addRoom" onClick="newRoom()">
+            <section id="addRoom" class="room" onClick="newRoom()">
                 <div>Ajouter</div>
             </section>
         `;
