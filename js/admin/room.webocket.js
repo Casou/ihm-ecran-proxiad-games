@@ -1,3 +1,5 @@
+const INIT_REMAINING_TIME = 3600;
+
 const subscribeRooms = () => {
     WEBSOCKET_CLIENT.subscribe("/topic/room/connected", connectedRoomCallback);
     WEBSOCKET_CLIENT.subscribe("/topic/room/disconnected", disconnectedRoomCallback);
@@ -5,7 +7,8 @@ const subscribeRooms = () => {
     WEBSOCKET_CLIENT.subscribe("/topic/room/all/startTimer", startTimerRoomCallback);
     WEBSOCKET_CLIENT.subscribe("/topic/room/all/pause", pauseTimerRoomCallback);
     WEBSOCKET_CLIENT.subscribe("/topic/riddle/unlock", unlockRiddleCallback);
-	WEBSOCKET_CLIENT.subscribe("/topic/room/all/terminate", terminateRoomCallback);
+	WEBSOCKET_CLIENT.subscribe("/topic/room/all/success", successRoomCallback);
+	WEBSOCKET_CLIENT.subscribe("/topic/room/all/fail", failRoomCallback);
 };
 
 const retrieveConnectedRooms = () => {
@@ -56,7 +59,7 @@ const startRoomCallback = (room) => {
 
 const startTimerRoomCallback = (room) => {
     const compteur = new Compteur('#room_' + room.id + " .raspberry .compteur");
-    compteur.initTimer();
+    compteur.initTimer(room.remainingTime);
     compteur.startTime();
 
 	const compteurWrapper = new CompteurAvecBoutons('#room_' + room.id + " .raspberry .compteurWrapper", compteur, room.id);
@@ -91,7 +94,7 @@ const startTimer = (id) => {
 	if ($("#room_" + id + " .compteurWrapper .startButton").hasClass("disabled")) {
 		return;
 	}
-    WEBSOCKET_CLIENT.send("/room/start", { id, remainingTime : 3600 });
+    WEBSOCKET_CLIENT.send("/room/start", { id, remainingTime : INIT_REMAINING_TIME });
 };
 
 const stopTimer = (id) => {
@@ -123,10 +126,18 @@ const unlockRiddleCallback = (unlockDto) => {
         .addClass("resolved");
 };
 
-const terminateRoomCallback = (room) => {
+const successRoomCallback = (room) => {
 	const roomsFiltered = ROOMS.filter(r => room.id === r.id);
 	if (roomsFiltered && roomsFiltered.length) {
 		roomsFiltered[0].compteur.terminate();
 	}
-	$('#room_' + room.id).addClass("terminated");
+	$('#room_' + room.id).addClass("success");
+};
+
+const failRoomCallback = (room) => {
+	const roomsFiltered = ROOMS.filter(r => room.id === r.id);
+	if (roomsFiltered && roomsFiltered.length) {
+		roomsFiltered[0].compteur.terminate();
+	}
+	$('#room_' + room.id).addClass("fail");
 };

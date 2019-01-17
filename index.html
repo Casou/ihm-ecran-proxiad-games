@@ -52,6 +52,7 @@
     <script src="js/common/compteur.js"></script>
     <script src="js/common/synthetesis.js"></script>
     <script src="js/joueurs/actions.js"></script>
+    <script src="js/joueurs/joueurs.webocket.js"></script>
     <script src="js/joueurs/index.js"></script>
     <script src="js/joueurs/room.js"></script>
     <script src="js/joueurs/messages.js"></script>
@@ -63,6 +64,11 @@
         let ROOMS_DATA;
         let WEBSOCKET_CLIENT;
         const COMPTEUR = new Compteur("#compteur");
+		COMPTEUR.onEndCount = () => {
+			trollEnd();
+			sendCountEnded(ROOM_ID);
+        };
+
         // COMPTEUR.initTimer();
         // COMPTEUR.startTime();
 

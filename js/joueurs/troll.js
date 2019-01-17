@@ -1,7 +1,7 @@
 const TROLL_LIST = [
 	{ idVideo : "rickroll", messages : [ "Merci d'avoir connecté ma clef USB à un PC connecté à internet.", "Cela va me faire gagner environ 2 minutes." ] },
-	{ idVideo : "nyancat", messages : [ "Encore une clef USB verrollée ?", "J'en aurai bientôt fini avec vous !"] },
-	{ idVideo : "prairieDog", messages : [ "Un virus de plus en ma possession.", "Et deux minutes en moins pour vous."] },
+	{ idVideo : "saxGuy", messages : [ "Encore une clef USB verrollée ?", "J'en aurai bientôt fini avec vous !"] },
+	{ idVideo : "nyancat", messages : [ "Un virus de plus en ma possession.", "Et deux minutes en moins pour vous."] },
 	{ idVideo : "saxGuy", messages : [ "Vous tenez vraiment à ce que je termine plus vite ?", "Donnez-moi vos identifiants ça ira plus vite !"] },
 ];
 let TROLL_LIST_INDEX = localStorage.getItem("trollIndex") || 0;
@@ -23,4 +23,9 @@ const troll = () => {
 			COMPTEUR.animateReduceTime(120).then(resolve);
 		});
 	});
+};
+
+const trollEnd = () => {
+	const messages = ["Il est trop tard pour vous.", "J'ai totalement effacé votre exitence numérique.", "Vous pouvez maintenant vous diriger de votre plein gré dans l'incinérateur, un cadeau vous y attend."];
+	readAllMessages(messages);
 };

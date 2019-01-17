@@ -1,4 +1,4 @@
-const INIT_TIME_IN_SECONDS = 60 * 60;
+const INIT_TIME_IN_SECONDS = 3600;
 
 const calculateRemainingTime = (startTimeDate) => {
     const passedTimeInSeconds = Math.round((new Date().getTime() - startTimeDate.getTime()) / 1000);
@@ -13,6 +13,7 @@ class Compteur {
         this.isPaused = false;
         this.currentTime = null;
         this.timerInterval = null;
+        this.onEndCount = null;
 
         if (startTime) {
             if (statusTime === "STARTED") {
@@ -87,6 +88,10 @@ class Compteur {
         if (this.currentTime <= 0) {
             this.currentTime = 0;
             this.pauseTime();
+
+            if (this.onEndCount) {
+				this.onEndCount();
+			}
         }
         this.renderAndApply();
     }
