@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/joueurs/compteur.css">
     <link rel="stylesheet" href="css/joueurs/text-glitch.css">
     <link rel="stylesheet" href="css/joueurs/message.css">
+    <link rel="stylesheet" href="css/joueurs/video.css">
 
     <title>IHM Joueurs</title>
     <script>
@@ -17,14 +18,19 @@
     </script>
 </head>
 <body>
+    <div id="message" class="cherry">
+        <div id="message_content"></div>
+    </div>
+
+    <div id="video">
+        <video id="rickroll" onended="$(this).hide();"><source src="resources/videos/small.mp4" type="video/mp4"></video>
+        <video id="nyancat" onended="$(this).hide();"><source src="resources/videos/BigBuckBunny.mp4" type="video/mp4"></video>
+    </div>
+
     <main>
         <section id="compteur" class="glitch cherry" data-text="--:--:--">
         </section>
     </main>
-
-    <div id="message" class="cherry">
-        <div id="message_content"></div>
-    </div>
 
     <dialog id="configuration">
         <label for="configuration_select">Nom de la salle : </label>
@@ -46,12 +52,19 @@
     <script src="js/joueurs/index.js"></script>
     <script src="js/joueurs/room.js"></script>
     <script src="js/joueurs/messages.js"></script>
+    <script src="js/joueurs/troll.js"></script>
 
     <script>
         let ROOM_ID = (localStorage.getItem("roomId") && parseInt(localStorage.getItem("roomId"))) || "";
         let ROOMS_DATA;
         let WEBSOCKET_CLIENT;
         const COMPTEUR = new Compteur("#compteur");
+        COMPTEUR.initTimer();
+        COMPTEUR.startTime();
+
+        setTimeout(() => {
+        	troll();
+        }, 4000);
 
         init();
     </script>

@@ -60,6 +60,25 @@ class Compteur {
         this.timerInterval && clearInterval(this.timerInterval);
     }
 
+    animateReduceTime(time) {
+        const wasStarted = this.isStarted;
+        this.pauseTime();
+
+        let decreasedCount = 0;
+		const reduceInterval = setInterval(() => {
+		    this._decreaseTime(1);
+		    this.renderAndApply();
+			decreasedCount++;
+
+			if (decreasedCount >= time) {
+				clearInterval(reduceInterval);
+				if (wasStarted) {
+					this.startTime();
+				}
+            }
+		}, 5000 / time);
+    }
+
     _decreaseTime(secondsToDecrease =  1) {
         this.currentTime -= secondsToDecrease;
         if (this.currentTime <= 0) {
@@ -70,7 +89,7 @@ class Compteur {
     }
 
     _formatTime(time) {
-        if (!time) {
+        if (!time && time !== 0) {
             return "--:--:--";
         }
 
