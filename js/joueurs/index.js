@@ -1,7 +1,8 @@
 const init = () => {
 	$("#message").hide();
-	// initWebSocket();
-	// retrieveAllRooms().then(updateCurrentRoomData);
+	initWebSocket();
+	retrieveAllRooms().then(updateCurrentRoomData);
+	retrieveAllRiddles();
 };
 
 const initWebSocket = () => {
@@ -25,9 +26,18 @@ const subscribeAll = () => {
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/reinit", () => {
 		COMPTEUR.stopTime();
 		$("#compteur").hide();
+		localStorage.clear();
+		localStorage.setItem("roomId", ROOM_ID);
+		window.location.reload(false);
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/terminate", () => {
 		COMPTEUR.pauseTime();
+	});
+	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/unlockRiddle", () => {
+		addAction(() => resolveRiddle());
+	});
+	WEBSOCKET_CLIENT.subscribe("/topic/user/" + ROOM_ID + "/connected", () => {
+		addAction(() => onTerminalConnect());
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/troll", () => {
 		addAction(() => troll());

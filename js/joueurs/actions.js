@@ -7,7 +7,7 @@ const addAction = (promiseFunction) => {
 };
 
 const treatActionsPile = () => {
-	if (IS_ACTION_STARTED || !ACTION_PILE) {
+	if (IS_ACTION_STARTED || !ACTION_PILE.length) {
 		IS_ACTION_STARTED = false;
 		return;
 	}

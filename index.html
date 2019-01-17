@@ -56,21 +56,15 @@
     <script src="js/joueurs/room.js"></script>
     <script src="js/joueurs/messages.js"></script>
     <script src="js/joueurs/troll.js"></script>
+    <script src="js/joueurs/riddles.js"></script>
 
     <script>
         let ROOM_ID = (localStorage.getItem("roomId") && parseInt(localStorage.getItem("roomId"))) || "";
         let ROOMS_DATA;
         let WEBSOCKET_CLIENT;
         const COMPTEUR = new Compteur("#compteur");
-        COMPTEUR.initTimer();
-        COMPTEUR.startTime();
-
-		$("#compteur").addClass("stade2").addClass("stade3").addClass("stade4");
-
-        // setTimeout(() => {
-		// 	addAction(() => troll());
-		// 	addAction(() => troll());
-        // }, 2000);
+        // COMPTEUR.initTimer();
+        // COMPTEUR.startTime();
 
         init();
     </script>

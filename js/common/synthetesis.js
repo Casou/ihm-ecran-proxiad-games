@@ -1,18 +1,27 @@
-let VOICE = null;
+// let VOICE = null;
+// window.speechSynthesis.onvoiceschanged = function() {
+//     let googleVoiceArray = getVoice("Google français");
+//     if (googleVoiceArray) {
+//         VOICE = googleVoiceArray[0];
+//     }
+// };
+
+let ALL_VOICES = [];
 window.speechSynthesis.onvoiceschanged = function() {
-    let googleVoiceArray = window.speechSynthesis.getVoices().filter(voice => voice.voiceURI === "Google français");
-    if (googleVoiceArray) {
-        VOICE = googleVoiceArray[0];
-    }
+    ALL_VOICES = window.speechSynthesis.getVoices();
 };
 
-const readMessage = (message) => {
+const getVoice = (name) => {
+	return window.speechSynthesis.getVoices().filter(voice => voice.voiceURI === name)[0];
+};
+
+const readMessage = (message, voice = "Google français") => {
 	return new Promise(resolve => {
 		window.utterances = []; // To fix the "onend not firing" bug
 
 		const utterance = new SpeechSynthesisUtterance(message);
 		utterance.pitch = 0.5;
-		utterance.voice = VOICE;
+		utterance.voice = getVoice(voice);
 		utterance.lang = "fr-FR";
 		utterance.onend = () => {
 			resolve();

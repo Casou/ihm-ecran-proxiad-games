@@ -33,8 +33,8 @@ const displayAndSynthesizeMessage = (messages, waitTimeBeforeHideText = MESSAGE_
 	});
 };
 
-async function readAllMessages(messages) {
+async function readAllMessages(messages, language) {
 	for (let i = 0; i < messages.length; i++) {
-		await readMessage(messages[i]);
+		await readMessage(messages[i], language);
 	}
 }

@@ -7,16 +7,19 @@ const retrieveAllRooms = () => {
                 ROOMS_DATA = rooms;
 
                 $("#configuration_select").html("<option value=''>Choisir une salle</option>");
-                let foundRoom = false;
-                rooms.forEach(room => {
-                    foundRoom = foundRoom || room.id === ROOM_ID;
-                    $("#configuration_select").append(`
-                    <option value="${ room.id }" ${ room.id === ROOM_ID && "selected" }>${ room.name }</option>
-                `)
-                });
-                if (!foundRoom) {
+
+                let room = rooms.filter(r => r.id === ROOM_ID) && rooms.filter(r => r.id === ROOM_ID)[0];
+
+				$("#configuration_select")
+					.append(rooms.map(room => `<option value="${ room.id }" ${ room.id === ROOM_ID && "selected" }>${ room.name }</option>`)
+						.join("")
+					);
+
+                if (!room) {
                     ROOM_ID = null;
-                }
+                } else {
+					updateGlitch(room.resolvedRiddles.length);
+				}
 
                 resolve(rooms);
             },
