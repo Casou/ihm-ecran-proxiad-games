@@ -61,22 +61,25 @@ class Compteur {
     }
 
     animateReduceTime(time) {
-        const wasStarted = this.isStarted;
-        this.pauseTime();
+    	return new Promise(resolve => {
+			const wasStarted = this.isStarted;
+			this.pauseTime();
 
-        let decreasedCount = 0;
-		const reduceInterval = setInterval(() => {
-		    this._decreaseTime(1);
-		    this.renderAndApply();
-			decreasedCount++;
+			let decreasedCount = 0;
+			const reduceInterval = setInterval(() => {
+				this._decreaseTime(1);
+				this.renderAndApply();
+				decreasedCount++;
 
-			if (decreasedCount >= time) {
-				clearInterval(reduceInterval);
-				if (wasStarted) {
-					this.startTime();
+				if (decreasedCount >= time) {
+					clearInterval(reduceInterval);
+					if (wasStarted) {
+						this.startTime();
+					}
+					resolve();
 				}
-            }
-		}, 5000 / time);
+			}, 5000 / time);
+		});
     }
 
     _decreaseTime(secondsToDecrease =  1) {

@@ -1,7 +1,7 @@
 const init = () => {
 	$("#message").hide();
-	initWebSocket();
-	retrieveAllRooms().then(updateCurrentRoomData);
+	// initWebSocket();
+	// retrieveAllRooms().then(updateCurrentRoomData);
 };
 
 const initWebSocket = () => {
@@ -17,7 +17,7 @@ const subscribeAll = () => {
         $("#compteur").show();
     });
     WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/message", (messageDto) => {
-		incomingMessage(messageDto.message);
+		addAction(() => incomingMessage([messageDto.message]));
     });
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/pause", () => {
 		COMPTEUR.pauseTime();
@@ -30,6 +30,6 @@ const subscribeAll = () => {
 		COMPTEUR.pauseTime();
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/troll", () => {
-		troll();
+		addAction(() => troll());
 	});
 };

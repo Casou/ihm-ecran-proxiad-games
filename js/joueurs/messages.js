@@ -1,21 +1,26 @@
 const MESSAGE_FADE_DURATION = 1000;
 
-const incomingMessage = (message) => {
+const incomingMessage = (messages) => {
 	return new Promise(resolve => {
 		readMessage("Nouveau message entrant");
 		setTimeout(() => {
-			displayAndSynthesizeMessage(message).then(resolve);
+			displayAndSynthesizeMessage(messages).then(resolve);
 		}, 1000);
 	});
 };
 
-const displayAndSynthesizeMessage = (message, waitTimeBeforeHideText = MESSAGE_FADE_DURATION) => {
+const displayAndSynthesizeMessage = (messages, waitTimeBeforeHideText = MESSAGE_FADE_DURATION) => {
+	if (!messages.length) {
+		return;
+	}
+
 	return new Promise(resolve => {
 		$('main').fadeOut(MESSAGE_FADE_DURATION, () => {
 			setTimeout(() => {
-				$('#message #message_content').html(message);
+				$('#message #message_content').html(messages.join(" "));
 				$('#message').fadeIn(MESSAGE_FADE_DURATION);
-				readMessage(message).then(() => {
+
+				readAllMessages(messages).then(() => {
 					setTimeout(() => {
 						$('#message').fadeOut(MESSAGE_FADE_DURATION, () => {
 							$('main').fadeIn(MESSAGE_FADE_DURATION);
@@ -27,3 +32,9 @@ const displayAndSynthesizeMessage = (message, waitTimeBeforeHideText = MESSAGE_F
 		});
 	});
 };
+
+async function readAllMessages(messages) {
+	for (let i = 0; i < messages.length; i++) {
+		await readMessage(messages[i]);
+	}
+}

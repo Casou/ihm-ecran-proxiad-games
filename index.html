@@ -25,10 +25,12 @@
     <div id="video">
         <video id="rickroll" onended="$(this).hide();"><source src="resources/videos/small.mp4" type="video/mp4"></video>
         <video id="nyancat" onended="$(this).hide();"><source src="resources/videos/BigBuckBunny.mp4" type="video/mp4"></video>
+        <video id="prairieDog" onended="$(this).hide();"><source src="resources/videos/small.mp4" type="video/mp4"></video>
+        <video id="saxGuy" onended="$(this).hide();"><source src="resources/videos/small.mp4" type="video/mp4"></video>
     </div>
 
     <main>
-        <section id="compteur" class="glitch cherry" data-text="--:--:--">
+        <section id="compteur" class="glitch cherry stade0" data-text="--:--:--">
         </section>
     </main>
 
@@ -49,6 +51,7 @@
 
     <script src="js/common/compteur.js"></script>
     <script src="js/common/synthetesis.js"></script>
+    <script src="js/joueurs/actions.js"></script>
     <script src="js/joueurs/index.js"></script>
     <script src="js/joueurs/room.js"></script>
     <script src="js/joueurs/messages.js"></script>
@@ -62,9 +65,12 @@
         COMPTEUR.initTimer();
         COMPTEUR.startTime();
 
-        setTimeout(() => {
-        	troll();
-        }, 4000);
+		$("#compteur").addClass("stade2").addClass("stade3").addClass("stade4");
+
+        // setTimeout(() => {
+		// 	addAction(() => troll());
+		// 	addAction(() => troll());
+        // }, 2000);
 
         init();
     </script>

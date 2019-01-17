@@ -2,10 +2,8 @@
     position : absolute;
     top : 50%;
     left : 50%;
-    /* margin-left : -480px;*/
     margin-left : -350px;
     margin-top : -10vh;
-    /* width : 960px; */
     width : 700px;
     height : 20vh;
     line-height : 20vh;
@@ -13,19 +11,36 @@
     /* font-size : 200px; */
     font-size : 142px;
     color : white;
-    text-shadow: 0 0 25px #444;
+    text-shadow: 0 0 4px black, 0 0 8px black, 0 0 16px black, 0 0 32px black;
 }
 
+#compteur.glitch.stade0 { margin-left : -350px; width : 700px; }
+#compteur.glitch.stade1 { margin-left : -355px; width : 710px; }
+#compteur.glitch.stade2 { margin-left : -365px; width : 730px; }
+#compteur.glitch.stade3 { margin-left : -375px; width : 750px; }
+
 #compteur.alert {
-    animation: blinkRed 0.5s linear infinite;
+    animation: glow-white 1.5s linear infinite;
 }
 #compteur.finished {
+    color : red;
+    animation: glow-red 2.5s linear infinite;
+}
+
+#compteur.glitch.finished:before,
+#compteur.glitch.finished:after {
+    content: '';
+    display : none;
     animation: none;
 }
 
-@keyframes blinkRed {
-    0% { color : white; }
-    49% { color : white; }
-    50% { color : red; }
-    99% { color : red; }
+@keyframes glow-white {
+    0% { text-shadow: 0 0 8px white, 0 0 16px white, 0 0 32px white, 0 0 64px white, 0 0 128px white; }
+    50% { text-shadow: 0 0 8px white, 0 0 16px white }
+    100% { text-shadow: 0 0 8px white, 0 0 16px white, 0 0 32px white, 0 0 64px white, 0 0 128px white; }
+}
+@keyframes glow-red {
+    0% { text-shadow: 0 0 8px red, 0 0 16px red, 0 0 32px red, 0 0 64px red, 0 0 128px red; }
+    50% { text-shadow: 0 0 8px red, 0 0 16px red }
+    100% { text-shadow: 0 0 8px red, 0 0 16px red, 0 0 32px red, 0 0 64px red, 0 0 128px red; }
 }
