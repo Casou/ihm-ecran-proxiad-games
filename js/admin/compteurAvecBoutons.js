@@ -24,6 +24,17 @@ class CompteurAvecBoutons {
 		this.compteur && this.compteur.stopTime();
 	}
 
+	animateReduceTime(time) {
+    	if (!this.compteur) {
+    		return Promise.reject(new Error('Counter is null'));
+		}
+		return this.compteur.animateReduceTime(time);
+	}
+
+	setCurrentTime(time) {
+    	this.compteur && (this.compteur.currentTime = time);
+	}
+
 	reinitTime() {
 		this.compteur && this.compteur.stopTime();
 		this.compteur = null;

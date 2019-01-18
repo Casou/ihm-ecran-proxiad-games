@@ -55,7 +55,7 @@ const updateCurrentRoomData = () => {
 	const room = ROOMS_DATA.filter(r => r.id === ROOM_ID)[0];
 	if (room.startTime) {
         if (room.statusTime === "STARTED") {
-			const remainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(room.startTime));
+			const remainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(room.startTime), room.remainingTime);
 			COMPTEUR.initTimer(remainingTime);
             COMPTEUR.startTime();
         } else if (room.statusTime === "PAUSED") {

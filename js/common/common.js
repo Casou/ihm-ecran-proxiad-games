@@ -1,4 +1,5 @@
 let SERVER_URL = localStorage.getItem("serverUrl") || "http://localhost:8000/";
+let WEBSOCKET_CLIENT;
 
 $.ajaxSetup({
     headers: { 'Authorization': 'adminToken' }

@@ -59,14 +59,17 @@
     <script src="js/joueurs/riddles.js"></script>
 
     <script>
+		let ROOM_ID = (localStorage.getItem("roomId") && parseInt(localStorage.getItem("roomId"))) || "";
+		let ROOMS_DATA;
+		const COMPTEUR = new Compteur("#compteur");
+
 		checkMandatory().then(() => {
-			let ROOM_ID = (localStorage.getItem("roomId") && parseInt(localStorage.getItem("roomId"))) || "";
-			let ROOMS_DATA;
-			let WEBSOCKET_CLIENT;
-			const COMPTEUR = new Compteur("#compteur");
 			COMPTEUR.onEndCount = () => {
 				trollEnd();
 				sendCountEnded(ROOM_ID);
+			};
+			COMPTEUR.onRefresh = () => {
+				refreshTime(ROOM_ID, COMPTEUR.currentTime);
 			};
 
 			// COMPTEUR.initTimer();

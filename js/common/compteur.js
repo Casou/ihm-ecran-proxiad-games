@@ -1,8 +1,8 @@
 const INIT_TIME_IN_SECONDS = 3600;
 
-const calculateRemainingTime = (startTimeDate) => {
+const calculateRemainingTime = (startTimeDate, remainingTime) => {
     const passedTimeInSeconds = Math.round((new Date().getTime() - startTimeDate.getTime()) / 1000);
-    return Math.max(0, INIT_TIME_IN_SECONDS - passedTimeInSeconds);
+    return Math.max(0, remainingTime - passedTimeInSeconds);
 };
 
 class Compteur {
@@ -14,10 +14,11 @@ class Compteur {
         this.currentTime = null;
         this.timerInterval = null;
         this.onEndCount = null;
+        this.onRefresh = null;
 
         if (startTime) {
             if (statusTime === "STARTED") {
-				const calculatedRemainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(startTime));
+				const calculatedRemainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(startTime), remainingTime);
 				this.initTimer(calculatedRemainingTime);
 				this.startTime();
             } else if (statusTime === "PAUSED") {
@@ -111,6 +112,9 @@ class Compteur {
     }
 
     render() {
+    	// if (this.onRefresh) {
+		// 	this.onRefresh();
+		// }
         return `<span>${ !this.isStarted ? "--:--:--" : this._formatTime(this.currentTime) }</span>`;
     }
 
