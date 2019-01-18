@@ -1,7 +1,7 @@
 const retrieveRiddlesData = () => {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: SERVEUR_URL + "riddles",
+            url: SERVER_URL + "riddles",
             type: "GET",
             success: (riddles) => {
                 riddles.sort((a, b) => a.name.localeCompare(b.name));
@@ -42,7 +42,7 @@ const renderRiddleTab = () => {
 
 const newRiddle = () => {
     $.ajax({
-        url: SERVEUR_URL + "riddle",
+        url: SERVER_URL + "riddle",
         type: "PUT",
         contentType: "application/json",
         success: (newRiddle) => {
@@ -65,7 +65,7 @@ const newRiddle = () => {
 
 const updateRiddleName = (id, value) => {
     $.ajax({
-        url: SERVEUR_URL + "riddle/" + id + "/name",
+        url: SERVER_URL + "riddle/" + id + "/name",
         type: "POST",
         data : JSON.stringify({ name : value }),
         contentType: "application/json",
@@ -88,7 +88,7 @@ const updateRiddleName = (id, value) => {
 
 const updateRiddleId = (id, riddleId) => {
     $.ajax({
-        url: SERVEUR_URL + "riddle/" + id + "/riddleId",
+        url: SERVER_URL + "riddle/" + id + "/riddleId",
         type: "POST",
         data : JSON.stringify({ riddleId }),
         contentType: "application/json",
@@ -106,7 +106,7 @@ const updateRiddleId = (id, riddleId) => {
 
 const updateRiddlePassword = (id, riddlePassword) => {
     $.ajax({
-        url: SERVEUR_URL + "riddle/" + id + "/riddlePassword",
+        url: SERVER_URL + "riddle/" + id + "/riddlePassword",
         type: "POST",
         data : JSON.stringify({ riddlePassword }),
         contentType: "application/json",
@@ -128,7 +128,7 @@ const deleteRiddle = (id) => {
 
 const deleteRiddleWS = (id) => {
     $.ajax({
-        url: SERVEUR_URL + "riddle/" + id,
+        url: SERVER_URL + "riddle/" + id,
         type: "DELETE",
         success: () => {
             RIDDLES = RIDDLES.filter(r => r.id !== id);

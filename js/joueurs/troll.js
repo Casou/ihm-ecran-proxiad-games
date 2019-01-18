@@ -1,5 +1,5 @@
 const TROLL_LIST = [
-	{ idVideo : "rickroll", messages : [ "Merci d'avoir connecté ma clef USB à un PC connecté à internet.", "Cela va me faire gagner environ 2 minutes." ] },
+	{ idVideo : "rickroll", messages : [ "Merci d'avoir branché ma clef USB à un PC connecté à internet.", "Cela va me faire gagner environ 2 minutes." ] },
 	{ idVideo : "saxGuy", messages : [ "Encore une clef USB verrollée ?", "J'en aurai bientôt fini avec vous !"] },
 	{ idVideo : "nyancat", messages : [ "Un virus de plus en ma possession.", "Et deux minutes en moins pour vous."] },
 	{ idVideo : "saxGuy", messages : [ "Vous tenez vraiment à ce que je termine plus vite ?", "Donnez-moi vos identifiants ça ira plus vite !"] },

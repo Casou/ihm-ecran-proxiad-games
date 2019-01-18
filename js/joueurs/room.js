@@ -1,7 +1,7 @@
 const retrieveAllRooms = () => {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: SERVEUR_URL + "rooms",
+            url: SERVER_URL + "rooms",
             type: "GET",
             success: (rooms) => {
                 ROOMS_DATA = rooms;

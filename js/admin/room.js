@@ -1,7 +1,7 @@
 const retrieveRoomsData = () => {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: SERVEUR_URL + "rooms",
+            url: SERVER_URL + "rooms",
             type: "GET",
             success: (rooms) => {
                 resolve(rooms);
@@ -39,7 +39,7 @@ const renderRoomTab = () => {
 
 const newRoom = () => {
     $.ajax({
-        url: SERVEUR_URL + "room",
+        url: SERVER_URL + "room",
         type: "PUT",
         contentType: "application/json",
         success: (newRoom) => {
@@ -59,7 +59,7 @@ const newRoom = () => {
 
 const updateRoomName = (id, value) => {
     $.ajax({
-        url: SERVEUR_URL + "room/" + id + "/name",
+        url: SERVER_URL + "room/" + id + "/name",
         type: "POST",
         data : JSON.stringify({ name : value }),
         contentType: "application/json",
@@ -85,7 +85,7 @@ const deleteRoom = (id) => {
 
 const deleteRoomAjax = (id) => {
     $.ajax({
-        url: SERVEUR_URL + "room/" + id,
+        url: SERVER_URL + "room/" + id,
         type: "DELETE",
         contentType: "application/json",
         success: () => {
@@ -107,7 +107,7 @@ const reinitRoom = (id) => {
 
 const reinitRoomAjax = (id) => {
 	$.ajax({
-		url: SERVEUR_URL + "room/" + id,
+		url: SERVER_URL + "room/" + id,
 		type: "PATCH",
 		contentType: "application/json",
 		success: (room) => {

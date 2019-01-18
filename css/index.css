@@ -55,3 +55,29 @@ html, body {
 .code_new_roman { font-family: code_new_roman, serif; font-size : 8.2vw; }
 .monofur { font-family: monofur, serif; font-size : 8.9vw; }
 .unispace { font-family: unispace, serif; font-size : 7.3vw; }
+
+#mandatory input {
+    color : black;
+    border : 2px inset grey;
+    width : 300px;
+}
+
+#loading {
+    position : fixed;
+    top : 0;
+    left : 0;
+    width : 100%;
+    height : 100%;
+    background-color : rgba(120, 120, 120, 0.5);
+    z-index : 999999999;
+}
+
+#loading {
+    position : fixed;
+    top : 0;
+    left : 0;
+    width : 100%;
+    height : 100%;
+    background: url("../../resources/images/loading.gif") no-repeat center center rgba(120, 120, 120, 0.5);
+    z-index : 999999999;
+}

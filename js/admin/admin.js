@@ -16,7 +16,7 @@ $("#content > nav button").click(function() {
 
 
 const initWebSocket = () => {
-    WEBSOCKET_CLIENT = new WebSocketClient(SERVEUR_URL + "ws", {}, initWebSocket);
+    WEBSOCKET_CLIENT = new WebSocketClient(SERVER_URL + "ws", {}, initWebSocket);
     subscribeAll();
 };
 

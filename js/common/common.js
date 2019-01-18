@@ -1,8 +1,15 @@
-const SERVEUR_URL = "http://localhost:8000/";
+let SERVER_URL = localStorage.getItem("serverUrl") || "http://localhost:8000/";
 
 $.ajaxSetup({
     headers: { 'Authorization': 'adminToken' }
 });
+
+$(document).ready(() => {
+	$("body").append(`<div id="loading"></div>`);
+});
+
+const showLoading = () => { $("#loading").show(); };
+const hideLoading = () => { $("#loading").hide(); };
 
 const makeid = (length = 9) => {
     let text = "";
@@ -23,4 +30,42 @@ const lpad = (number, width = 2, character = '0') => {
 const parseJavaLocalDateTimeToJsDate = (javaLocalDateTime) => {
     return new Date(javaLocalDateTime[0], javaLocalDateTime[1] - 1, javaLocalDateTime[2],
         javaLocalDateTime[3], javaLocalDateTime[4], javaLocalDateTime[5]);
+};
+
+const ping = () => {
+    return fetch(SERVER_URL + "ping").then(function(response) {
+		if (!response.ok) {
+			throw Error(response.statusText);
+		}
+		return response;
+	});
+};
+
+const checkMandatory = () => {
+	showLoading();
+    return ping()
+        .then(() => {
+			localStorage.setItem("serverUrl", SERVER_URL);
+			if ($("#mandatory").length) {
+				window.location.reload(false);
+			}
+        }).catch(() => {
+            if (!$("#mandatory").length) {
+				$("body").append(`
+                    <div id="mandatory" title="Serveur injoignable">
+                        <p>Corriger l'adresse du serveur :
+                            <input type="text" value="${ SERVER_URL }" onChange="SERVER_URL = this.value; checkMandatory();" /> 
+                        </p>
+                    </div>
+                `);
+
+				$("#mandatory").dialog({
+					resizable: false,
+					height: "auto",
+					width: 600,
+					modal: true,
+					autoOpen: true
+				});
+            }
+        }).finally(() => hideLoading());
 };

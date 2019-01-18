@@ -6,7 +6,7 @@ const subscribeRiddles = () => {
 
 const retrieveConnectedUsers = () => {
 	$.ajax({
-		url: SERVEUR_URL + "connectedUsers",
+		url: SERVER_URL + "connectedUsers",
 		type: "GET",
 		success: (users) => {
 			users.forEach(terminalConnected);

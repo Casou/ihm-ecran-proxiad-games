@@ -13,7 +13,7 @@ const subscribeRooms = () => {
 
 const retrieveConnectedRooms = () => {
     $.ajax({
-        url: SERVEUR_URL + "connectedRooms",
+        url: SERVER_URL + "connectedRooms",
         type: "GET",
         success: (rooms) => {
             rooms.forEach(connectedRoomCallback);

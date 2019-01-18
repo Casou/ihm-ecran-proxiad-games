@@ -15,14 +15,14 @@
     <link rel="stylesheet" href="css/admin/header.css">
     <link rel="stylesheet" href="css/admin/room.css">
     <link rel="stylesheet" href="css/admin/riddle.css">
+    <link rel="stylesheet" href="css/admin/parameters.css">
 
     <title>Admin - Proxiad Games</title>
 </head>
 <body>
-<!--
+    <!--
     <h1>TODO</h1>
     <ul>
-        <li>Timer terminé : update de tout !</li>
         <li>Admin : animate decrease time</li>
         <li>Salle reinitialisée / supprimée : refresh IHM joueurs => le compteur se remet en route</li>
         <li>Boutons de démarrage du compteur (Désactiver si salle non connectée)</li>
@@ -33,10 +33,26 @@
         <nav>
             <button tab="rooms">Salles</button>
             <button tab="riddles">Enigmes</button>
+            <button tab="params">Pamamètres</button>
         </nav>
         <main>
             <div id="rooms" class="tab"></div>
             <div id="riddles" class="tab"></div>
+            <div id="params" class="tab">
+                <section id="local_params">
+                    <h1>Paramètres locaux</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Paramètre</th>
+                                <th>Valeur</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
         </main>
     </div>
 
@@ -63,21 +79,25 @@
     <script src="js/admin/riddle.js"></script>
     <script src="js/admin/riddle.webocket.js"></script>
     <script src="js/admin/compteurAvecBoutons.js"></script>
+    <script src="js/admin/parameters.js"></script>
 
     <script>
-        initWebSocket();
+		checkMandatory().then(() => {
+			initWebSocket();
 
-        Promise.all([
-            retrieveRoomsData().then(setRooms),
-            retrieveRiddlesData().then(setRiddles)
-        ]).then(() => {
-            showTab("rooms");
-            retrieveConnectedRooms();
-            retrieveConnectedUsers();
-        });
+			Promise.all([
+				retrieveRoomsData().then(setRooms),
+				retrieveRiddlesData().then(setRiddles),
+				retrieveLocalParameters()
+			]).then(() => {
+				showTab("rooms");
+				retrieveConnectedRooms();
+				retrieveConnectedUsers();
+			});
 
-        $(document).ready(function() {
-            $('.tooltip').tooltipster();
+			$(document).ready(function() {
+				$('.tooltip').tooltipster();
+			});
         });
     </script>
 </body>

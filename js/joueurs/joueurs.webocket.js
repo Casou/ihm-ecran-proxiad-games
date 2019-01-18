@@ -1,5 +1,5 @@
 const initWebSocket = () => {
-	WEBSOCKET_CLIENT = new WebSocketClient(SERVEUR_URL + "ws", { "Room" : ROOM_ID }, initWebSocket);
+	WEBSOCKET_CLIENT = new WebSocketClient(SERVER_URL + "ws", { "Room" : ROOM_ID }, initWebSocket);
 	subscribeAll();
 };
 
