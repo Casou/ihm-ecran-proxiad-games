@@ -23,6 +23,7 @@
     <!--
     <h1>TODO</h1>
     <ul>
+        <li>Check parameters on startup</li>
         <li>Décalage admin / joueurs</li>
         <li>Salle reinitialisée / supprimée : refresh IHM joueurs => le compteur se remet en route</li>
         <li>Boutons de démarrage du compteur (Désactiver si salle non connectée)</li>
@@ -32,12 +33,14 @@
 
     <div id="content">
         <nav>
-            <button tab="rooms">Salles</button>
+            <button tab="rooms_tab">Salles</button>
             <button tab="riddles">Enigmes</button>
-            <button tab="params">Pamamètres</button>
+            <button tab="params">Paramètres</button>
         </nav>
         <main>
-            <div id="rooms" class="tab"></div>
+            <div id="rooms_tab" class="tab">
+                <div id="rooms"></div>
+            </div>
             <div id="riddles" class="tab"></div>
             <div id="params" class="tab">
                 <section id="local_params">
@@ -58,6 +61,7 @@
                     <table>
                         <thead>
                             <tr>
+                                <th>Id</th>
                                 <th>Paramètre</th>
                                 <th>Valeur</th>
                             </tr>
@@ -102,12 +106,15 @@
 			Promise.all([
 				retrieveRoomsData().then(setRooms),
 				retrieveRiddlesData().then(setRiddles),
-				retrieveLocalParameters()
+				retrieveLocalParameters(),
+				retrieveServerParameters().then(renderParameters)
 			]).then(() => {
-				showTab("rooms");
+				showTab("rooms_tab");
 				retrieveConnectedRooms();
 				retrieveConnectedUsers();
-			});
+			}).catch(error => {
+				alertDialog(error.message);
+            });
 
 			$(document).ready(function() {
 				$('.tooltip').tooltipster();

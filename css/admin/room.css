@@ -138,6 +138,12 @@ span.connection_status                  { background: url("../../resources/image
 
 #rooms > .room .raspberry .compteur {
     text-align : center;
+    border: 1px solid green;
+    background-color : black;
+    padding: 2px 10px;
+    font-family: code_new_roman, Courier New, serif;
+    font-size: 16px;
+    vertical-align: middle;
 }
 
 #rooms > .room .boiteMessage {

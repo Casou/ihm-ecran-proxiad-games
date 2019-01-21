@@ -1,8 +1,9 @@
 const confirmDialog = (text, confirmCallback) => {
-	$("#confirmDialog").html(text).dialog({
+	$("#confirmDialog").attr("title", "Confirmation").html(text).dialog({
 		resizable: false,
 		height: "auto",
-		width: 400,
+		minHeight: 250,
+		width: 600,
 		modal: true,
 		autoOpen: true,
 		buttons: {
@@ -18,10 +19,11 @@ const confirmDialog = (text, confirmCallback) => {
 };
 
 const alertDialog = (text) => {
-	$("#confirmDialog").html(text).dialog({
+	$("#confirmDialog").attr("title", "Information").html(text).dialog({
 		resizable: false,
 		height: "auto",
-		width: 400,
+		minHeight: 250,
+		width: 600,
 		modal: true,
 		autoOpen: true,
 		buttons: {

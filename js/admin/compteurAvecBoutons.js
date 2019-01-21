@@ -58,7 +58,7 @@ class CompteurAvecBoutons {
 			<button class="actionButton miniButton startButton ${ this.isTerminated || this.compteur && timerStarted ? 'disabled' : '' }" onClick="startTimer(${this.id})">▶</button>
 			 
 			<p class="compteur">
-				${ (this.compteur && this.compteur.render()) || "-" }
+				${ (this.compteur && this.compteur.render()) || "--:--:--" }
 			</p>
         `;
     }
