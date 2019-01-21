@@ -13,7 +13,7 @@ const troll = (reduceTime, sendRequest) => {
 		});
 
 		const troll = TROLL_LIST[TROLL_LIST_INDEX];
-		displayAndSynthesizeMessage(troll.messages, 0).then(() => {
+		// displayAndSynthesizeMessage(troll.messages, 0).then(() => {
 			TROLL_LIST_INDEX = (TROLL_LIST_INDEX + 1) % TROLL_LIST.length;
 			localStorage.setItem("trollIndex", TROLL_LIST_INDEX);
 			const jqTrollVideo = $('#video #' + troll.idVideo);
@@ -21,8 +21,9 @@ const troll = (reduceTime, sendRequest) => {
 			jqTrollVideo.show();
 			jqTrollVideo[0].play();
 			sendRequest();
-			COMPTEUR.animateReduceTime(reduceTime).then(resolve);
-		});
+			COMPTEUR.animateReduceTime(reduceTime)
+				.then(resolve);
+		// });
 	});
 };
 

@@ -33,7 +33,7 @@ const subscribeAll = () => {
 		addAction(() => onTerminalConnect());
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/troll", (roomTrollDto) => {
-		addAction(() => troll(roomTrollDto.reduceTime, () => sendReduceTime(ROOM_ID, roomTrollDto.reduceTime)));
+		addAction(() => troll(roomTrollDto.reduceTime, () => sendReduceTime(ROOM_ID, roomTrollDto.reduceTime)).then(refreshAfterTroll));
 	});
 };
 
@@ -43,4 +43,12 @@ const sendCountEnded = (id) => {
 
 const sendReduceTime = (id, time) => {
 	WEBSOCKET_CLIENT.send("/room/reduceTime", { id, reduceTime: time });
+};
+
+const refreshAfterTroll = () => {
+	retrieveAllRooms().then(() => {
+		const room = ROOMS_DATA.filter(r => r.id === ROOM_ID)[0];
+		const remainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(room.startTime), room.remainingTime);
+		COMPTEUR.initTimer(remainingTime);
+	});
 };

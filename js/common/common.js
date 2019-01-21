@@ -29,8 +29,21 @@ const lpad = (number, width = 2, character = '0') => {
 };
 
 const parseJavaLocalDateTimeToJsDate = (javaLocalDateTime) => {
-    return new Date(javaLocalDateTime[0], javaLocalDateTime[1] - 1, javaLocalDateTime[2],
-        javaLocalDateTime[3], javaLocalDateTime[4], javaLocalDateTime[5]);
+	if (Array.isArray(javaLocalDateTime)) {
+		return new Date(javaLocalDateTime[0], javaLocalDateTime[1] - 1, javaLocalDateTime[2],
+			javaLocalDateTime[3], javaLocalDateTime[4], javaLocalDateTime[5]);
+	}
+
+	const date = new Date(javaLocalDateTime);
+	if (!isValidDate(date)) {
+		throw new Error(`[${javaLocalDateTime}] cannot be parsed into date.`);
+	}
+
+	return date;
+};
+
+const isValidDate = (d) => {
+	return d instanceof Date && !isNaN(d);
 };
 
 const ping = () => {

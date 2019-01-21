@@ -80,11 +80,14 @@ const startTimerRoomCallback = (room) => {
 };
 
 const reduceTimerRoomCallback = (roomTrollDto) => {
-	console.log("reduce");
 	const roomsFiltered = ROOMS.filter(r => roomTrollDto.id === r.id);
 	if (roomsFiltered) {
 		let room = roomsFiltered[0];
-		room.compteur.animateReduceTime(roomTrollDto.reduceTime);
+		room.compteur.animateReduceTime(roomTrollDto.reduceTime).then(() => {
+			const calculatedRemainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(roomTrollDto.startTime), roomTrollDto.remainingTime);
+			console.log(roomTrollDto.startTime, roomTrollDto.remainingTime, calculatedRemainingTime);
+			room.compteur.initTimer(calculatedRemainingTime);
+		});
 	} else {
 		console.error(`Requête TROLL reçue mais la salle ${ roomTrollDto.id }/${ roomTrollDto.name }  n'a pas été trouvée`, roomTrollDto);
 		alert(`Requête TROLL reçue mais la salle ${ roomTrollDto.id }/${ roomTrollDto.name }  n'a pas été trouvée`);
