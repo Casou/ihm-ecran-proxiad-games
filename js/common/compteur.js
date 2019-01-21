@@ -14,7 +14,6 @@ class Compteur {
         this.currentTime = null;
         this.timerInterval = null;
         this.onEndCount = null;
-        this.onRefresh = null;
 
         if (startTime) {
             if (statusTime === "STARTED") {
@@ -67,6 +66,7 @@ class Compteur {
 			const wasStarted = this.isStarted;
 			this.pauseTime();
 
+			console.log("animate remaining", this.currentTime);
 			let decreasedCount = 0;
 			const reduceInterval = setInterval(() => {
 				this._decreaseTime(1);
@@ -78,6 +78,7 @@ class Compteur {
 					if (wasStarted) {
 						this.startTime();
 					}
+					console.log("END animate remaining", this.currentTime);
 					resolve();
 				}
 			}, 5000 / time);
@@ -112,9 +113,6 @@ class Compteur {
     }
 
     render() {
-    	// if (this.onRefresh) {
-		// 	this.onRefresh();
-		// }
         return `<span>${ !this.isStarted ? "--:--:--" : this._formatTime(this.currentTime) }</span>`;
     }
 

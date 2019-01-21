@@ -6,7 +6,7 @@ const TROLL_LIST = [
 ];
 let TROLL_LIST_INDEX = localStorage.getItem("trollIndex") || 0;
 
-const troll = (reduceTime) => {
+const troll = (reduceTime, sendRequest) => {
 	return new Promise(resolve => {
 		$('#video video').fadeOut(500, () => {
 			$('#video video').each((index, video) => { video.pause(); });
@@ -20,6 +20,7 @@ const troll = (reduceTime) => {
 			jqTrollVideo[0].currentTime = 0;
 			jqTrollVideo.show();
 			jqTrollVideo[0].play();
+			sendRequest();
 			COMPTEUR.animateReduceTime(reduceTime).then(resolve);
 		});
 	});

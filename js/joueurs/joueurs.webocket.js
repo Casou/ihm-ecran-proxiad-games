@@ -33,7 +33,7 @@ const subscribeAll = () => {
 		addAction(() => onTerminalConnect());
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/troll", (roomTrollDto) => {
-		addAction(() => troll(roomTrollDto.reduceTime));
+		addAction(() => troll(roomTrollDto.reduceTime, () => sendReduceTime(ROOM_ID, roomTrollDto.reduceTime)));
 	});
 };
 
@@ -41,6 +41,6 @@ const sendCountEnded = (id) => {
 	WEBSOCKET_CLIENT.send("/room/fail", { id });
 };
 
-const refreshTime = (id, time) => {
-	WEBSOCKET_CLIENT.send("/room/refreshTimer", { id, remainingTime: time });
+const sendReduceTime = (id, time) => {
+	WEBSOCKET_CLIENT.send("/room/reduceTime", { id, reduceTime: time });
 };

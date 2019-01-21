@@ -5,7 +5,7 @@ const subscribeRooms = () => {
     WEBSOCKET_CLIENT.subscribe("/topic/room/disconnected", disconnectedRoomCallback);
     WEBSOCKET_CLIENT.subscribe("/topic/room/all/start", startRoomCallback);
     WEBSOCKET_CLIENT.subscribe("/topic/room/all/startTimer", startTimerRoomCallback);
-    WEBSOCKET_CLIENT.subscribe("/topic/room/all/refreshTimer", refreshTimerRoomCallback);
+    WEBSOCKET_CLIENT.subscribe("/topic/room/all/reduceTime", reduceTimerRoomCallback);
     WEBSOCKET_CLIENT.subscribe("/topic/room/all/pause", pauseTimerRoomCallback);
     WEBSOCKET_CLIENT.subscribe("/topic/riddle/unlock", unlockRiddleCallback);
 	WEBSOCKET_CLIENT.subscribe("/topic/room/all/success", successRoomCallback);
@@ -79,11 +79,15 @@ const startTimerRoomCallback = (room) => {
     }
 };
 
-const refreshTimerRoomCallback = (room) => {
-	console.log("refresh", room);
-	const roomsFiltered = ROOMS.filter(r => room.id === r.id);
+const reduceTimerRoomCallback = (roomTrollDto) => {
+	console.log("reduce");
+	const roomsFiltered = ROOMS.filter(r => roomTrollDto.id === r.id);
 	if (roomsFiltered) {
-		roomsFiltered[0].compteur.setCurrentTime(room.remainingTime);
+		let room = roomsFiltered[0];
+		room.compteur.animateReduceTime(roomTrollDto.reduceTime);
+	} else {
+		console.error(`Requête TROLL reçue mais la salle ${ roomTrollDto.id }/${ roomTrollDto.name }  n'a pas été trouvée`, roomTrollDto);
+		alert(`Requête TROLL reçue mais la salle ${ roomTrollDto.id }/${ roomTrollDto.name }  n'a pas été trouvée`);
 	}
 };
 
@@ -150,16 +154,4 @@ const failRoomCallback = (room) => {
 		roomsFiltered[0].compteur.terminate();
 	}
 	$('#room_' + room.id).addClass("fail");
-};
-
-const trollRoomCallback = (roomTrollDto) => {
-	const roomsFiltered = ROOMS.filter(r => roomTrollDto.id === r.id);
-	if (roomsFiltered) {
-		console.log(roomTrollDto);
-		let room = roomsFiltered[0];
-		room.compteur.animateReduceTime(roomTrollDto.reduceTime);
-	} else {
-		console.error(`Requête TROLL reçue mais la salle ${ roomTrollDto.id }/${ roomTrollDto.name }  n'a pas été trouvée`, roomTrollDto);
-		alert(`Requête TROLL reçue mais la salle ${ roomTrollDto.id }/${ roomTrollDto.name }  n'a pas été trouvée`);
-	}
 };
