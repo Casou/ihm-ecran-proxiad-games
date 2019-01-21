@@ -16,3 +16,19 @@ const confirmDialog = (text, confirmCallback) => {
 		}
 	});
 };
+
+const alertDialog = (text) => {
+	$("#confirmDialog").html(text).dialog({
+		resizable: false,
+		height: "auto",
+		width: 400,
+		modal: true,
+		autoOpen: true,
+		buttons: {
+			"OK": function() {
+				$(this).dialog("close").dialog("destroy");
+			}
+		}
+	});
+};
+

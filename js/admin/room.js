@@ -51,7 +51,7 @@ const newRoom = () => {
             console.error("xmlHttpRequest: ", xmlHttpRequest);
             console.error("Status: ", textStatus);
             console.error("Error: ", errorThrown);
-            alert("Erreur lors de la création de la salle " + id + " : " + xmlHttpRequest.responseText);
+			alertDialog("Erreur lors de la création de la salle " + id + " : " + xmlHttpRequest.responseText);
         }
     });
 };
@@ -71,7 +71,7 @@ const updateRoomName = (id, value) => {
             console.error("xmlHttpRequest: ", xmlHttpRequest);
             console.error("Status: ", textStatus);
             console.error("Error: ", errorThrown);
-            alert("Erreur lors de la mise à jour de la salle " + id + " : " + xmlHttpRequest.responseText);
+			alertDialog("Erreur lors de la mise à jour de la salle " + id + " : " + xmlHttpRequest.responseText);
         }
     });
 };
@@ -96,7 +96,7 @@ const deleteRoomAjax = (id) => {
             console.error("xmlHttpRequest: ", xmlHttpRequest);
             console.error("Status: ", textStatus);
             console.error("Error: ", errorThrown);
-            alert("Erreur lors de la suppression de la salle " + id + " : " + xmlHttpRequest.responseText);
+			alertDialog("Erreur lors de la suppression de la salle " + id + " : " + xmlHttpRequest.responseText);
         }
     });
 };
@@ -121,7 +121,7 @@ const reinitRoomAjax = (id) => {
 			console.error("xmlHttpRequest: ", xmlHttpRequest);
 			console.error("Status: ", textStatus);
 			console.error("Error: ", errorThrown);
-			alert("Erreur lors de la réinitialisation de la salle " + id + " : " + xmlHttpRequest.responseText);
+			alertDialog("Erreur lors de la réinitialisation de la salle " + id + " : " + xmlHttpRequest.responseText);
 		}
 	});
 };

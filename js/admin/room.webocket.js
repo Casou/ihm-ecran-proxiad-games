@@ -75,7 +75,7 @@ const startTimerRoomCallback = (room) => {
         roomsFiltered[0].compteur = compteurWrapper;
     } else {
         console.error("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée", room);
-        alert("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée");
+		alertDialog("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée");
     }
 };
 
@@ -90,7 +90,7 @@ const reduceTimerRoomCallback = (roomTrollDto) => {
 		});
 	} else {
 		console.error(`Requête TROLL reçue mais la salle ${ roomTrollDto.id }/${ roomTrollDto.name }  n'a pas été trouvée`, roomTrollDto);
-		alert(`Requête TROLL reçue mais la salle ${ roomTrollDto.id }/${ roomTrollDto.name }  n'a pas été trouvée`);
+		alertDialog(`Requête TROLL reçue mais la salle ${ roomTrollDto.id }/${ roomTrollDto.name }  n'a pas été trouvée`);
 	}
 };
 
@@ -103,7 +103,7 @@ const pauseTimerRoomCallback = (room) => {
 		$('#room_' + room.id + " .raspberry .startButton").removeClass("disabled");
     } else {
         console.error("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée", room);
-        alert("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée");
+		alertDialog("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée");
     }
 };
 

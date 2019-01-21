@@ -58,7 +58,7 @@ const newRiddle = () => {
             console.error("xmlHttpRequest: ", xmlHttpRequest);
             console.error("Status: ", textStatus);
             console.error("Error: ", errorThrown);
-            alert("Erreur lors de la création de l'énigme " + id + " : " + xmlHttpRequest.responseText);
+			alertDialog("Erreur lors de la création de l'énigme " + id + " : " + xmlHttpRequest.responseText);
         }
     });
 };
@@ -81,7 +81,7 @@ const updateRiddleName = (id, value) => {
             console.error("xmlHttpRequest: ", xmlHttpRequest);
             console.error("Status: ", textStatus);
             console.error("Error: ", errorThrown);
-            alert("Erreur lors de la mise à jour de l'énigme " + id + " : " + xmlHttpRequest.responseText);
+			alertDialog("Erreur lors de la mise à jour de l'énigme " + id + " : " + xmlHttpRequest.responseText);
         }
     });
 };
@@ -99,7 +99,7 @@ const updateRiddleId = (id, riddleId) => {
             console.error("xmlHttpRequest: ", xmlHttpRequest);
             console.error("Status: ", textStatus);
             console.error("Error: ", errorThrown);
-            alert("Erreur lors de la mise à jour de l'énigme " + id + " : " + xmlHttpRequest.responseText);
+			alertDialog("Erreur lors de la mise à jour de l'énigme " + id + " : " + xmlHttpRequest.responseText);
         }
     });
 };
@@ -117,7 +117,7 @@ const updateRiddlePassword = (id, riddlePassword) => {
             console.error("xmlHttpRequest: ", xmlHttpRequest);
             console.error("Status: ", textStatus);
             console.error("Error: ", errorThrown);
-            alert("Erreur lors de la mise à jour de l'énigme " + id + " : " + xmlHttpRequest.responseText);
+			alertDialog("Erreur lors de la mise à jour de l'énigme " + id + " : " + xmlHttpRequest.responseText);
         }
     });
 };
@@ -138,7 +138,7 @@ const deleteRiddleWS = (id) => {
             console.error("xmlHttpRequest: ", xmlHttpRequest);
             console.error("Status: ", textStatus);
             console.error("Error: ", errorThrown);
-            alert("Erreur lors de la suppression de l'énigme " + id + " : " + xmlHttpRequest.responseText);
+			alertDialog("Erreur lors de la suppression de l'énigme " + id + " : " + xmlHttpRequest.responseText);
         }
     });
 };

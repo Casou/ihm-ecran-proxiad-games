@@ -80,6 +80,8 @@ const checkMandatory = () => {
 					modal: true,
 					autoOpen: true
 				});
+
+				throw new Error("[checkMandatory] Ping to the server has failed");
             }
         }).finally(() => hideLoading());
 };
