@@ -17,7 +17,7 @@ const scheduleGlitches = () => {
 };
 
 async function initGlitch (selector, nbGlitches){
-	for (let countGlitches = 0; countGlitches <= nbGlitches; countGlitches++) {
+	for (let countGlitches = 0; countGlitches < nbGlitches; countGlitches++) {
 		const newTop = Math.random() * $(window).height();
 		const newLeft = Math.random() * $(window).width();
 		await doGlitch(selector, newTop, newLeft);
