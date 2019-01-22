@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/joueurs/joueurs.css">
     <link rel="stylesheet" href="css/joueurs/compteur.css">
     <link rel="stylesheet" href="css/joueurs/text-glitch.css">
     <link rel="stylesheet" href="css/joueurs/message.css">
@@ -57,6 +58,7 @@
     <script src="js/joueurs/messages.js"></script>
     <script src="js/joueurs/troll.js"></script>
     <script src="js/joueurs/riddles.js"></script>
+    <script src="js/joueurs/glitch.js"></script>
 
     <script>
 		let ROOM_ID = (localStorage.getItem("roomId") && parseInt(localStorage.getItem("roomId"))) || "";
@@ -69,10 +71,7 @@
 				sendCountEnded(ROOM_ID);
 			};
 
-			// COMPTEUR.initTimer();
-			// COMPTEUR.startTime();
-
-			init();
+			init().then(glitchize);
 		});
     </script>
 </body>

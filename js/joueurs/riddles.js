@@ -1,4 +1,4 @@
-let ALL_RIDDLES = null;
+let ALL_RIDDLES = [];
 
 const retrieveAllRiddles = () => {
 	return new Promise((resolve, reject) => {
@@ -28,7 +28,7 @@ const LAST_RIDDLE_REACTION =
 	{ messages : [ "Bravo, vous avez réussi.", "Ne faites pas attention au compteur qui défile.", "Voulez-vous une part de gâteau ?",
 			"Le gâteau n'est pas un mensonge !", "Le gâteau est réel !", "Ce compteur n'est pas réel, il n'annonce pas votre fin imminente.",
 			"Arrêtez de taper des commandes dans le terminal et attendez la fin du compteur."] };
-let NB_RIDDLE_REACTION_LIST = (localStorage.getItem("nbUnlockedRiddle") && parseInt(localStorage.getItem("nbUnlockedRiddle"))) || 0;
+let NB_UNLOCKED_RIDDLES = (localStorage.getItem("nbUnlockedRiddle") && parseInt(localStorage.getItem("nbUnlockedRiddle"))) || 0;
 
 const onTerminalConnect = () => {
 	return new Promise(resolve => {
@@ -52,12 +52,12 @@ const onTerminalConnect = () => {
 
 const resolveRiddle = () => {
 	return new Promise(resolve => {
-		const reaction = ALL_RIDDLES && NB_RIDDLE_REACTION_LIST === ALL_RIDDLES.length - 1 ? LAST_RIDDLE_REACTION : RIDDLE_REACTION_LIST[NB_RIDDLE_REACTION_LIST];
+		const reaction = ALL_RIDDLES && NB_UNLOCKED_RIDDLES === ALL_RIDDLES.length - 1 ? LAST_RIDDLE_REACTION : RIDDLE_REACTION_LIST[NB_UNLOCKED_RIDDLES];
 
 		setTimeout(() => {
 			readAllMessages(reaction.messages, reaction.language).then(() => {
-				NB_RIDDLE_REACTION_LIST = Math.min(RIDDLE_REACTION_LIST.length - 1, NB_RIDDLE_REACTION_LIST + 1);
-				updateGlitch(NB_RIDDLE_REACTION_LIST);
+				NB_UNLOCKED_RIDDLES = Math.min(RIDDLE_REACTION_LIST.length - 1, NB_UNLOCKED_RIDDLES + 1);
+				updateGlitch(NB_UNLOCKED_RIDDLES);
 				resolve();
 			});
 		}, 3000);
@@ -65,7 +65,11 @@ const resolveRiddle = () => {
 };
 
 const updateGlitch = (nbResolvedRiddles) => {
-	$(".glitch").addClass("stade" + nbResolvedRiddles);
-	NB_RIDDLE_REACTION_LIST = nbResolvedRiddles;
-	localStorage.setItem("nbUnlockedRiddle", NB_RIDDLE_REACTION_LIST);
+	let glitch = $(".glitch");
+	for (let i = 0; i <= ALL_RIDDLES.length; i++) {
+		glitch.removeClass("stade" + i);
+	}
+	glitch.addClass("stade" + nbResolvedRiddles);
+	NB_UNLOCKED_RIDDLES = nbResolvedRiddles;
+	localStorage.setItem("nbUnlockedRiddle", NB_UNLOCKED_RIDDLES);
 };
