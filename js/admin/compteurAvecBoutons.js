@@ -1,10 +1,11 @@
 class CompteurAvecBoutons {
 
-    constructor(selector, compteur, id) {
+    constructor(selector, compteur, id, isConnected = false) {
         this.selector = selector;
         this.compteur = compteur;
         this.id = id;
         this.isTerminated = false;
+		this.isConnected = isConnected;
         if (!id) debugger;
     }
 
@@ -31,10 +32,6 @@ class CompteurAvecBoutons {
 		return this.compteur.animateReduceTime(time);
 	}
 
-	setCurrentTime(time) {
-    	this.compteur && (this.compteur.currentTime = time);
-	}
-
 	reinitTime() {
 		this.compteur && this.compteur.stopTime();
 		this.compteur = null;
@@ -54,10 +51,10 @@ class CompteurAvecBoutons {
         return `
 			<!-- <button class="actionButton miniButton resetButton ${ this.isTerminated || !this.compteur || timerStarted ? 'disabled' : '' }" onClick="resetTimer(${this.id})">↻</button> --> 
 			<!-- <button class="actionButton miniButton stopButton ${ this.isTerminated || !this.compteur || !timerStarted ? 'disabled' : '' }" onClick="stopTimer(${this.id})">■</button> --> 
-			<button class="actionButton miniButton pauseButton ${ this.isTerminated || !this.compteur || !timerStarted ? 'disabled' : '' }" onClick="stopTimer(${this.id})">❚❚</button> 
-			<button class="actionButton miniButton startButton ${ this.isTerminated || this.compteur && timerStarted ? 'disabled' : '' }" onClick="startTimer(${this.id})">▶</button>
+			<button class="actionButton miniButton pauseButton ${ !this.isConnected || this.isTerminated || !this.compteur || !timerStarted ? 'disabled' : '' }" onClick="stopTimer(${this.id})">❚❚</button> 
+			<button class="actionButton miniButton startButton ${ !this.isConnected || this.isTerminated || this.compteur && timerStarted ? 'disabled' : '' }" onClick="startTimer(${this.id})">▶</button>
 			 
-			<p class="compteur">
+			<p class="compteur ${ !this.isConnected ? 'disabled' : '' }">
 				${ (this.compteur && this.compteur.render()) || "--:--:--" }
 			</p>
         `;
