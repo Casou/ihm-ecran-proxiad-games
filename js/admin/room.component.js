@@ -52,6 +52,10 @@ class Room {
                         </div>
                     </div>
                 </div>
+                
+                <footer>
+                    <span class="refresh_room" title="Rafraichir l'affichage des joueurs" onClick="refreshRoom(${ this.id });"></span>
+                </footer>
             </section>
         `;
     }

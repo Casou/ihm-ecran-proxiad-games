@@ -125,3 +125,11 @@ const reinitRoomAjax = (id) => {
 		}
 	});
 };
+
+const refreshRoom = (id) => {
+	confirmDialog("Etes-vous sûr de vouloir rafrachir l'affichage de cette salle ?", () => refreshRoomWS(id));
+};
+
+const refreshRoomWS = (id) => {
+	sendRefreshCommand(id);
+};

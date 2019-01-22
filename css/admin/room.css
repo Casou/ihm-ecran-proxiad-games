@@ -81,6 +81,11 @@ span.reinit_room {
     background-size: contain;
 }
 
+span.refresh_room {
+    background: url("../../resources/images/refresh.png") no-repeat top left transparent;
+    background-size: contain;
+}
+
 #rooms > .room header input {
     font-size : 22px;
     width : 80%;
@@ -180,4 +185,19 @@ span.connection_status                  { background: url("../../resources/image
 
 #rooms .hidden {
     display : none;
+}
+
+#rooms footer {
+    position: absolute;
+    bottom: 0;
+    height: 45px;
+    width: 100%;
+    text-align: center;
+}
+
+span.refresh_room {
+    display : inline-block;
+    height : 35px;
+    width : 35px;
+    cursor : pointer;
 }

@@ -163,3 +163,7 @@ const failRoomCallback = (room) => {
 	}
 	$('#room_' + room.id).addClass("fail");
 };
+
+const sendRefreshCommand = (id) => {
+	WEBSOCKET_CLIENT.send("/room/refresh", { id });
+};
