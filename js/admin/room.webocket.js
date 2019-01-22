@@ -111,7 +111,7 @@ const startTimer = (id) => {
 	if ($("#room_" + id + " .compteurWrapper .startButton").hasClass("disabled")) {
 		return;
 	}
-    WEBSOCKET_CLIENT.send("/room/start", { id, remainingTime : INIT_REMAINING_TIME });
+    WEBSOCKET_CLIENT.send("/room/start", { id, remainingTime : parseInt(PARAMETERS["INIT_TIME"].value) });
 };
 
 const stopTimer = (id) => {

@@ -1,3 +1,5 @@
+let PARAMETERS = [];
+
 const retrieveLocalParameters = () => {
 	return new Promise(resolve => {
 		$('#local_params table tbody').html("");
@@ -33,6 +35,8 @@ const retrieveServerParameters = () => {
 			url: SERVER_URL + "parametres",
 			type: "GET",
 			success: (parametres) => {
+				PARAMETERS = [];
+				parametres.forEach(p => PARAMETERS[p.key] = p);
 				resolve(parametres);
 			},
 			error: (xmlHttpRequest, textStatus, errorThrown) => {
