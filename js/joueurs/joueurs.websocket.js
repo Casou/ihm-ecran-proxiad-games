@@ -11,7 +11,7 @@ const subscribeAll = () => {
 		$("#compteur").show();
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/message", (messageDto) => {
-		addAction(() => incomingMessage([messageDto.message]));
+		addAction(() => incomingMessage([messageDto.message], messageDto.introSentence));
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/pause", () => {
 		COMPTEUR.pauseTime();

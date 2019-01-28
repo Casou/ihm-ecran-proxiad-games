@@ -54,6 +54,7 @@ const updateSentence = (sentence) => {
 		contentType: "application/json",
 		success: () => {
 			updateSentenceSelects();
+			IA_PARAMETERS.updateSentence(sentence);
 		},
 		error: (xmlHttpRequest, textStatus, errorThrown) => {
 			console.error("Status: " + textStatus);

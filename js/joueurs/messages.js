@@ -1,11 +1,12 @@
 const MESSAGE_FADE_DURATION = 1000;
 
-const incomingMessage = (messages) => {
+const incomingMessage = (messages, introSentence) => {
 	return new Promise(resolve => {
-		readMessage("Nouveau message entrant");
-		setTimeout(() => {
-			displayAndSynthesizeMessage(messages).then(resolve);
-		}, 1000);
+		readMessage(introSentence.text, introSentence.voice).then(() =>
+			setTimeout(() => {
+				displayAndSynthesizeMessage(messages).then(resolve);
+			}, 1000));
+
 	});
 };
 

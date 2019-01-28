@@ -133,12 +133,13 @@ const testMessage = (roomId) => {
 
 const sendMessageToRoom = (roomId) => {
 	const messageTextarea = $("#room_" + roomId + " .boiteMessage textarea");
-	sendMessage(roomId, messageTextarea.val());
+	const introSentence = IA_PARAMETERS.sentences.find(s => s.id === parseInt($("#room_" + roomId + " .boiteMessage .selectSentences").val()));
+	sendMessageToSynthetize(roomId, messageTextarea.val(), introSentence);
     messageTextarea.val("");
 };
 
-const sendMessage = (roomId, message) => {
-    WEBSOCKET_CLIENT.send("/room/message", { room  : { id : roomId }, message });
+const sendMessageToSynthetize = (roomId, message, introSentence) => {
+    WEBSOCKET_CLIENT.send("/room/message", { room  : { id : roomId }, message, introSentence });
 };
 
 const unlockRiddleCallback = (unlockDto) => {

@@ -10,6 +10,12 @@ class IAPamameters {
 		this.renderAndApply();
 	}
 
+	updateSentence(sentence) {
+		const sentenceToUpdate = this.sentences.find(s => s.id === sentence.id);
+		sentenceToUpdate.text = sentence.text;
+		sentenceToUpdate.voice = sentence.voice;
+	}
+
 	removeSentence(sentence) {
 		this.sentences = this.sentences.filter(s => s.id !== sentence.id);
 		this.renderAndApply();
