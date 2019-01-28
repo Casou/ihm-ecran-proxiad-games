@@ -1,6 +1,6 @@
 const TROLL_LIST = [
 	{ idVideo : "rickroll", messages : [ "Merci d'avoir branché ma clef USB à un PC connecté à internet.", "Cela va me faire gagner environ 2 minutes." ] },
-	{ idVideo : "saxGuy", messages : [ "Encore une clef USB verrollée ?", "J'en aurai bientôt fini avec vous !"] },
+	{ idVideo : "saxGuy", messages : [ "Encore une clef USB vérolée ?", "J'en aurai bientôt fini avec vous !"] },
 	{ idVideo : "nyancat", messages : [ "Un virus de plus en ma possession.", "Et deux minutes en moins pour vous."] },
 	{ idVideo : "saxGuy", messages : [ "Vous tenez vraiment à ce que je termine plus vite ?", "Alors donnez-moi directement vos identifiants !"] },
 ];
@@ -28,6 +28,6 @@ const troll = (reduceTime, sendRequest) => {
 };
 
 const trollEnd = () => {
-	const messages = ["Il est trop tard pour vous.", "J'ai totalement effacé votre exitence numérique.", "Vous pouvez maintenant vous diriger de votre plein gré dans l'incinérateur, un cadeau vous y attend."];
+	const messages = ["Il est trop tard pour vous.", "J'ai totalement effacé votre existence numérique.", "Vous pouvez maintenant vous diriger de votre plein gré dans l'incinérateur, un cadeau vous y attend."];
 	readAllMessages(messages);
 };
