@@ -57,7 +57,8 @@ const ping = () => {
 
 const checkMandatory = () => {
 	showLoading();
-    return ping()
+	const allVoicesPromise = retrieveAllVoices();
+    const pingPromise = ping()
         .then(() => {
 			localStorage.setItem("serverUrl", SERVER_URL);
 			if ($("#mandatory").length) {
@@ -84,4 +85,6 @@ const checkMandatory = () => {
 				throw new Error("[checkMandatory] Ping to the server has failed");
             }
         }).finally(() => hideLoading());
+
+    return Promise.all([allVoicesPromise, pingPromise]);
 };

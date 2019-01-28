@@ -39,25 +39,22 @@ const createSentence = () => {
 };
 
 const updateText = (id, text) => {
-	$.ajax({
-		url: SERVER_URL + "intro_sentence",
-		type: "PATCH",
-		data : JSON.stringify({ ...IA_PARAMETERS.sentences.find(sentence => sentence.id === id), text }),
-		contentType: "application/json",
-		error: (xmlHttpRequest, textStatus, errorThrown) => {
-			console.error("Status: " + textStatus);
-			console.error("Error: " + errorThrown);
-			reject(textStatus);
-		}
-	});
+	updateSentence({ ...IA_PARAMETERS.sentences.find(sentence => sentence.id === id), text });
 };
 
 const updateVoice = (id, voice) => {
+	updateSentence({ ...IA_PARAMETERS.sentences.find(sentence => sentence.id === id), voice });
+};
+
+const updateSentence = (sentence) => {
 	$.ajax({
 		url: SERVER_URL + "intro_sentence",
 		type: "PATCH",
-		data : JSON.stringify({ ...IA_PARAMETERS.sentences.find(sentence => sentence.id === id), voice }),
+		data : JSON.stringify(sentence),
 		contentType: "application/json",
+		success: () => {
+			updateSentenceSelects();
+		},
 		error: (xmlHttpRequest, textStatus, errorThrown) => {
 			console.error("Status: " + textStatus);
 			console.error("Error: " + errorThrown);
@@ -74,6 +71,7 @@ const deleteSentence = (id) => {
 		contentType: "application/json",
 		success: () => {
 			IA_PARAMETERS.removeSentence({ id });
+			updateSentenceSelects();
 		},
 		error: (xmlHttpRequest, textStatus, errorThrown) => {
 			console.error("Status: " + textStatus);
@@ -81,4 +79,13 @@ const deleteSentence = (id) => {
 			reject(textStatus);
 		}
 	});
+};
+
+const updateSentenceSelects = () => {
+	if (ROOMS.length) {
+		const room = ROOMS[0];
+		retrieveSentences().then(sentences => {
+			$(".selectSentences").html(room.renderVoicesSelect(sentences));
+		});
+	}
 };

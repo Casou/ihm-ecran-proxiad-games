@@ -43,6 +43,12 @@ class Room {
                             ${ this.compteur && this.compteur.render() }
                         </div>
                         <div class="boiteMessage">
+                            <div>
+                                <label>Intro : </label>
+                                <select class="selectSentences">
+                                    ${ this.renderVoicesSelect(IA_PARAMETERS.sentences) }
+                                </select>
+                            </div>
                             <textarea placeholder="Synthétiser un message" disabled></textarea>
                             
                             <div class="actionButtons">
@@ -58,6 +64,10 @@ class Room {
                 </footer>
             </section>
         `;
+    }
+
+    renderVoicesSelect(sentences) {
+        return sentences.map(sentence => `<option value="${ sentence.id }">${ sentence.text } (${ sentence.voice })</option>`).join("");
     }
 
 	renderAndApply() {

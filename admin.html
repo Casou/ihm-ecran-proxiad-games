@@ -108,23 +108,26 @@
 		checkMandatory().then(() => {
 			initWebSocket();
 
-			Promise.all([
-				retrieveSentences().then(setAIParameters),
-				retrieveRoomsData().then(setRooms),
-				retrieveRiddlesData().then(setRiddles),
-				retrieveLocalParameters(),
-				retrieveServerParameters().then(renderParameters)
-			]).then(() => {
-				showTab("rooms_tab");
-				retrieveConnectedRooms();
-				retrieveConnectedUsers();
-			}).catch(error => {
-				alertDialog(error.message);
-            });
+			retrieveSentences()
+                .then(setAIParameters)
+                .then(() => {
+					Promise.all([
+						retrieveRoomsData().then(setRooms),
+						retrieveRiddlesData().then(setRiddles),
+						retrieveLocalParameters(),
+						retrieveServerParameters().then(renderParameters)
+					]).then(() => {
+						showTab("rooms_tab");
+						retrieveConnectedRooms();
+						retrieveConnectedUsers();
+					}).catch(error => {
+						alertDialog(error.message);
+					});
 
-			$(document).ready(function() {
-				$('.tooltip').tooltipster();
-			});
+					$(document).ready(function() {
+						$('.tooltip').tooltipster();
+					});
+                });
         });
     </script>
 </body>

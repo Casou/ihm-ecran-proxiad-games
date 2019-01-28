@@ -7,9 +7,15 @@
 // };
 
 let ALL_VOICES = [];
-window.speechSynthesis.onvoiceschanged = function() {
-    ALL_VOICES = window.speechSynthesis.getVoices();
+const retrieveAllVoices = () => {
+	return new Promise(resolve => {
+		window.speechSynthesis.onvoiceschanged = function() {
+			ALL_VOICES = window.speechSynthesis.getVoices();
+			resolve();
+		};
+	});
 };
+
 
 const getVoice = (name) => {
 	return window.speechSynthesis.getVoices().filter(voice => voice.voiceURI === name)[0];
