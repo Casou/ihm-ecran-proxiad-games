@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/admin/room.css">
     <link rel="stylesheet" href="css/admin/riddle.css">
     <link rel="stylesheet" href="css/admin/parameters.css">
+    <link rel="stylesheet" href="css/admin/ia.css">
 
     <title>Admin - Proxiad Games</title>
 </head>
@@ -23,8 +24,6 @@
     <!--
     <h1>TODO</h1>
     <ul>
-        <li>Finir l'ascii art "terminator"</li>
-        <li>Phrases d'accroche glados</li>
         <li>Refresh compteur toutes les 10 secondes (pour palier aux lenteurs JS) => ATTENTION aux reduceTimer</li>
     </ul>
     -->
@@ -42,7 +41,10 @@
                 <div id="rooms"></div>
             </div>
             <div id="riddles" class="tab"></div>
-            <div id="ia" class="tab"></div>
+            <div id="ai" class="tab">
+                <div id="sentences">
+                </div>
+            </div>
             <div id="params" class="tab">
                 <section id="local_params">
                     <h1>Paramètres locaux</h1>
@@ -99,12 +101,15 @@
     <script src="js/admin/riddle.webocket.js"></script>
     <script src="js/admin/compteurAvecBoutons.js"></script>
     <script src="js/admin/parameters.js"></script>
+    <script src="js/admin/ia.component.js"></script>
+    <script src="js/admin/ia.js"></script>
 
     <script>
 		checkMandatory().then(() => {
 			initWebSocket();
 
 			Promise.all([
+				retrieveSentences().then(setAIParameters),
 				retrieveRoomsData().then(setRooms),
 				retrieveRiddlesData().then(setRiddles),
 				retrieveLocalParameters(),

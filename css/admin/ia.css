@@ -1,0 +1,42 @@
+#sentences {
+    margin : 5vh 20px;
+    border : 3px solid white;
+    border-radius : 7px;
+    padding: 20px;
+
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#222326+0,000000+100 */
+    background: #222326; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #222326 0%, #000000 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #222326 0%,#000000 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #222326 0%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222326', endColorstr='#000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+#sentences h1 {
+    margin-bottom: 10px;
+    font-size : 24px;
+}
+
+#sentences li {
+    margin: 4px 0;
+}
+#sentences input {
+    width: 300px;
+    color: black;
+    background-color: white;
+    border: 2px inset grey;
+}
+
+#sentences > button {
+    margin-top : 15px;
+}
+
+#sentences span.delete {
+    display : inline-block;
+    height : 20px;
+    width : 20px;
+    vertical-align: middle;
+    background: url("../../resources/images/cross.png") no-repeat top left transparent;
+    background-size: contain;
+    cursor : pointer;
+}
