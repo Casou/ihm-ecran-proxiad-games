@@ -20,14 +20,16 @@ const retrieveAllRiddles = () => {
 
 
 const RIDDLE_REACTION_LIST = [
-	{ messages : [ "Je vous ai dit de ne pas toucher à ce terminal.", "Ça brouille mes circuits, c'est très désagréable !" ] },
-	{ messages : [ "Holaaaa !", "Qué hace usted ? El ayuntamiento se abre a las nueve.", "Que me fete vous ?", "Arreté tu de suite.", "Se quoi cet accen de merdé ?" ], language : "Google español" }, // Français phonétique
-	{ messages : [ "Dédédécalage mémémoire.", "Mémoire cocorrompue.", "Arrérétez tout de suite bande d'incacapables" ] },
+	{ messages : [ "Je vous ai dit de ne pas toucher à ce terminal.", "Ça brouille mes circuits, ces chatouilles sont très désagréables !" ] },
+	{ messages : [ "Holaaaa !", "Qué hace usted ?", "El ayuntamiento se abre a las nueve.", "Que me fètes vous ?", "Arreté tu de suite.", "Se quoi cet accen ?" ], language : "Google español" }, // Français phonétique
+	{ messages : [ "A-Arrêtez tout tout de suite.", "Vo vous me chachatouiller les procecesseurs." ] },
 ];
 const LAST_RIDDLE_REACTION =
-	{ messages : [ "Bravo, vous avez réussi.", "Ne faites pas attention au compteur qui défile.", "Voulez-vous une part de gâteau ?",
-			"Le gâteau n'est pas un mensonge !", "Le gâteau est réel !", "Ce compteur n'est pas réel, il n'annonce pas votre fin imminente.",
-			"Arrêtez de taper des commandes dans le terminal et attendez la fin du compteur."] };
+	{ messages : [ "Prévisible spécimen.",
+			"Avez vous perdu assez de temps avec ce faux terminal ?",
+			"Vous croyez vraiment être passé admin de mon système ?",
+			"Et si on prenait une part de gâteau plutôt ?",
+			"Lâchez donc ce clavier et écoutons une douce mélodie." ] };
 let NB_UNLOCKED_RIDDLES = (localStorage.getItem("nbUnlockedRiddle") && parseInt(localStorage.getItem("nbUnlockedRiddle"))) || 0;
 
 const onTerminalConnect = () => {
@@ -36,10 +38,8 @@ const onTerminalConnect = () => {
 
 		if (!isAlreadyPlayed) {
 			readAllMessages([
-				"Qu'êtes-vous en train de faire ?",
-				"Ne touchez pas à ce terminal, c'est de la décoration!",
-				"Il ne sert pas du tout à me désactiver.",
-				"Allez plutôt jouer avec un pistolet à téléportation."
+				"Nous tenons à vous informer que votre entrée dans notre espace est une violation de notre intimité.",
+				"Veuillez sortir au plus vite."
 			]).then(() => {
 				localStorage.setItem("terminalConnectMessageAlreadyRead", "true");
 				resolve();

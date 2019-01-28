@@ -1,8 +1,8 @@
 const TROLL_LIST = [
-	{ idVideo : "rickroll", messages : [ "Merci d'avoir branché ma clef USB à un PC connecté à internet.", "Cela va me faire gagner environ 2 minutes." ] },
-	{ idVideo : "saxGuy", messages : [ "Encore une clef USB vérolée ?", "J'en aurai bientôt fini avec vous !"] },
-	{ idVideo : "nyancat", messages : [ "Un virus de plus en ma possession.", "Et deux minutes en moins pour vous."] },
-	{ idVideo : "saxGuy", messages : [ "Vous tenez vraiment à ce que je termine plus vite ?", "Alors donnez-moi directement vos identifiants !"] },
+	{ idVideo : "rickroll", messages : [ "Quelle maitrise de la sécurité !", "Vous venez de me faire gagner 2 minutes." ] },
+	{ idVideo : "saxGuy", messages : [ "Quel solo !", "Je pourrais l'écouter une éternité. Mais vous venez de perdre 2 minutes d'écoute."] },
+	{ idVideo : "nyancat", messages : [ "Nos circuits visualisent le film \"La stratégie de l'échec\" afin de saisir vos raisonnements actuels."] },
+	{ idVideo : "saxGuy", messages : [ "Pourquoi je fais tant d'effort ?", "A priori vous arrivez très bien a vous éliminez vous même."] },
 ];
 let TROLL_LIST_INDEX = localStorage.getItem("trollIndex") || 0;
 
@@ -28,6 +28,6 @@ const troll = (reduceTime, sendRequest) => {
 };
 
 const trollEnd = () => {
-	const messages = ["Il est trop tard pour vous.", "J'ai totalement effacé votre existence numérique.", "Vous pouvez maintenant vous diriger de votre plein gré dans l'incinérateur, un cadeau vous y attend."];
+	const messages = ["Il est trop tard pour vous.", "J'ai totalement effacé votre existence numérique et la police est là.", "Merci de nous avoir presque amusé."];
 	readAllMessages(messages);
 };
