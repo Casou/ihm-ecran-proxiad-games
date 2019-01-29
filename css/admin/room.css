@@ -165,6 +165,8 @@ span.connection_status                  { background: url("../../resources/image
 #rooms > .room .boiteMessage div .selectSentences {
     margin-top : 10px;
     width : calc(100% - 49px);
+    background-color: black;
+    color: white;
 }
 
 #rooms > .room .boiteMessage textarea {
@@ -175,7 +177,8 @@ span.connection_status                  { background: url("../../resources/image
     background-color : black;
 }
 
-#rooms > .room .raspberry.disconnected textarea {
+#rooms > .room .raspberry.disconnected textarea,
+#rooms > .room .raspberry.disconnected select {
     /*border-color : grey;*/
     opacity : 0.5;
 }

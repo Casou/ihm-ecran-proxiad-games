@@ -15,6 +15,7 @@ class Compteur {
         this.timerInterval = null;
         this.onEndCount = null;
         this.startedTime = startTime;
+        this.onRender = null;
 
         if (startTime) {
             if (statusTime === "STARTED") {
@@ -117,6 +118,9 @@ class Compteur {
     }
 
     render() {
+    	if (this.onRender) {
+    		this.onRender(this.currentTime);
+		}
         return `<span>${ !this.isStarted ? "--:--:--" : this._formatTime(this.currentTime) }</span>`;
     }
 

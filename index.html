@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/joueurs/text-glitch.css">
     <link rel="stylesheet" href="css/joueurs/message.css">
     <link rel="stylesheet" href="css/joueurs/video.css">
+    <link rel="stylesheet" href="css/joueurs/progress-bar.css">
 
     <title>IHM Joueurs</title>
 </head>
@@ -32,6 +33,11 @@
         <section id="compteur" class="glitch cherry stade0" data-text="--:--:--">
         </section>
     </main>
+
+    <aside id="progress_bar">
+        <span id="progress_bar_text"></span>
+        <div id="progress"></div>
+    </aside>
 
     <dialog id="configuration">
         <label for="configuration_select">Nom de la salle : </label>
@@ -59,6 +65,7 @@
     <script src="js/joueurs/troll.js"></script>
     <script src="js/joueurs/riddles.js"></script>
     <script src="js/joueurs/glitch.js"></script>
+    <script src="js/joueurs/progress.js"></script>
 
     <script>
 		let ROOM_ID = (localStorage.getItem("roomId") && parseInt(localStorage.getItem("roomId"))) || "";
@@ -70,6 +77,7 @@
 				trollEnd();
 				sendCountEnded(ROOM_ID);
 			};
+			COMPTEUR.onRender = checkProgressBar;
 
 			init().then(glitchize);
 		});
