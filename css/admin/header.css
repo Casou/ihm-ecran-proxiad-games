@@ -19,6 +19,6 @@
     cursor : pointer;
 }
 
-#content > nav button.selected {
-    border-bottom : 3px solid white;
+#content > nav li.active {
+    background-color : rgba(0,0,0,0.5);
 }

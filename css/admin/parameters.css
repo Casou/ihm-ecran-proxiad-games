@@ -1,36 +1,24 @@
 #params section {
     margin : 5vh 20px;
-    border : 3px solid white;
-    border-radius : 7px;
     padding: 20px;
-
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#222326+0,000000+100 */
-    background: #222326; /* Old browsers */
-    background: -moz-linear-gradient(-45deg, #222326 0%, #000000 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(-45deg, #222326 0%,#000000 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(135deg, #222326 0%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#222326', endColorstr='#000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
 #params section h1 {
+    font-size : 24px;
     margin-bottom : 10px;
 }
 
-#params table {
-    min-width : 800px;
-    border-collapse: collapse;
+#params table tr {
+    border-bottom: 1px solid rgba(255,255,255,0.12);
 }
 
-#params table th, #params table td {
-    padding : 0 10px;
-    border : 1px solid #3c3c3c;
+#params table td, #params table th {
+    padding: 5px 15px;
 }
 
 #params input {
-    width : 300px;
-    color : black;
-    background-color: white;
-    border : 2px inset grey;
+    width : 450px;
+    height : 30px;
 }
 
 span.icon {

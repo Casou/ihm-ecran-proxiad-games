@@ -47,41 +47,47 @@ class IAPamameters {
 			progressBarTextList +=
 				`<li>
 					<span class="progress_bar_timer">${ i * 5 } mn</span>
-					<input type="text"
-							maxlength="80"
-							id="sentence_${ text.id }" 
-							value="${ text.text }" 
-							onChange="updateProgressBarText(${ text.id }, this.value);" />
+					<div class="input-field">
+						<input type="text"
+								maxlength="80"
+								id="sentence_${ text.id }" 
+								value="${ text.text }" 
+								onChange="updateProgressBarText(${ text.id }, this.value);" />
+					</div>
 					<span class="delete" onClick="deleteText(${ text.id });" />
 				</li>`;
 		}
 
 
-		return `<section id="sentences">
+		return `<section id="sentences" class="card blue-grey darken-3">
 					<h1>Phrases d'introduction de l'IA</h1>
-						<ul>
-							${ this.sentences.map(sentence => `
-								<li>
+					<ul>
+						${ this.sentences.map(sentence => `
+							<li>
+								<div class="input-field">
 									<input type="text"
 											id="sentence_${ sentence.id }" 
 											value="${ sentence.text }" 
 											onKeyPress="return preventBadCharacter(event)" 
 											onChange="updateSentenceText(${ sentence.id }, this.value);" />
+								</div>
+								<div class="input-field">
 									<select id="sentence_voice_${ sentence.id }" onChange="updateSentenceVoice(${ sentence.id }, this.value);">
 										${ ALL_VOICES.map(voice => `<option value="${ voice.voiceURI }" ${ sentence.voice === voice.voiceURI && "selected" }>${ voice.voiceURI }</option>`).join("") }							
 									</select>
-									<span class="delete" onClick="deleteText(${ sentence.id });" />
-									<button class="actionButton miniButton" onClick="testSentence(${ sentence.id });">Tester</button>
-								</li>`).join("") }
-						</ul>
-						<button class="actionButton" onClick="createSentence();">Ajouter une phrase</button>
+								</div>
+								<span class="delete" onClick="deleteText(${ sentence.id });" />
+								<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testSentence(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
+							</li>`).join("") }
+					</ul>
+					<a class="waves-effect waves-light blue darken-4 btn-small" onClick="createSentence();"><i class="material-icons left">add</i>Ajouter une phrase</a>
 				</section>
-				<section id="progress_bar_texts">
+				<section id="progress_bar_texts" class="card blue-grey darken-3">
 					<h1>Textes à afficher sur la progress bar</h1>
-						<ul>
-							${ progressBarTextList }
-						</ul>
-						<button class="actionButton" onClick="createProgressBarText();">Ajouter une phrase</button>
+					<ul>
+						${ progressBarTextList }
+					</ul>
+					<a class="waves-effect waves-light blue darken-4 btn-small" onClick="createProgressBarText();"><i class="material-icons left">add</i>Ajouter une phrase</a>
 				</section>
 `;
 	}

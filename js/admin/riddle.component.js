@@ -6,8 +6,8 @@ class Riddle {
 
     render() {
         return `
-        <div id="riddle_${this.id}" class="riddle">
-            <header>
+        <div id="riddle_${this.id}" class="card blue-grey darken-3 riddle">
+            <header class="input-field">
                 <input id="name_riddle_${this.id}" value="${ this.data.name }" onChange="updateRiddleName(${this.id}, this.value);" />
             </header>
             <div>
@@ -21,7 +21,7 @@ class Riddle {
                         <input id="pwd_riddle_${this.id}" value="${ this.data.riddlePassword }" onChange="updateRiddlePassword(${ this.id }, this.value)" />
                     </li>
                 </ul>
-                <button class="deleteButton miniButton" onClick="deleteRiddle(${ this.id });">Supprimer</button>
+                <a class="waves-effect waves-light red lighten-2 btn-small" onClick="deleteRiddle(${ this.id });"><i class="material-icons left">delete</i>Supprimer</a>
             </div>
         </div>
         `;
@@ -31,7 +31,7 @@ class Riddle {
 class AddRiddle {
     render() {
         return `
-            <div id="addRiddle" class="riddle">
+            <div id="addRiddle" class="riddle valign-wrapper">
                 <div onClick="newRiddle();">Ajouter une énigme</div>
             </div>
         `;

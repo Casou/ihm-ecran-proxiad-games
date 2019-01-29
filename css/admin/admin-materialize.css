@@ -1,0 +1,22 @@
+.input-field {
+    margin : 0 !important;
+}
+
+.room header input:disabled {
+    color : white !important;
+    border-bottom : none !important;
+}
+
+.card .card-content {
+    padding : 0 !important;
+}
+
+select {
+    display : block;
+}
+
+.btn-small {
+    height: 26px;
+    line-height: 26px;
+    font-size: 12px;
+}

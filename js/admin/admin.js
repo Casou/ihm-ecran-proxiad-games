@@ -3,15 +3,15 @@ let RIDDLES = [];
 let RIDDLES_DATAS = [];
 
 const showTab = (tab) => {
-    $("#content > nav button").removeClass("selected");
-    $("#content > nav button[tab=" + tab + "]").addClass("selected");
+    $("#content > nav li").removeClass("active");
+    $("#content > nav li[tab=" + tab + "]").addClass("active");
 
     $(".tab").hide();
     $("#" + tab).show();
 };
 
 $("#content > nav button").click(function() {
-    showTab($(this).attr("tab"));
+    showTab($(this).parent().attr("tab"));
 });
 
 
