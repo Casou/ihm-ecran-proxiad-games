@@ -1,12 +1,12 @@
 let IA_PARAMETERS = null;
 
-const retrieveSentences = () => {
+const retrieveAITexts = () => {
 	return new Promise((resolve, reject) => {
 		$.ajax({
-			url: SERVER_URL + "text/intro",
+			url: SERVER_URL + "text",
 			type: "GET",
-			success: (sentences) => {
-				resolve(sentences);
+			success: (allTexts) => {
+				resolve(allTexts);
 			},
 			error: (xmlHttpRequest, textStatus, errorThrown) => {
 				console.error("Status: " + textStatus);
@@ -17,8 +17,10 @@ const retrieveSentences = () => {
 	});
 };
 
-const setAIParameters = (sentences) => {
-	IA_PARAMETERS = new IAPamameters("#sentences", sentences);
+const setAIParameters = (allTexts) => {
+	IA_PARAMETERS = new IAPamameters("#ai");
+	IA_PARAMETERS.setSentences(allTexts.filter(text => text.discriminant === "INTRO"));
+	IA_PARAMETERS.setProgress(allTexts.filter(text => text.discriminant === "PROGRESS_BAR"));
 	IA_PARAMETERS.renderAndApply();
 };
 
@@ -29,6 +31,7 @@ const createSentence = () => {
 		contentType: "application/json",
 		success: (sentence) => {
 			IA_PARAMETERS.addSentence(sentence);
+			IA_PARAMETERS.renderAndApply();
 		},
 		error: (xmlHttpRequest, textStatus, errorThrown) => {
 			console.error("Status: " + textStatus);
@@ -38,17 +41,38 @@ const createSentence = () => {
 	});
 };
 
-const updateText = (id, text) => {
+const createProgressBarText = () => {
+	$.ajax({
+		url: SERVER_URL + "text/progress",
+		type: "POST",
+		contentType: "application/json",
+		success: (sentence) => {
+			IA_PARAMETERS.addProgress(sentence);
+			IA_PARAMETERS.renderAndApply();
+		},
+		error: (xmlHttpRequest, textStatus, errorThrown) => {
+			console.error("Status: " + textStatus);
+			console.error("Error: " + errorThrown);
+			reject(textStatus);
+		}
+	});
+};
+
+const updateSentenceText = (id, text) => {
 	updateSentence({ ...IA_PARAMETERS.sentences.find(sentence => sentence.id === id), text });
 };
 
-const updateVoice = (id, voice) => {
+const updateSentenceVoice = (id, voice) => {
 	updateSentence({ ...IA_PARAMETERS.sentences.find(sentence => sentence.id === id), voice });
+};
+
+const updateProgressBarText = (id, text) => {
+	updateSentence({ ...IA_PARAMETERS.progressBarTexts.find(progress => progress.id === id), text });
 };
 
 const updateSentence = (sentence) => {
 	$.ajax({
-		url: SERVER_URL + "text/intro",
+		url: SERVER_URL + "text",
 		type: "PATCH",
 		data : JSON.stringify(sentence),
 		contentType: "application/json",
@@ -64,14 +88,14 @@ const updateSentence = (sentence) => {
 	});
 };
 
-const deleteSentence = (id) => {
+const deleteText = (id) => {
 	$.ajax({
-		url: SERVER_URL + "text/intro",
+		url: SERVER_URL + "text",
 		type: "DELETE",
 		data : JSON.stringify({ id }),
 		contentType: "application/json",
 		success: () => {
-			IA_PARAMETERS.removeSentence({ id });
+			IA_PARAMETERS.removeText(id);
 			updateSentenceSelects();
 		},
 		error: (xmlHttpRequest, textStatus, errorThrown) => {
@@ -85,7 +109,7 @@ const deleteSentence = (id) => {
 const updateSentenceSelects = () => {
 	if (ROOMS.length) {
 		const room = ROOMS[0];
-		retrieveSentences().then(sentences => {
+		retrieveAITexts().then(sentences => {
 			$(".selectSentences").html(room.renderVoicesSelect(sentences));
 		});
 	}

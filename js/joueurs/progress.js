@@ -1,22 +1,25 @@
-const PROGRESS_TEXTS = [
-	"Analyse des profils...",
-	"Accès aux archives hospitaliers, suppression des entrées...",
-	"Accès et recueil des profils réseaux sociaux...",
-	"Saturation, commande d'une extension mémoire...",
-	"Création de faux profils sur les réseaux sociaux...",
-	"Transfert des comptes bancaires...",
-	"Sauvegarde des historiques de navigation. Publication aux familles en cours...",
-	"Mise à jour des bases antivirus...",
-	"Effacement des bases institutionnelles...",
-	"Calcul S.E.T.I...",
-	"Analyse et création d'un rire satyrique en vue de la victoire...",
-	"Ouverture des portes aux équipes d'intervention..."
-];
+let PROGRESS_TEXTS = [];
+
+const retrieveAITexts = () => {
+	return new Promise((resolve, reject) => {
+		$.ajax({
+			url: SERVER_URL + "text",
+			type: "GET",
+			success: (allTexts) => {
+				resolve(allTexts.filter(text => text.discriminant === "PROGRESS_BAR"));
+			},
+			error: (xmlHttpRequest, textStatus, errorThrown) => {
+				console.error("Status: " + textStatus);
+				console.error("Error: " + errorThrown);
+				reject(textStatus);
+			}
+		});
+	});
+};
 
 const checkProgressBar = (time) => {
 	if ((time % 300) === 0) {
-		const index = Math.min(PROGRESS_TEXTS.length - Math.round(time / 300), PROGRESS_TEXTS.length - 1);
-		const text = PROGRESS_TEXTS[index];
+		const text = PROGRESS_TEXTS[PROGRESS_TEXTS.length - Math.round(time / 300)];
 		if (text) {
 			showProgressBar(text);
 		}

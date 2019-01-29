@@ -73,13 +73,17 @@
 		const COMPTEUR = new Compteur("#compteur");
 
 		checkMandatory().then(() => {
-			COMPTEUR.onEndCount = () => {
-				trollEnd();
-				sendCountEnded(ROOM_ID);
-			};
-			COMPTEUR.onRender = checkProgressBar;
+			retrieveAITexts().then((progressBarTexts) => {
+				PROGRESS_TEXTS = progressBarTexts;
 
-			init().then(glitchize);
+				COMPTEUR.onEndCount = () => {
+					trollEnd();
+					sendCountEnded(ROOM_ID);
+				};
+				COMPTEUR.onRender = checkProgressBar;
+
+				init().then(glitchize);
+            });
 		});
     </script>
 </body>
