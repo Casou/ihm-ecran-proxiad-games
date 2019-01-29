@@ -3,7 +3,7 @@ let IA_PARAMETERS = null;
 const retrieveSentences = () => {
 	return new Promise((resolve, reject) => {
 		$.ajax({
-			url: SERVER_URL + "intro_sentences",
+			url: SERVER_URL + "text/intro",
 			type: "GET",
 			success: (sentences) => {
 				resolve(sentences);
@@ -24,7 +24,7 @@ const setAIParameters = (sentences) => {
 
 const createSentence = () => {
 	$.ajax({
-		url: SERVER_URL + "intro_sentence",
+		url: SERVER_URL + "text/intro",
 		type: "POST",
 		contentType: "application/json",
 		success: (sentence) => {
@@ -48,7 +48,7 @@ const updateVoice = (id, voice) => {
 
 const updateSentence = (sentence) => {
 	$.ajax({
-		url: SERVER_URL + "intro_sentence",
+		url: SERVER_URL + "text/intro",
 		type: "PATCH",
 		data : JSON.stringify(sentence),
 		contentType: "application/json",
@@ -66,7 +66,7 @@ const updateSentence = (sentence) => {
 
 const deleteSentence = (id) => {
 	$.ajax({
-		url: SERVER_URL + "intro_sentence",
+		url: SERVER_URL + "text/intro",
 		type: "DELETE",
 		data : JSON.stringify({ id }),
 		contentType: "application/json",
