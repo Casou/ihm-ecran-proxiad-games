@@ -6,22 +6,23 @@
     width: 800px;
     margin-left: -400px;
     border: 2px solid grey;
-    border-radius: 10px;
+    border-radius: 6px;
     height: 35px;
     line-height: 35px;
     font-size: 24px;
     text-align: left;
+    background-color: black;
+    box-shadow: 0 3px 11px rgba(200, 200, 200, 0.5) inset;
 }
 
 #progress_bar.animated #progress {
-    animation: masuperanimation 120s linear forwards;
+    animation: masuperanimation 0s linear forwards;
 }
 
 #progress {
     display: inline-block;
     height: 100%;
     width : 0;
-    border-radius: 9px;
 
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#87b630+0,599121+50,3e8400+51,639f23+100 */
     background: #87b630; /* Old browsers */
@@ -35,12 +36,12 @@
     position : absolute;
     width : 100%;
     text-align : center;
-    text-shadow : 0 0 2px black, 0 0 3px black, 0 0 4px black;
+    text-shadow : 0 0 1px black, 0 0 2px black, 0 0 3px black, 0 0 4px black;
 }
 
 
 @keyframes masuperanimation {
-    0% { width : 0; border-radius: 8px 2px 2px 8px}
-    70% { border-radius: 8px 2px 2px 8px }
-    100% { width : 100%; border-radius: 8px 8px 8px 8px }
+    0% { width : 0; border-radius: 4px 2px 2px 4px; }
+    70% { border-radius: 4px 2px 2px 4px; }
+    100% { width : 100%; border-radius: 4px 4px 4px 4px; }
 }
