@@ -54,7 +54,7 @@ class IAPamameters {
 								value="${ text.text }" 
 								onChange="updateProgressBarText(${ text.id }, this.value);" />
 					</div>
-					<span class="delete" onClick="deleteText(${ text.id });" />
+					<i class="material-icons delete" onClick="deleteText(${ text.id });">delete_forever</i>
 				</li>`;
 		}
 
@@ -76,7 +76,7 @@ class IAPamameters {
 										${ ALL_VOICES.map(voice => `<option value="${ voice.voiceURI }" ${ sentence.voice === voice.voiceURI && "selected" }>${ voice.voiceURI }</option>`).join("") }							
 									</select>
 								</div>
-								<span class="delete" onClick="deleteText(${ sentence.id });" />
+								<i class="material-icons delete" onClick="deleteText(${ sentence.id });">delete_forever</i>
 								<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testSentence(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
 							</li>`).join("") }
 					</ul>

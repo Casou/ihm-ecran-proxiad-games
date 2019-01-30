@@ -84,7 +84,7 @@ const checkMandatory = () => {
 
 				throw new Error("[checkMandatory] Ping to the server has failed");
             }
-        }).finally(() => hideLoading());
+        }).finally(() => setTimeout(hideLoading, 0));
 
     return Promise.all([allVoicesPromise, pingPromise]);
 };

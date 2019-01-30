@@ -115,7 +115,9 @@ const reinitRoomAjax = (id) => {
 			ROOMS[roomIndex].data = room;
 			ROOMS[roomIndex].compteur && ROOMS[roomIndex].compteur.reinitTime();
 			$('#room_' + id).removeClass("success").removeClass("fail");
-			$("#room_" + id + " .riddle").addClass("unresolved").removeClass("resolved");
+			$("#room_" + id + " .riddle").addClass("unresolved")
+				.removeClass("resolved")
+				.html("lock_outline");
 		},
 		error: (xmlHttpRequest, textStatus, errorThrown) => {
 			console.error("xmlHttpRequest: ", xmlHttpRequest);

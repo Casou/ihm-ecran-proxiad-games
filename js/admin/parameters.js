@@ -8,8 +8,10 @@ const retrieveLocalParameters = () => {
 		<tr id="local_params__server_url">
 			<td>URL du serveur</td>
 			<td>
-				<input type="text" value="${ SERVER_URL }" onChange="updateServerURL(this.value);" />
-				<span class="icon status"></span>
+				<div class="input-field">
+					<input type="text" value="${ SERVER_URL }" onChange="updateServerURL(this.value);" />
+					<i class="material-icons icon status"></i>
+				</div>
 			</td>
 		</tr>`);
 		updateServerURL(SERVER_URL);
@@ -24,8 +26,15 @@ const updateServerURL = (newValue) => {
 
 	let iconStatus = $("#local_params__server_url .icon.status");
 	iconStatus.removeClass("ok").removeClass("ko");
-	ping().then(() => iconStatus.addClass("ok"))
-		.catch(() => iconStatus.addClass("ko"));
+	ping()
+		.then(() => {
+			iconStatus.addClass("ok").html("check");
+			$("#local_params__server_url input").addClass("valid").removeClass("invalid");
+		})
+		.catch(() => {
+			iconStatus.addClass("ko").html("close");
+			$("#local_params__server_url input").removeClass("valid").addClass("invalid");
+		});
 };
 
 
@@ -56,7 +65,11 @@ const renderParameters = (parameters) => {
 		<tr>
 			<td>${ param.key }</td>
 			<td>${ param.description }</td>
-			<td><input type="text" value="${ param.value }" onchange="updateParameter(${ param.id }, this.value);" /></td>
+			<td>
+				<div class="input-field">
+					<input type="text" value="${ param.value }" onchange="updateParameter(${ param.id }, this.value);" />
+				</div>
+			</td>
 		</tr>`)
 	});
 };

@@ -11,8 +11,8 @@ class Room {
 
     render() {
         return `
-			<div class="col s12 m6">
-				<div id="room_${this.id}" class="card blue-grey darken-3 room ${ this.data.terminateStatus }">
+			<div id="room_${this.id}" class="col s12 m6">
+				<div class="card blue-grey darken-3 room ${ this.data.terminateStatus }">
 					<div class="card-content">
 						<header>
 							<span class="reinit_room" title="Réinitialiser la salle" onClick="reinitRoom(${ this.id });"></span>
@@ -28,22 +28,23 @@ class Room {
 							<div class="riddle_icons">
 								${ this.riddles.map(riddle => {
 									let resolved = this.data.resolvedRiddles.filter(r => r.riddleId === riddle.riddleId).length > 0;
-									return `<span id="room_${this.data.id}_riddle_${riddle.id}" 
+									return `<i id="room_${this.data.id}_riddle_${riddle.id}" 
 													title="${riddle.name}" 
-													class="tooltip riddle riddle_${riddle.id} ${ resolved ? "resolved" : "unresolved" }">` + 
-											`</span>`;
+													class="tooltip riddle material-icons riddle_${riddle.id} ${ resolved ? "resolved" : "unresolved" }">
+												${ resolved ? "lock_open" : "lock_outline" }
+											</i>`;
 									}).join(" ") 
 								}
 							</div>
 							<div class="riddlePc disconnected">
-								<h2><span class="connection_status"></span> PC énigme</h2>
+								<h2><i class="material-icons connection_status">cast</i> PC énigme</h2>
 								<div class="terminal">
 									$ >
 								</div>
 							</div>
 							<div class="raspberry disconnected">
 								<h2>
-									<span class="connection_status"></span> 
+									<i class="material-icons connection_status">cast</i> 
 									IHM joueurs
 								</h2>
 								<div class="compteurWrapper">

@@ -21,20 +21,13 @@
     height : 30px;
 }
 
-span.icon {
-    display : inline-block;
-    height : 20px;
-    width : 20px;
+#params .icon {
     vertical-align: middle;
+    font-size : 20px;
+    font-weight : bold;
 }
-span.icon.ok {
-    background: url("../../resources/images/tick.png") no-repeat top left transparent;
-    background-size: contain;
-}
-span.icon.ko {
-    background: url("../../resources/images/cross.png") no-repeat top left transparent;
-    background-size: contain;
-}
+#params .icon.ok { color : #5eff5e; }
+#params .icon.ko { color : #ff6262; }
 
 #local_params span.icon {
     margin-left : 10px;

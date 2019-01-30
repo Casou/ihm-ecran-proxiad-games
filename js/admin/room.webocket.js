@@ -30,6 +30,7 @@ const retrieveConnectedRooms = () => {
 const connectedRoomCallback = (room) => {
     console.log("Connected room", room);
     $('#room_' + room.id + ' .raspberry').removeClass('disconnected');
+	$('#room_' + room.id + ' .raspberry .connection_status').html("cast_connected");
     $('#room_' + room.id + ' .raspberry *').attr('disabled', false);
     $('#room_' + room.id + ' .room_name').attr('disabled', true);
     $('#room_' + room.id + ' .delete_room').addClass('disabled');
@@ -44,6 +45,7 @@ const connectedRoomCallback = (room) => {
 const disconnectedRoomCallback = (room) => {
     console.log("Disconnected room", room);
     $('#room_' + room.id + ' .raspberry').addClass('disconnected');
+	$('#room_' + room.id + ' .raspberry .connection_status').html("cast");
     $('#room_' + room.id + ' .raspberry .compteurWrapper button').addClass('disabled');
 	$('#room_' + room.id + ' .room_name').attr('disabled', false);
 	$('#room_' + room.id + ' .delete_room').removeClass('disabled');
@@ -145,7 +147,8 @@ const sendMessageToSynthetize = (roomId, message, introSentence) => {
 const unlockRiddleCallback = (unlockDto) => {
     $("#room_" + unlockDto.roomId + "_riddle_" + unlockDto.id)
         .removeClass("unresolved")
-        .addClass("resolved");
+        .addClass("resolved")
+		.html("lock_open");
 };
 
 const successRoomCallback = (room) => {

@@ -31,8 +31,7 @@
 <body class="grey darken-4">
     <!--
     TODO List :
-    - Ajouter materialize css
-    - Refresh compteur toutes les 10 secondes (pour palier aux lenteurs JS) => ATTENTION aux reduceTimer
+    - Refresh compteur toutes.. les 10 secondes (pour palier aux lenteurs JS) => ATTENTION aux reduceTimer
     -->
 
     <div id="content">
@@ -125,7 +124,7 @@
 						retrieveLocalParameters(),
 						retrieveServerParameters().then(renderParameters)
 					]).then(() => {
-						showTab("params");
+						showTab("rooms_tab");
 						retrieveConnectedRooms();
 						retrieveConnectedUsers();
 					}).catch(error => {

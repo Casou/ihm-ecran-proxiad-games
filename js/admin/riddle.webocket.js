@@ -22,6 +22,7 @@ const retrieveConnectedUsers = () => {
 const terminalConnected = (userSessionDto) => {
     console.log("Connected terminal", userSessionDto);
 	$('#room_' + userSessionDto.roomId + " .riddlePc").removeClass("disconnected");
+	$('#room_' + userSessionDto.roomId + " .riddlePc .connection_status").html("cast_connected");
 	$('#room_' + userSessionDto.roomId + " .riddlePc *").attr("disabled", false);
 
 	$('#room_' + userSessionDto.roomId + " .riddlePc .terminal").html("$ > ");
@@ -31,6 +32,7 @@ const terminalConnected = (userSessionDto) => {
 const terminalDisconnected = (userSessionDto) => {
     console.log("Disconnected terminal", userSessionDto);
 	$('#room_' + userSessionDto.roomId + " .riddlePc").addClass("disconnected");
+	$('#room_' + userSessionDto.roomId + " .riddlePc .connection_status").html("cast");
 	$('#room_' + userSessionDto.roomId + " .riddlePc *").attr("disabled", true);
 };
 
