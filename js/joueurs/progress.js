@@ -19,9 +19,10 @@ const retrieveAITexts = () => {
 
 const checkProgressBar = (time) => {
 	if ((time % 300) === 0) {
-		const text = PROGRESS_TEXTS[PROGRESS_TEXTS.length - Math.round(time / 300)];
-		if (text) {
-			showProgressBar(text);
+    const index = PROGRESS_TEXTS.length - Math.round(time / 300);
+    const textDto = PROGRESS_TEXTS[index];
+		if (textDto) {
+			showProgressBar(textDto.text);
 		}
 	}
 };

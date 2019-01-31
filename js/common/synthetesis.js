@@ -22,7 +22,7 @@ const getVoice = (name) => {
 };
 
 const readMessage = (message, voice = "Google français") => {
-	return new Promise(resolve => {
+	return new Promise((resolve, reject) => {
 		window.utterances = []; // To fix the "onend not firing" bug
 
 		const utterance = new SpeechSynthesisUtterance(message);
@@ -31,6 +31,9 @@ const readMessage = (message, voice = "Google français") => {
 		utterance.lang = "fr-FR";
 		utterance.onend = () => {
 			resolve();
+		};
+		utterance.onerror = () => {
+			reject();
 		};
 
 		utterances.push( utterance ); // To fix the "onend not firing" bug

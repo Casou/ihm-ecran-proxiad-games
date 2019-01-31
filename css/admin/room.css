@@ -8,6 +8,7 @@
     flex : 1;
     max-width : 50vw;
     min-width : 300px;
+    min-height: 600px;
     height : calc(90vh - 50px);
     margin : 5vh 20px;
 }
@@ -112,8 +113,6 @@ span.refresh_room {
 #rooms .disconnected .connection_status    { color : #ff6262; }
 #rooms .riddle_icons .resolved      { color : #5eff5e; }
 #rooms .riddle_icons .unresolved    { color : #ff6262; }
-span.connection_status                  { background: url("../../resources/images/green-light.png") no-repeat top left transparent; }
-.disconnected span.connection_status    { background: url("../../resources/images/red-light.png") no-repeat top left transparent; }
 span.connection_status, .disconnected span.connection_status {
     background-size: contain;
 }
@@ -121,7 +120,7 @@ span.connection_status, .disconnected span.connection_status {
 #rooms .room .terminal {
     display : inline-block;
     width : calc(100% - 20px);
-    height : 300px;
+    height : 200px;
     color : #00c200;
     background-color : black;
     font-family: Courier New, serif;

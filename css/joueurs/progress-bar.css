@@ -16,7 +16,7 @@
 }
 
 #progress_bar.animated #progress {
-    animation: masuperanimation 0s linear forwards;
+    animation: masuperanimation 120s linear forwards;
 }
 
 #progress {
