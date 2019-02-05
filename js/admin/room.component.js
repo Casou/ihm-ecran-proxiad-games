@@ -46,6 +46,7 @@ class Room {
 								<h2>
 									<i class="material-icons connection_status">cast</i> 
 									IHM joueurs
+									<span class="refresh_room" title="Rafraichir l'affichage des joueurs" onClick="refreshRoom(${ this.id });"></span>
 								</h2>
 								<div class="compteurWrapper">
 									${ this.compteur && this.compteur.render() }
@@ -69,10 +70,6 @@ class Room {
 								</div>
 							</div>
 						</div>
-						
-						<footer>
-							<span class="refresh_room" title="Rafraichir l'affichage des joueurs" onClick="refreshRoom(${ this.id });"></span>
-						</footer>
 					</div>
 				</div>
 			</div>

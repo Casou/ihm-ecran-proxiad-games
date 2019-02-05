@@ -143,6 +143,15 @@ span.connection_status, .disconnected span.connection_status {
 
 
 
+#rooms .room .raspberry h2 .material-icons {
+    margin-left : 75px;
+}
+
+#rooms .room .raspberry h2 .refresh_room {
+    margin-left : 15px;
+    height : 20px;
+}
+
 #rooms .room .raspberry .compteur {
     text-align : center;
     border: 1px solid green;
@@ -187,14 +196,6 @@ span.connection_status, .disconnected span.connection_status {
 
 #rooms .hidden {
     display : none;
-}
-
-#rooms footer {
-    position: absolute;
-    bottom: 0;
-    height: 45px;
-    width: 100%;
-    text-align: center;
 }
 
 span.refresh_room {

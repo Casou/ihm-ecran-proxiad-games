@@ -21,6 +21,8 @@ const setAIParameters = (allTexts) => {
 	IA_PARAMETERS = new IAPamameters("#ai");
 	IA_PARAMETERS.setSentences(allTexts.filter(text => text.discriminant === "INTRO"));
 	IA_PARAMETERS.setProgress(allTexts.filter(text => text.discriminant === "PROGRESS_BAR"));
+	IA_PARAMETERS.setTrollTexts(allTexts.filter(text => text.discriminant === "TROLL"));
+	IA_PARAMETERS.setTrollEnd(allTexts.find(text => text.discriminant === "TROLL_END"));
 	IA_PARAMETERS.renderAndApply();
 };
 
@@ -67,7 +69,15 @@ const updateSentenceVoice = (id, voice) => {
 };
 
 const updateProgressBarText = (id, text) => {
-	updateSentence({ ...IA_PARAMETERS.progressBarTexts.find(progress => progress.id === id), text });
+	updateSentence({ ...IA_PARAMETERS.progressBarTexts.find(t => t.id === id), text });
+};
+
+const updateTrollText = (id, text) => {
+	updateSentence({ ...IA_PARAMETERS.trollTexts.find(t => t.id === id), text });
+};
+
+const updateTrollEnd = (id, text) => {
+	updateSentence({ ...IA_PARAMETERS.trollEndText, text });
 };
 
 const updateSentence = (sentence) => {

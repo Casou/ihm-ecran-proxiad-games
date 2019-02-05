@@ -41,3 +41,22 @@
     display: inline-block;
     width: 60px;
 }
+
+#ai .input-field>label {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+#ai .input-field>label:not(.label-icon).active {
+    -webkit-transform: translateY(-12px) scale(0.8);
+    transform: translateY(-12px) scale(0.8);
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+
+#ai #troll_text h1 {
+    margin : 10px 0;
+}
+#ai #troll_text h1:first-of-type {
+    margin : 0 0 15px 0;
+}
