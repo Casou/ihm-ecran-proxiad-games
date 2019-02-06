@@ -54,13 +54,17 @@
     transform-origin: 0 0;
 }
 
+#ai #enigma_text h1,
 #ai #troll_text h1 {
-    margin : 20px 0 10px 0;
+    margin : 30px 0 10px 0;
 }
+
+#ai #enigma_text h1:first-of-type,
 #ai #troll_text h1:first-of-type {
     margin : 0;
 }
-#ai #troll_text h2 {
+
+#ai h2 {
     margin : 0 0 15px 0;
     color : #bdbdbd;
     font-size : 17px;

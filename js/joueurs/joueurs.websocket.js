@@ -26,11 +26,11 @@ const subscribeAll = () => {
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/terminate", () => {
 		COMPTEUR.pauseTime();
 	});
-	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/unlockRiddle", () => {
-		addAction(() => resolveRiddle());
+	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/unlockRiddle", (unlockDto) => {
+		addAction(() => resolveRiddle(unlockDto));
 	});
-	WEBSOCKET_CLIENT.subscribe("/topic/user/" + ROOM_ID + "/connected", () => {
-		addAction(() => onTerminalConnect());
+	WEBSOCKET_CLIENT.subscribe("/topic/user/" + ROOM_ID + "/connected", (userSessionDto) => {
+		addAction(() => onTerminalConnect(userSessionDto));
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/troll", (roomTrollDto) => {
 		addAction(() => receiveTroll(roomTrollDto, () => sendReduceTime(ROOM_ID, roomTrollDto.reduceTime)).then(refreshAfterTroll));
