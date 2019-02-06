@@ -156,7 +156,7 @@ const successRoomCallback = (room) => {
 	if (roomsFiltered) {
 		roomsFiltered.compteur.terminate();
 	}
-	$('#room_' + room.id).addClass("success");
+	$('#room_' + room.id + ' .room').addClass("success");
 };
 
 const failRoomCallback = (room) => {
@@ -164,7 +164,7 @@ const failRoomCallback = (room) => {
 	if (roomsFiltered) {
 		roomsFiltered.compteur.terminate();
 	}
-	$('#room_' + room.id).addClass("fail");
+	$('#room_' + room.id + ' .room').addClass("fail");
 };
 
 const sendRefreshCommand = (id) => {

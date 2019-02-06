@@ -16,6 +16,8 @@ class Compteur {
         this.onEndCount = null;
         this.startedTime = startTime;
         this.onRender = null;
+        this.onStop = null;
+		this.onPause = null;
 
         if (startTime) {
             if (statusTime === "STARTED") {
@@ -59,6 +61,9 @@ class Compteur {
         }
         this.isPaused = true;
         clearInterval(this.timerInterval);
+        if (this.onPause) {
+			this.onPause(this.currentTime);
+		}
     }
 
     stopTime() {
@@ -66,6 +71,9 @@ class Compteur {
         this.isPaused = false;
 		this.currentTime = null;
         this.timerInterval && clearInterval(this.timerInterval);
+		if (this.onStop) {
+			this.onStop(this.currentTime);
+		}
     }
 
     animateReduceTime(time) {

@@ -19,8 +19,8 @@ const retrieveAITexts = () => {
 
 const checkProgressBar = (time) => {
 	if ((time % 300) === 0) {
-    const index = PROGRESS_TEXTS.length - Math.round(time / 300);
-    const textDto = PROGRESS_TEXTS[index];
+		const index = Math.abs(PROGRESS_TEXTS.length - Math.round(time / 300)) % PROGRESS_TEXTS.length;
+		const textDto = PROGRESS_TEXTS[index];
 		if (textDto) {
 			showProgressBar(textDto.text);
 		}
@@ -28,10 +28,10 @@ const checkProgressBar = (time) => {
 };
 
 const showProgressBar = (text) => {
+	$('#progress_bar').removeClass("animated");
 	$('#progress_bar_text').html(text);
 	$('#progress_bar').fadeIn(500, () => {
 		$('#progress_bar').addClass("animated");
-		setTimeout(hideProgressBar, 125000);
 	});
 };
 
