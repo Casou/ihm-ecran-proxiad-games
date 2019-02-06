@@ -74,9 +74,10 @@ class IAPamameters {
 					<a class="waves-effect waves-light blue darken-4 btn-small" onClick="createProgressBarText();"><i class="material-icons left">add</i>Ajouter une phrase</a>
 				</section>
 				<section id="troll_text" class="card blue-grey darken-3">
-					<h1>Troll</h1>
+					<h1>Troll - Messages avec vidéo</h1>
+					<h2>Affiche et synthétise le message puis joue la vidéo. Boucle sur la dernière vidéo si les programmes sont appelés trop de fois</h2>
 					${ trollTexts }
-					<h1>Troll (fin de partie - échec)</h1>
+					<h1>Troll - fin de partie (Échec)</h1>
 					${ trollEnd }
 				</section>
 		`;
@@ -99,8 +100,8 @@ class IAPamameters {
 							</div>
 							<div class="input-field">
 								<select id="sentence_voice_${ sentence.id }" onChange="updateSentenceVoice(${ sentence.id }, this.value);">
-								${ ALL_VOICES.map(voice => `<option value="${ voice.voiceURI }" ${ sentence.voice === voice.voiceURI && "selected" }>${ voice.voiceURI }</option>`).join("") }							
-							</select>
+									${ ALL_VOICES.map(voice => `<option value="${ voice.voiceURI }" ${ sentence.voice === voice.voiceURI && "selected" }>${ voice.voiceURI }</option>`).join("") }							
+								</select>
 							</div>
 							<i class="material-icons delete" onClick="deleteText(${ sentence.id });">delete_forever</i>
 							<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testSentence(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
@@ -145,6 +146,11 @@ class IAPamameters {
 										onKeyPress="return preventBadCharacter(event)"
 										onChange="updateTrollText(${ sentence.id }, this.value);" />
 							</div>
+							<div class="input-field">
+								<select id="troll_voice_${ sentence.id }" onChange="updateTrollVoice(${ sentence.id }, this.value);">
+									${ ALL_VOICES.map(voice => `<option value="${ voice.voiceURI }" ${ sentence.voice === voice.voiceURI && "selected" }>${ voice.voiceURI }</option>`).join("") }							
+								</select>
+							</div>
 							<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testTroll(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
 						</li>`).join("") }
 				</ul>`;
@@ -158,8 +164,14 @@ class IAPamameters {
 							onKeyPress="return preventBadCharacter(event)"
 							onChange="updateTrollEnd(${ this.trollEndText.id }, this.value);" />
 				</div>
+				<div class="input-field">
+					<select id="troll_voice_${ this.trollEndText.id }" onChange="updateTrollEndVoice(${ this.trollEndText.id }, this.value);">
+						${ ALL_VOICES.map(voice => `<option value="${ voice.voiceURI }" ${ this.trollEndText.voice === voice.voiceURI && "selected" }>${ voice.voiceURI }</option>`).join("") }							
+					</select>
+				</div>
 				<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testTroll(${ this.trollEndText.id });"><i class="material-icons left">volume_up</i>Tester</a>
 			`;
+
 	}
 
 }
@@ -172,5 +184,5 @@ const testSentence = (id) => {
 	readMessage($("#sentence_" + id).val(), $("#sentence_voice_" + id).val());
 };
 const testTroll = (id) => {
-	readMessage($("#troll_" + id).val());
+	readMessage($("#troll_" + id).val(), $("#troll_voice_" + id).val());
 };

@@ -33,7 +33,7 @@ const subscribeAll = () => {
 		addAction(() => onTerminalConnect());
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/troll", (roomTrollDto) => {
-		addAction(() => troll(roomTrollDto.reduceTime, () => sendReduceTime(ROOM_ID, roomTrollDto.reduceTime)).then(refreshAfterTroll));
+		addAction(() => receiveTroll(roomTrollDto, () => sendReduceTime(ROOM_ID, roomTrollDto.reduceTime)).then(refreshAfterTroll));
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/refresh/" + ROOM_ID, () => {
 		window.location.reload(false);

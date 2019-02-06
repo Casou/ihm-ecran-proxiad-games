@@ -76,8 +76,16 @@ const updateTrollText = (id, text) => {
 	updateSentence({ ...IA_PARAMETERS.trollTexts.find(t => t.id === id), text });
 };
 
+const updateTrollVoice = (id, voice) => {
+	updateSentence({ ...IA_PARAMETERS.trollTexts.find(t => t.id === id), voice });
+};
+
 const updateTrollEnd = (id, text) => {
 	updateSentence({ ...IA_PARAMETERS.trollEndText, text });
+};
+
+const updateTrollEndVoice = (id, voice) => {
+	updateSentence({ ...IA_PARAMETERS.trollEndText, voice });
 };
 
 const updateSentence = (sentence) => {
