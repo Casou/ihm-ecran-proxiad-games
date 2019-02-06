@@ -104,7 +104,7 @@ class IAPamameters {
 								<input type="text"
 										id="sentence_${ sentence.id }" 
 										value="${ sentence.text }"
-										onKeyPress="return preventBadCharacter(event)"
+										onKeyPress="return preventBadCharacterForSynthetizedText(event)"
 										onChange="updateSentenceText(${ sentence.id }, this.value);" />
 							</div>
 							<div class="input-field">
@@ -151,7 +151,7 @@ class IAPamameters {
 								<input type="text"
 										id="troll_${ sentence.id }" 
 										value="${ sentence.text }"
-										onKeyPress="return preventBadCharacter(event)"
+										onKeyPress="return preventBadCharacterForSynthetizedText(event)"
 										onChange="updateTrollText(${ sentence.id }, this.value);" />
 							</div>
 							<div class="input-field">
@@ -169,7 +169,7 @@ class IAPamameters {
 					<input type="text"
 							id="troll_${ this.trollEndText.id }" 
 							value="${ this.trollEndText.text }"
-							onKeyPress="return preventBadCharacter(event)"
+							onKeyPress="return preventBadCharacterForSynthetizedText(event)"
 							onChange="updateTrollEnd(${ this.trollEndText.id }, this.value);" />
 				</div>
 				<div class="input-field">
@@ -189,7 +189,7 @@ class IAPamameters {
 								<input type="text"
 										id="enigma_${ sentence.id }" 
 										value="${ sentence.text }"
-										onKeyPress="return preventBadCharacter(event)"
+										onKeyPress="return preventBadCharacterForSynthetizedText(event)"
 										onChange="updateEnigmaText(${ sentence.id }, this.value);" />
 							</div>
 							<div class="input-field">
@@ -208,7 +208,7 @@ class IAPamameters {
 					<input type="text"
 							id="troll_${ this.lastEnigmaText.id }" 
 							value="${ this.lastEnigmaText.text }"
-							onKeyPress="return preventBadCharacter(event)"
+							onKeyPress="return preventBadCharacterForSynthetizedText(event)"
 							onChange="updateLastEnigmaText(${ this.lastEnigmaText.id }, this.value);" />
 				</div>
 				<div class="input-field">
@@ -225,7 +225,7 @@ class IAPamameters {
 					<input type="text"
 							id="troll_${ this.openTerminalText.id }" 
 							value="${ this.openTerminalText.text }"
-							onKeyPress="return preventBadCharacter(event)"
+							onKeyPress="return preventBadCharacterForSynthetizedText(event)"
 							onChange="updateOpenTerminalText(${ this.openTerminalText.id }, this.value);" />
 				</div>
 				<div class="input-field">
@@ -239,8 +239,8 @@ class IAPamameters {
 
 }
 
-const preventBadCharacter = (event) => {
-	return event.which !== 34;
+const preventBadCharacterForSynthetizedText = (event) => {
+	return event.which !== 34; // Caractère "
 };
 
 const testSentence = (id) => {

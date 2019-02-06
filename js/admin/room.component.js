@@ -20,6 +20,7 @@ class Room {
 							  <input type="text" 
 									class="room_name" 
 									value="${ this.data.name }"
+									onKeyPress="return preventBadCharacterForRoomName(event)"
 									onChange="updateRoomName(${ this.id }, this.value)" />
 							</div>
 							<span class="delete_room" title="Supprimer la salle" onClick="deleteRoom(${ this.id });"></span>
@@ -95,3 +96,7 @@ class AddRoom {
     }
 }
 
+const preventBadCharacterForRoomName = (event) => {
+	const inp = String.fromCharCode(event.keyCode);
+	return /[a-zA-Z0-9]/.test(inp);
+};
