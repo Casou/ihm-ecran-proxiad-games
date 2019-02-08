@@ -80,6 +80,10 @@ const updateParameter = (id, value) => {
 		type: "POST",
 		data : JSON.stringify({ id, value }),
 		contentType: "application/json",
+		success: () => {
+			const key = Object.values(PARAMETERS).find(p => p.id === 1).key;
+			PARAMETERS[key].value = value;
+		},
 		error: (xmlHttpRequest, textStatus, errorThrown) => {
 			console.error("Status: " + textStatus);
 			console.error("Error: " + errorThrown);
