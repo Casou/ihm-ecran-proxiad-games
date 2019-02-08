@@ -17,7 +17,8 @@ const receiveTroll = ({ reduceTime, message, videoName }, sendRequest) => {
 	});
 };
 
+let TROLL_END = null;
 const trollEnd = () => {
-	const messages = ["Il est trop tard pour vous.", "J'ai totalement effacé votre existence numérique et la police est là.", "Merci de nous avoir presque amusé."];
-	readAllMessages(messages);
+	console.log("Troll end", TROLL_END);
+	readAllMessages([ TROLL_END.text ]);
 };

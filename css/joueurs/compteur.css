@@ -27,6 +27,11 @@
     animation: glow-red 2.5s linear infinite;
 }
 
+#compteur.glitch.alert:before,
+#compteur.glitch.alert:after {
+    text-shadow: 0 0 8px white, 0 0 16px white, 0 0 32px white, 0 0 64px white, 0 0 128px white;
+}
+
 #compteur.glitch.finished:before,
 #compteur.glitch.finished:after {
     content: '';

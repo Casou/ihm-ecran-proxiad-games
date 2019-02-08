@@ -4,6 +4,6 @@ const init = () => {
 
 	return Promise.all([
 		retrieveAllRooms().then(updateCurrentRoomData),
-		retrieveAllRiddles()
+		retrieveAllRiddles(),
 	]);
 };

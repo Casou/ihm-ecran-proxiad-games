@@ -70,8 +70,9 @@
 		const COMPTEUR = new Compteur("#compteur");
 
 		checkMandatory().then(() => {
-			retrieveAITexts().then((progressBarTexts) => {
-				PROGRESS_TEXTS = progressBarTexts;
+			retrieveAITexts().then((allTexts) => {
+				PROGRESS_TEXTS = allTexts.filter(text => text.discriminant === "PROGRESS_BAR");
+				TROLL_END = allTexts.find(text => text.discriminant === "TROLL_END");
 
 				COMPTEUR.onEndCount = () => {
 					trollEnd();
@@ -84,6 +85,7 @@
 				init().then(glitchize);
             });
 		});
+
     </script>
 </body>
 </html>

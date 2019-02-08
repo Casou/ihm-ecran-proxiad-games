@@ -6,7 +6,7 @@ const retrieveAITexts = () => {
 			url: SERVER_URL + "text",
 			type: "GET",
 			success: (allTexts) => {
-				resolve(allTexts.filter(text => text.discriminant === "PROGRESS_BAR"));
+				resolve(allTexts);
 			},
 			error: (xmlHttpRequest, textStatus, errorThrown) => {
 				console.error("Status: " + textStatus);
@@ -18,7 +18,9 @@ const retrieveAITexts = () => {
 };
 
 const checkProgressBar = (time) => {
-	if ((time % 300) === 0) {
+	if (time === 0) {
+		hideProgressBar();
+	} else if ((time % 300) === 0) {
 		const index = Math.abs(PROGRESS_TEXTS.length - Math.round(time / 300)) % PROGRESS_TEXTS.length;
 		const textDto = PROGRESS_TEXTS[index];
 		if (textDto) {
