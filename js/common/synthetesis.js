@@ -34,7 +34,7 @@ const readMessage = (message, voice = "Google français") => {
 			resolve();
 		};
 		utterance.onerror = (event) => {
-            console.error(">> MESSAGE KO : ", message, event.error);
+            console.error(">> MESSAGE KO : ", message, event);
 			reject();
 		};
 
