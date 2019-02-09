@@ -30,9 +30,11 @@ const readMessage = (message, voice = "Google français") => {
 		utterance.voice = getVoice(voice);
 		utterance.lang = "fr-FR";
 		utterance.onend = () => {
+			console.log(">> MESSAGE OK : ", message);
 			resolve();
 		};
 		utterance.onerror = () => {
+            console.error(">> MESSAGE OK : ", message);
 			reject();
 		};
 

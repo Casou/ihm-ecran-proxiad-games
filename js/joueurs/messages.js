@@ -1,6 +1,7 @@
 const MESSAGE_FADE_DURATION = 1000;
 
 const incomingMessage = (messages, introSentence) => {
+	console.log("Incoming message", introSentence, message)
 	return new Promise(resolve => {
 		readMessage(introSentence.text, introSentence.voice).then(() =>
 			setTimeout(() => {
