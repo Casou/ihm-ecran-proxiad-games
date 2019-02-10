@@ -1,44 +1,26 @@
-// let VOICE = null;
-// window.speechSynthesis.onvoiceschanged = function() {
-//     let googleVoiceArray = getVoice("Google français");
-//     if (googleVoiceArray) {
-//         VOICE = googleVoiceArray[0];
-//     }
-// };
-
 let ALL_VOICES = [];
-const retrieveAllVoices = () => {
-	return new Promise(resolve => {
-		window.speechSynthesis.onvoiceschanged = function() {
-			ALL_VOICES = window.speechSynthesis.getVoices();
-			resolve();
-		};
-	});
-};
+const DEFAULT_VOICE = "French Female";
 
+const readMessage = (message, voice = DEFAULT_VOICE, options = {}) => {
+  return new Promise((resolve, reject) => {
+    responsiveVoice.speak(message, getVoice(voice), {
+      pitch : 0.5,
+      ...options,
+      onerror: (event) => reject(event),
+      onend: () => resolve(),
+    });
+  });
+};
 
 const getVoice = (name) => {
-	return window.speechSynthesis.getVoices().filter(voice => voice.voiceURI === name)[0];
+  return ALL_VOICES.find(voice => voice.name === name) ? name : DEFAULT_VOICE;
 };
 
-const readMessage = (message, voice = "Google français") => {
-	return new Promise((resolve, reject) => {
-		window.utterances = []; // To fix the "onend not firing" bug
-
-		const utterance = new SpeechSynthesisUtterance(message);
-		utterance.pitch = 0.5;
-		utterance.voice = getVoice(voice);
-        utterance.lang = "fr-FR";
-		utterance.onend = () => {
-			console.log(">> MESSAGE OK : ", message);
-			resolve();
-		};
-		utterance.onerror = (event) => {
-            console.error(">> MESSAGE KO : ", message, event);
-			reject();
-		};
-
-		utterances.push( utterance ); // To fix the "onend not firing" bug
-		window.speechSynthesis.speak(utterance);
-	});
+const retrieveAllVoices = () => {
+  return new Promise((resolve) => {
+    responsiveVoice.OnVoiceReady = function() {
+      ALL_VOICES = responsiveVoice.getVoices();
+      resolve();
+    };
+  });
 };
