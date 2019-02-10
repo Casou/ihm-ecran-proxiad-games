@@ -60,6 +60,7 @@ class IAPamameters {
 
 		return `<section id="sentences" class="card blue-grey darken-3">
 					<h1>Phrases d'introduction de l'IA</h1>
+					<h2>Synthétise le message sans l'afficher.</h2>
 					${ iaIntroductionSentences }
 					<a class="waves-effect waves-light blue darken-4 btn-small" onClick="createSentence();"><i class="material-icons left">add</i>Ajouter une phrase</a>
 				</section>
@@ -73,6 +74,7 @@ class IAPamameters {
 					<h2>Affiche et synthétise le message puis joue la vidéo. Boucle sur la dernière vidéo si les programmes sont appelés trop de fois.</h2>
 					${ trollTexts }
 					<h1>Troll - fin de partie (Échec)</h1>
+					<h2>Synthétise le message sans l'afficher.</h2>
 					${ trollEnd }
 				</section>
 				<section id="enigma_text" class="card blue-grey darken-3">
@@ -109,7 +111,7 @@ class IAPamameters {
 							</div>
 							<div class="input-field">
 								<select id="sentence_voice_${ sentence.id }" onChange="updateSentenceVoice(${ sentence.id }, this.value);">
-									${ ALL_VOICES.map(voice => `<option value="${ voice.voiceURI }" ${ sentence.voice === voice.voiceURI && "selected" }>${ voice.voiceURI }</option>`).join("") }							
+									${ this._mapAllVoicesToOptions(sentence.voice) }
 								</select>
 							</div>
 							<i class="material-icons delete" onClick="deleteText(${ sentence.id });">delete_forever</i>
@@ -156,7 +158,7 @@ class IAPamameters {
 							</div>
 							<div class="input-field">
 								<select id="troll_voice_${ sentence.id }" onChange="updateTrollVoice(${ sentence.id }, this.value);">
-									${ ALL_VOICES.map(voice => `<option value="${ voice.voiceURI }" ${ sentence.voice === voice.voiceURI && "selected" }>${ voice.voiceURI }</option>`).join("") }							
+									${ this._mapAllVoicesToOptions(sentence.voice) }
 								</select>
 							</div>
 							<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testTroll(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
@@ -174,7 +176,7 @@ class IAPamameters {
 				</div>
 				<div class="input-field">
 					<select id="troll_voice_${ this.trollEndText.id }" onChange="updateTrollEndVoice(${ this.trollEndText.id }, this.value);">
-						${ ALL_VOICES.map(voice => `<option value="${ voice.voiceURI }" ${ this.trollEndText.voice === voice.voiceURI && "selected" }>${ voice.voiceURI }</option>`).join("") }							
+						${ this._mapAllVoicesToOptions(this.trollEndText.voice) }
 					</select>
 				</div>
 				<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testTroll(${ this.trollEndText.id });"><i class="material-icons left">volume_up</i>Tester</a>
@@ -194,7 +196,7 @@ class IAPamameters {
 							</div>
 							<div class="input-field">
 								<select id="enigma_voice_${ sentence.id }" onChange="updateEnigmaVoice(${ sentence.id }, this.value);">
-									${ ALL_VOICES.map(voice => `<option value="${ voice.voiceURI }" ${ sentence.voice === voice.voiceURI && "selected" }>${ voice.voiceURI }</option>`).join("") }							
+									${ this._mapAllVoicesToOptions(sentence.voice) }							
 								</select>
 							</div>
 							<i class="material-icons delete" onClick="deleteText(${ sentence.id });">delete_forever</i>
@@ -213,7 +215,7 @@ class IAPamameters {
 				</div>
 				<div class="input-field">
 					<select id="troll_voice_${ this.lastEnigmaText.id }" onChange="updateLastEnigmaVoice(${ this.lastEnigmaText.id }, this.value);">
-						${ ALL_VOICES.map(voice => `<option value="${ voice.voiceURI }" ${ this.lastEnigmaText.voice === voice.voiceURI && "selected" }>${ voice.voiceURI }</option>`).join("") }							
+						${ this._mapAllVoicesToOptions(this.lastEnigmaText.voice) }							
 					</select>
 				</div>
 				<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testTroll(${ this.lastEnigmaText.id });"><i class="material-icons left">volume_up</i>Tester</a>
@@ -230,12 +232,18 @@ class IAPamameters {
 				</div>
 				<div class="input-field">
 					<select id="troll_voice_${ this.openTerminalText.id }" onChange="updateOpenTerminalVoice(${ this.openTerminalText.id }, this.value);">
-						${ ALL_VOICES.map(voice => `<option value="${ voice.voiceURI }" ${ this.openTerminalText.voice === voice.voiceURI && "selected" }>${ voice.voiceURI }</option>`).join("") }							
+						${ this._mapAllVoicesToOptions(this.openTerminalText.voice) }
 					</select>
 				</div>
 				<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testTroll(${ this.openTerminalText.id });"><i class="material-icons left">volume_up</i>Tester</a>
 			`;
 	}
+
+  _mapAllVoicesToOptions(selectedVoice) {
+    return ALL_VOICES
+      .map(voice => `<option value="${ voice.name }" ${ selectedVoice === voice.name && "selected" }>${ voice.name }</option>`)
+      .join("");
+  }
 
 }
 

@@ -23,6 +23,3 @@ yarn-error.log*
 .idea
 *.iml
 package-lock.json
-
-*.mp4
-*.ogv
