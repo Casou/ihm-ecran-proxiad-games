@@ -27,9 +27,7 @@ const readMessage = (message, voice = "Google français") => {
 
 		const utterance = new SpeechSynthesisUtterance(message);
 		utterance.pitch = 0.5;
-		// utterance.voice = getVoice(voice);
-        utterance.voiceURI = "native";
-		utterance.localService = true;
+		utterance.voice = getVoice(voice);
         utterance.lang = "fr-FR";
 		utterance.onend = () => {
 			console.log(">> MESSAGE OK : ", message);
