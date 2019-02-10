@@ -1,0 +1,188 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Responsive Voice Test</title>
+<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+<script type='text/javascript' src='responsiveVoice.js'></script>
+
+<style>
+    
+    body {
+        
+        font-family: Arial;
+        
+    }
+    
+    .inline {
+        float:left;
+        
+    }
+    
+    #framelogo {
+        margin-top:-13px;
+        margin-left:30px;
+    }
+    
+</style>
+
+<script>
+
+var windowReady = false;
+var voiceReady = false;
+
+var defaultparams = {
+    rate: 1,
+    pitch: 1,
+    volume: 1,
+    text: 'The voice consists of sound made by a human being using the vocal folds for talking, reading, singing, laughing, crying, screaming etc. The human voice is specifically a part of human sound production in which the vocal folds (vocal cords) are the primary sound source.',
+    voice: 'UK English Female'
+};
+
+console.log("toto ?");
+
+window.onload = function() {
+
+console.log("load");
+    $('#text').val(getUrlParameter('text') || defaultparams.text);
+    
+ 
+    
+    windowReady = true;
+
+    $('#voicetestdiv').hide();
+    $('#waitingdiv').show();
+
+    playbutton.onclick = function() {
+
+        console.log("speak");
+        responsiveVoice.speak($('#text').val(),$('#voiceselection').val());
+
+    };
+    
+ 
+    stopbutton.onclick = function() {
+
+        responsiveVoice.cancel();
+
+    };	
+
+    responsiveVoice.AddEventListener("OnLoad",function(){
+        console.log("ResponsiveVoice Loaded Callback") ;
+    });
+
+
+    CheckLoading();
+
+
+    
+};
+
+responsiveVoice.OnVoiceReady = function() {
+
+    
+console.log("OnVoiceReady");
+    voiceReady = true;
+    CheckLoading();
+}
+
+
+function CheckLoading() {
+    console.log("check", voiceReady, windowReady);
+    if (voiceReady && windowReady) {
+
+        $('#voicetestdiv').fadeIn(0.5);
+        $('#waitingdiv').fadeOut(0.5);
+
+        //Populate voice selection dropdown
+        var voicelist = responsiveVoice.getVoices();
+
+    console.log("voicelist", voicelist);
+
+        var vselect = $("#voiceselection");
+        vselect.html("");
+        $.each(voicelist, function() {
+                vselect.append($("<option />").val(this.name).text(this.name));
+        });	      
+        
+            $('#voiceselection').val(getUrlParameter('voice') || defaultparams.voice);
+        
+        getIframeWindow(document.getElementById('framelogo')).responsiveVoice = responsiveVoice;
+        
+    }
+    
+}
+
+function getIframeWindow(iframe_object) {
+  var doc;
+
+  if (iframe_object.contentWindow) {
+    return iframe_object.contentWindow;
+  }
+
+  if (iframe_object.window) {
+    return iframe_object.window;
+  } 
+
+  if (!doc && iframe_object.contentDocument) {
+    doc = iframe_object.contentDocument;
+  } 
+
+  if (!doc && iframe_object.document) {
+    doc = iframe_object.document;
+  }
+
+  if (doc && doc.defaultView) {
+   return doc.defaultView;
+  }
+
+  if (doc && doc.parentWindow) {
+    return doc.parentWindow;
+  }
+
+  return undefined;
+}
+
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+};
+
+
+</script>
+
+</head>
+
+<body>
+    
+    
+    <div class="inline">
+        <div id='waitingdiv'>
+            Loading ResponsiveVoice...<br />
+            If it doesn't load please <a href="http://caniuse.com/#feat=speech-synthesis" target="_blank">check your browser compatibility</a>
+        </div>
+
+        <div id='voicetestdiv'>
+            <textarea id="text" cols="85" rows="5">The voice consists of sound made by a human being using the vocal folds for talking, reading, singing, laughing, crying, screaming etc. The human voice is specifically a part of human sound production in which the vocal folds (vocal cords) are the primary sound source.</textarea>
+            <br />
+            <select id="voiceselection"></select>            <input  id="playbutton" type="button" value="Play" />
+            <input  id="stopbutton" type="button" value="Stop" />
+            
+        </div>
+    </div>
+   
+    
+    
+</body>
+</html>
