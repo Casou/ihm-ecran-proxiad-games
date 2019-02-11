@@ -66,3 +66,11 @@ const updateCurrentRoomData = () => {
         COMPTEUR.render();
     }
 };
+
+const reinitRoom = () => {
+	const savedServerUrl = localStorage.getItem("serverUrl");
+	localStorage.clear();
+	localStorage.setItem("roomId", ROOM_ID);
+	localStorage.setItem("serverUrl", savedServerUrl);
+	window.location.reload(false);
+};

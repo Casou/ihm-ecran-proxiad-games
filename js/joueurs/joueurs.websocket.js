@@ -19,9 +19,7 @@ const subscribeAll = () => {
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/reinit", () => {
 		COMPTEUR.stopTime();
 		$("#compteur").hide();
-		localStorage.clear();
-		localStorage.setItem("roomId", ROOM_ID);
-		window.location.reload(false);
+		reinitRoom();
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/terminate", () => {
 		COMPTEUR.pauseTime();
