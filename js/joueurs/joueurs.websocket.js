@@ -5,10 +5,7 @@ const initWebSocket = () => {
 
 const subscribeAll = () => {
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/start", (room) => {
-		COMPTEUR.initTimer(room.remainingTime);
-		COMPTEUR.startTime();
-		WEBSOCKET_CLIENT.send("/room/startTimer", { id : ROOM_ID });
-		$("#compteur").show();
+		playIntroAndStartTimer(room.remainingTime);
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/message", (messageDto) => {
 		addAction(() => incomingMessage([messageDto.message], messageDto.introSentence));
@@ -18,7 +15,6 @@ const subscribeAll = () => {
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/reinit", () => {
 		COMPTEUR.stopTime();
-		$("#compteur").hide();
 		reinitRoom();
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/terminate", () => {
@@ -52,4 +48,16 @@ const refreshAfterTroll = () => {
 		const remainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(room.startTime), room.remainingTime);
 		COMPTEUR.initTimer(remainingTime);
 	});
+};
+
+const playIntroAndStartTimer = (remainingTime) => {
+	const jqTrollVideo = $('#video video#intro');
+	jqTrollVideo[0].currentTime = 0;
+	jqTrollVideo.on('ended', () => {
+		COMPTEUR.initTimer(remainingTime);
+		COMPTEUR.startTime();
+		WEBSOCKET_CLIENT.send("/room/startTimer", { id : ROOM_ID });
+	});
+	jqTrollVideo.show();
+	jqTrollVideo[0].play();
 };

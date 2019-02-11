@@ -45,7 +45,7 @@ const showProgressBar = (time) => {
 const updateProgressBar = (text) => {
 	$('#progress_bar').removeClass("animated");
 	$('#progress_bar_text').html(text);
-	$('#progress_bar').addClass("animated");
+	setTimeout(() => $('#progress_bar').addClass("animated"), 30);
 };
 
 const hideProgressBar = () => {

@@ -133,7 +133,12 @@ class Compteur {
     	if (this.onRender) {
     		this.onRender(this.currentTime);
 		}
-        return `<span>${ !this.isStarted ? "--:--:--" : this._formatTime(this.currentTime) }</span>`;
+
+		const cssClasses = [];
+		this.isStarted && cssClasses.push("started");
+		this.isPaused && cssClasses.push("paused");
+
+        return `<span class="${ cssClasses.join(" ") }">${ !this.isStarted ? "--:--:--" : this._formatTime(this.currentTime) }</span>`;
     }
 
     renderAndApply() {
