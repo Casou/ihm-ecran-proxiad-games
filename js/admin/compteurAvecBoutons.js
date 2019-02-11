@@ -49,8 +49,6 @@ class CompteurAvecBoutons {
 		const timerStarted = this.compteur && this.compteur.isStarted && !this.compteur.isPaused;
 
         return `
-			<!-- <button class="actionButton miniButton resetButton ${ this.isTerminated || !this.compteur || timerStarted ? 'disabled' : '' }" onClick="resetTimer(${this.id})">↻</button> --> 
-			<!-- <button class="actionButton miniButton stopButton ${ this.isTerminated || !this.compteur || !timerStarted ? 'disabled' : '' }" onClick="stopTimer(${this.id})">■</button> --> 
 			<button class="actionButton miniButton pauseButton ${ !this.isConnected || this.isTerminated || !this.compteur || !timerStarted ? 'disabled' : '' }" onClick="stopTimer(${this.id})">❚❚</button> 
 			<button class="actionButton miniButton startButton ${ !this.isConnected || this.isTerminated || this.compteur && timerStarted ? 'disabled' : '' }" onClick="startTimer(${this.id})">▶</button>
 			 
