@@ -16,6 +16,7 @@ class Compteur {
         this.onEndCount = null;
         this.startedTime = startTime;
         this.onRender = null;
+        this.onStart = null;
         this.onStop = null;
 		this.onPause = null;
 
@@ -52,6 +53,9 @@ class Compteur {
         this.renderAndApply();
         setTimeout(() => {
 			this.timerInterval = setInterval(() => this._decreaseTime(), 1000);
+			if (this.onStart) {
+				this.onStart(this.currentTime);
+			}
         }, 1000);
     }
 

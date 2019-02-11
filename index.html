@@ -84,6 +84,7 @@
 				COMPTEUR.onRender = checkProgressBar;
 				COMPTEUR.onPause = hideProgressBar;
 				COMPTEUR.onStop = hideProgressBar;
+				COMPTEUR.onStart = (time) => setTimeout(() => showProgressBar(time), 2000);
 
 				init().then(glitchize);
             });
