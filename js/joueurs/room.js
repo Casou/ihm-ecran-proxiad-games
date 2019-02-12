@@ -4,7 +4,7 @@ const retrieveAllRooms = () => {
             url: SERVER_URL + "rooms",
             type: "GET",
             success: (rooms) => {
-                ROOMS_DATA = rooms;
+				ALL_ROOMS = rooms;
 
                 $("#configuration_select").html("<option value=''>Choisir une salle</option>");
 
@@ -52,11 +52,12 @@ const updateCurrentRoomData = () => {
 		return;
 	}
 
-	const room = ROOMS_DATA.filter(r => r.id === ROOM_ID)[0];
+	const room = ALL_ROOMS.filter(r => r.id === ROOM_ID)[0];
 	if (room.startTime) {
         if (room.statusTime === "STARTED") {
-			const remainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(room.startTime), room.remainingTime);
-			COMPTEUR.initTimer(remainingTime);
+			let startTimeDate = parseJavaLocalDateTimeToJsDate(room.startTime);
+			const remainingTime = calculateRemainingTime(startTimeDate, room.remainingTime);
+			COMPTEUR.initTimer(remainingTime, room.remainingTime, startTimeDate);
             COMPTEUR.startTime();
         } else if (room.statusTime === "PAUSED") {
 			COMPTEUR.isStarted = true;

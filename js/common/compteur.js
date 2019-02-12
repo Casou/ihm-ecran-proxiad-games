@@ -11,6 +11,7 @@ class Compteur {
         this.selector = selector;
         this.isStarted = false;
         this.isPaused = false;
+        this.initialTime = remainingTime;
         this.currentTime = null;
         this.timerInterval = null;
         this.onEndCount = null;
@@ -19,6 +20,7 @@ class Compteur {
         this.onStart = null;
         this.onStop = null;
 		this.onPause = null;
+		this.animated = false;
 
         if (startTime) {
             if (statusTime === "STARTED") {
@@ -34,15 +36,16 @@ class Compteur {
         }
     }
 
-    initTimer(remainingTime = INIT_TIME_IN_SECONDS) {
+    initTimer(remainingTime = INIT_TIME_IN_SECONDS, initialTime = null, startTimeDate = null) {
 		this.currentTime = remainingTime;
+		if (initialTime) {
+			this.initialTime = initialTime;
+		}
+		if (startTimeDate) {
+			this.startedTime = startTimeDate;
+		}
         this.renderAndApply();
     }
-
-	refreshRemainingTime() {
-		const calculatedRemainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(this.startedTime), this.currentTime);
-		this.initTimer(calculatedRemainingTime);
-	}
 
     startTime() {
         if (this.isStarted && !this.isPaused) {
@@ -53,6 +56,9 @@ class Compteur {
         this.renderAndApply();
         setTimeout(() => {
 			this.timerInterval = setInterval(() => this._decreaseTime(), 1000);
+			if (!this.startedTime) {
+				this.startedTime = new Date();
+			}
 			if (this.onStart) {
 				this.onStart(this.currentTime);
 			}
@@ -80,8 +86,9 @@ class Compteur {
 		}
     }
 
-    animateReduceTime(time) {
+    animateReduceTime(timeToReduce) {
     	return new Promise(resolve => {
+			this.animated = true;
 			const wasStarted = this.isStarted;
 			this.pauseTime();
 
@@ -91,14 +98,16 @@ class Compteur {
 				this.renderAndApply();
 				decreasedCount++;
 
-				if (decreasedCount >= time) {
+				if (decreasedCount >= timeToReduce) {
 					clearInterval(reduceInterval);
 					if (wasStarted) {
 						this.startTime();
 					}
+					this.animated = false;
+					this.initialTime -= timeToReduce;
 					resolve();
 				}
-			}, 5000 / time);
+			}, 5000 / timeToReduce);
 		});
     }
 
@@ -111,9 +120,19 @@ class Compteur {
             if (this.onEndCount) {
 				this.onEndCount();
 			}
-        }
+        } else if (this.currentTime % 10 === 0) {
+			this._recalculateTime();
+		}
         this.renderAndApply();
     }
+
+    _recalculateTime() {
+		if (this.animated) {
+			return;
+		}
+		let diff = Math.round((new Date() - this.startedTime) / 1000);
+		this.currentTime = this.initialTime - diff;
+	}
 
     _formatTime(time) {
         if (!time && time !== 0) {

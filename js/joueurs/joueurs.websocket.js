@@ -44,7 +44,7 @@ const sendReduceTime = (id, time) => {
 
 const refreshAfterTroll = () => {
 	retrieveAllRooms().then(() => {
-		const room = ROOMS_DATA.filter(r => r.id === ROOM_ID)[0];
+		const room = ALL_ROOMS.filter(r => r.id === ROOM_ID)[0];
 		const remainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(room.startTime), room.remainingTime);
 		COMPTEUR.initTimer(remainingTime);
 	});
@@ -54,7 +54,7 @@ const playIntroAndStartTimer = (remainingTime) => {
 	const jqTrollVideo = $('#video video#intro');
 	jqTrollVideo[0].currentTime = 0;
 	jqTrollVideo.on('ended', () => {
-		COMPTEUR.initTimer(remainingTime);
+		COMPTEUR.initTimer(remainingTime, remainingTime);
 		COMPTEUR.startTime();
 		WEBSOCKET_CLIENT.send("/room/startTimer", { id : ROOM_ID });
 	});

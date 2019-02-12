@@ -20,7 +20,7 @@ const displayAndSynthesizeMessage = (messageArray, waitTimeBeforeHideText = MESS
 				$('#message #message_content').html(messageArray.join(" "));
 				$('#message').fadeIn(MESSAGE_FADE_DURATION);
 
-				readAllmessageArray(messageArray).then(() => {
+				readAllMessages(messageArray).then(() => {
 					setTimeout(() => {
 						$('#message').fadeOut(MESSAGE_FADE_DURATION, () => {
 							$('main').fadeIn(MESSAGE_FADE_DURATION);

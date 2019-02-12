@@ -66,7 +66,8 @@ const startRoomCallback = (room) => {
 
 const startTimerRoomCallback = (room) => {
     const compteur = new Compteur('#room_' + room.id + " .raspberry .compteur");
-    compteur.initTimer(room.remainingTime);
+    console.log("startTimerRoomCallback", room);
+    compteur.initTimer(room.remainingTime, room.remainingTime);
     compteur.startTime();
 
 	const compteurWrapper = new CompteurAvecBoutons('#room_' + room.id + " .raspberry .compteurWrapper", compteur, room.id);
