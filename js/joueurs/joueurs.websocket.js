@@ -18,7 +18,7 @@ const subscribeAll = () => {
 		reinitRoom();
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/terminate", () => {
-		COMPTEUR.pauseTime();
+		success();
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/unlockRiddle", (unlockDto) => {
 		addAction(() => resolveRiddle(unlockDto));
@@ -51,13 +51,28 @@ const refreshAfterTroll = () => {
 };
 
 const playIntroAndStartTimer = (remainingTime) => {
-	const jqTrollVideo = $('#video video#intro');
-	jqTrollVideo[0].currentTime = 0;
-	jqTrollVideo.on('ended', () => {
+	const jqIntroVideo = $('#video video#intro');
+	jqIntroVideo[0].currentTime = 0;
+	jqIntroVideo.on('ended', () => {
 		COMPTEUR.initTimer(remainingTime, remainingTime);
 		COMPTEUR.startTime();
 		WEBSOCKET_CLIENT.send("/room/startTimer", { id : ROOM_ID });
 	});
-	jqTrollVideo.show();
-	jqTrollVideo[0].play();
+	jqIntroVideo.show();
+	jqIntroVideo[0].play();
+};
+
+const success = () => {
+	COMPTEUR.pauseTime();
+	$("#compteur").fadeOut(1000, () => {
+		$('#video video').hide();
+		const jqFinalVideo = $('#video video#final');
+		jqFinalVideo[0].currentTime = 0;
+		jqFinalVideo.on('ended', () => {
+			setTimeout(() => $("#compteur").removeClass("glitch").fadeIn(1000), 1000);
+		});
+		jqFinalVideo[0].play();
+		jqFinalVideo.fadeIn(1000);
+	});
+
 };
