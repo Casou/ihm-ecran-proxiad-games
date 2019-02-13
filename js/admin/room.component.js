@@ -6,7 +6,8 @@ class Room {
         this.riddles = riddles;
 
         const compteurSeul = (data.startTime && new Compteur('#room_' + this.id + " .raspberry .compteur", parseJavaLocalDateTimeToJsDate(data.startTime), data.statusTime, data.remainingTime)) || null;
-        this.compteur = new CompteurAvecBoutons('#room_' + this.id + " .raspberry .compteurWrapper", compteurSeul, this.id);
+
+        this.compteur = new CompteurAvecBoutons('#room_' + this.id + " .raspberry .compteurWrapper", compteurSeul, this.id, false,data.statusTime);
     }
 
     render() {

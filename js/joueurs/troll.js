@@ -19,6 +19,5 @@ const receiveTroll = ({ reduceTime, message, videoName }, sendRequest) => {
 
 let TROLL_END = null;
 const trollEnd = () => {
-	console.log("Troll end", TROLL_END);
 	readAllMessages([ TROLL_END.text ]);
 };

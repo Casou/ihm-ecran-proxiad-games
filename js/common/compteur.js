@@ -157,7 +157,9 @@ class Compteur {
 		this.isStarted && cssClasses.push("started");
 		this.isPaused && cssClasses.push("paused");
 
-        return `<span class="${ cssClasses.join(" ") }">${ !this.isStarted ? "--:--:--" : this._formatTime(this.currentTime) }</span>`;
+		const text = !this.isStarted ? "--:--:--" : this._formatTime(this.currentTime);
+
+        return `<span class="${ cssClasses.join(" ") }">${ text }</span>`;
     }
 
     renderAndApply() {

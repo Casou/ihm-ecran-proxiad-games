@@ -10,7 +10,6 @@ const subscribeRooms = () => {
     WEBSOCKET_CLIENT.subscribe("/topic/riddle/unlock", unlockRiddleCallback);
 	WEBSOCKET_CLIENT.subscribe("/topic/room/all/success", successRoomCallback);
 	WEBSOCKET_CLIENT.subscribe("/topic/room/all/fail", failRoomCallback);
-	// WEBSOCKET_CLIENT.subscribe("/topic/room/all/troll", trollRoomCallback);
 };
 
 const retrieveConnectedRooms = () => {
@@ -61,23 +60,25 @@ const disconnectedRoomCallback = (room) => {
 const startRoomCallback = (room) => {
     $('#room_' + room.id + ' .raspberry .pauseButton').removeClass('disabled');
     $('#room_' + room.id + ' .raspberry .startButton').addClass('disabled');
-    // $('#room_' + room.id + ' .raspberry .resetButton').addClass('disabled');
+
+	const compteurWrapper = ROOMS.find(r => room.id === r.id).compteur;
+	compteurWrapper.playIntro();
+	compteurWrapper.renderAndApply();
 };
 
 const startTimerRoomCallback = (room) => {
     const compteur = new Compteur('#room_' + room.id + " .raspberry .compteur");
-    console.log("startTimerRoomCallback", room);
     compteur.initTimer(room.remainingTime, room.remainingTime);
     compteur.startTime();
 
-	const compteurWrapper = new CompteurAvecBoutons('#room_' + room.id + " .raspberry .compteurWrapper", compteur, room.id);
+	const compteurWrapper = new CompteurAvecBoutons('#room_' + room.id + " .raspberry .compteurWrapper", compteur, room.id, "STARTED");
 
 	$('#room_' + room.id + " .raspberry .pauseButton").removeClass("disabled");
-	// $('#room_' + room.id + " .raspberry .resetButton").addClass("disabled");
 	$('#room_' + room.id + " .raspberry .startButton").addClass("disabled");
 
-    const roomsFiltered = ROOMS.filter(r => room.id === r.id)[0];
+    const roomsFiltered = ROOMS.find(r => room.id === r.id);
     if (roomsFiltered) {
+		compteurWrapper.playIntroEnd();
 		compteurWrapper.isConnected = roomsFiltered.isConnected;
 		compteurWrapper.renderAndApply();
         roomsFiltered.compteur = compteurWrapper;

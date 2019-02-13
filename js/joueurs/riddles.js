@@ -21,7 +21,6 @@ const retrieveAllRiddles = () => {
 let NB_UNLOCKED_RIDDLES = (localStorage.getItem("nbUnlockedRiddle") && parseInt(localStorage.getItem("nbUnlockedRiddle"))) || 0;
 
 const onTerminalConnect = (userSessionDto) => {
-	console.log(userSessionDto);
 	return new Promise(resolve => {
 		const isAlreadyPlayed = localStorage.getItem("terminalConnectMessageAlreadyRead") || false;
 

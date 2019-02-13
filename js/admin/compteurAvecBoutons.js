@@ -1,11 +1,12 @@
 class CompteurAvecBoutons {
 
-    constructor(selector, compteur, id, isConnected = false) {
+    constructor(selector, compteur, id, isConnected = false, statusTime = "PAUSED") {
         this.selector = selector;
         this.compteur = compteur;
         this.id = id;
         this.isTerminated = false;
 		this.isConnected = isConnected;
+		this.forceText = statusTime === "INITIALIZING" ? this._getIntroPlayingText() : null;
         if (!id) debugger;
     }
 
@@ -45,15 +46,26 @@ class CompteurAvecBoutons {
 		this.renderAndApply();
 	}
 
+	playIntro() {
+		this.forceText = this._getIntroPlayingText();
+	}
+
+	playIntroEnd() {
+		this.forceText = null;
+	}
+
     render() {
 		const timerStarted = this.compteur && this.compteur.isStarted && !this.compteur.isPaused;
+		const compteurRender = this.forceText ||
+			(this.compteur && this.compteur.render())
+			|| "--:--:--";
 
         return `
 			<button class="actionButton miniButton pauseButton ${ !this.isConnected || this.isTerminated || !this.compteur || !timerStarted ? 'disabled' : '' }" onClick="stopTimer(${this.id})">❚❚</button> 
 			<button class="actionButton miniButton startButton ${ !this.isConnected || this.isTerminated || this.compteur && timerStarted ? 'disabled' : '' }" onClick="startTimer(${this.id})">▶</button>
 			 
 			<p class="compteur ${ !this.isConnected ? 'disabled' : '' }">
-				${ (this.compteur && this.compteur.render()) || "--:--:--" }
+				${ compteurRender }
 			</p>
         `;
     }
@@ -64,5 +76,9 @@ class CompteurAvecBoutons {
 			this.compteur.renderAndApply();
 		}
     }
+
+    _getIntroPlayingText() {
+    	return "<i class='blink'>►</i>&nbsp;Intro&nbsp;";
+	}
 
 }
