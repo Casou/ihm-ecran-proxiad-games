@@ -1,42 +1,42 @@
 const INIT_TIME_IN_SECONDS = 3600;
 
 const calculateRemainingTime = (startTimeDate, remainingTime) => {
-    const passedTimeInSeconds = Math.round((new Date().getTime() - startTimeDate.getTime()) / 1000);
-    return Math.max(0, remainingTime - passedTimeInSeconds);
+	const passedTimeInSeconds = Math.round((new Date().getTime() - startTimeDate.getTime()) / 1000);
+	return Math.max(0, remainingTime - passedTimeInSeconds);
 };
 
 class Compteur {
 
-    constructor(selector, startTime, statusTime, remainingTime) {
-        this.selector = selector;
-        this.isStarted = false;
-        this.isPaused = false;
-        this.initialTime = remainingTime;
-        this.currentTime = null;
-        this.timerInterval = null;
-        this.onEndCount = null;
-        this.startedTime = startTime;
-        this.onRender = null;
-        this.onStart = null;
-        this.onStop = null;
+	constructor(selector, startTime, statusTime, remainingTime) {
+		this.selector = selector;
+		this.isStarted = false;
+		this.isPaused = false;
+		this.initialTime = remainingTime;
+		this.currentTime = null;
+		this.timerInterval = null;
+		this.onEndCount = null;
+		this.startedTime = startTime;
+		this.onRender = null;
+		this.onStart = null;
+		this.onStop = null;
 		this.onPause = null;
 		this.animated = false;
 
-        if (startTime) {
-            if (statusTime === "STARTED") {
+		if (startTime) {
+			if (statusTime === "STARTED") {
 				const calculatedRemainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(startTime), remainingTime);
 				this.initTimer(calculatedRemainingTime);
 				this.startTime();
-            } else if (statusTime === "PAUSED") {
+			} else if (statusTime === "PAUSED") {
 				this.isStarted = true;
 				this.initTimer(remainingTime);
 				this.pauseTime();
 			}
-            this.renderAndApply();
-        }
-    }
+			this.renderAndApply();
+		}
+	}
 
-    initTimer(remainingTime = INIT_TIME_IN_SECONDS, initialTime = null, startTimeDate = null) {
+	initTimer(remainingTime = INIT_TIME_IN_SECONDS, initialTime = null, startTimeDate = null) {
 		this.currentTime = remainingTime;
 		if (initialTime) {
 			this.initialTime = initialTime;
@@ -44,17 +44,17 @@ class Compteur {
 		if (startTimeDate) {
 			this.startedTime = startTimeDate;
 		}
-        this.renderAndApply();
-    }
+		this.renderAndApply();
+	}
 
-    startTime() {
-        if (this.isStarted && !this.isPaused) {
-            return;
-        }
-        this.isStarted = true;
-        this.isPaused = false;
-        this.renderAndApply();
-        setTimeout(() => {
+	startTime() {
+		if (this.isStarted && !this.isPaused) {
+			return;
+		}
+		this.isStarted = true;
+		this.isPaused = false;
+		this.renderAndApply();
+		setTimeout(() => {
 			this.timerInterval = setInterval(() => this._decreaseTime(), 1000);
 			if (!this.startedTime) {
 				this.startedTime = new Date();
@@ -62,32 +62,32 @@ class Compteur {
 			if (this.onStart) {
 				this.onStart(this.currentTime);
 			}
-        }, 1000);
-    }
+		}, 1000);
+	}
 
-    pauseTime() {
-        if (!this.isStarted) {
-            return;
-        }
-        this.isPaused = true;
-        clearInterval(this.timerInterval);
-        if (this.onPause) {
+	pauseTime() {
+		if (!this.isStarted) {
+			return;
+		}
+		this.isPaused = true;
+		clearInterval(this.timerInterval);
+		if (this.onPause) {
 			this.onPause(this.currentTime);
 		}
-    }
+	}
 
-    stopTime() {
-        this.isStarted = false;
-        this.isPaused = false;
+	stopTime() {
+		this.isStarted = false;
+		this.isPaused = false;
 		this.currentTime = null;
-        this.timerInterval && clearInterval(this.timerInterval);
+		this.timerInterval && clearInterval(this.timerInterval);
 		if (this.onStop) {
 			this.onStop(this.currentTime);
 		}
-    }
+	}
 
-    animateReduceTime(timeToReduce) {
-    	return new Promise(resolve => {
+	animateReduceTime(timeToReduce) {
+		return new Promise(resolve => {
 			this.animated = true;
 			const wasStarted = this.isStarted;
 			this.pauseTime();
@@ -109,24 +109,24 @@ class Compteur {
 				}
 			}, 5000 / timeToReduce);
 		});
-    }
+	}
 
-    _decreaseTime(secondsToDecrease =  1) {
-        this.currentTime -= secondsToDecrease;
-        if (this.currentTime <= 0) {
-            this.currentTime = 0;
-            this.pauseTime();
+	_decreaseTime(secondsToDecrease = 1) {
+		this.currentTime -= secondsToDecrease;
+		if (this.currentTime <= 0) {
+			this.currentTime = 0;
+			this.pauseTime();
 
-            if (this.onEndCount) {
+			if (this.onEndCount) {
 				this.onEndCount();
 			}
-        } else if (this.currentTime % 10 === 0) {
+		} else if (this.currentTime % 10 === 0) {
 			this._recalculateTime();
 		}
-        this.renderAndApply();
-    }
+		this.renderAndApply();
+	}
 
-    _recalculateTime() {
+	_recalculateTime() {
 		if (this.animated) {
 			return;
 		}
@@ -134,23 +134,23 @@ class Compteur {
 		this.currentTime = this.initialTime - diff;
 	}
 
-    _formatTime(time) {
-        if (!time && time !== 0) {
-            return "--:--:--";
-        }
+	_formatTime(time) {
+		if (!time && time !== 0) {
+			return "--:--:--";
+		}
 
-        let totalSeconds = time;
-        const hours = Math.floor(totalSeconds / 3600);
-        totalSeconds %= 3600;
-        const minutes = Math.floor(totalSeconds / 60);
-        const seconds = totalSeconds % 60;
+		let totalSeconds = time;
+		const hours = Math.floor(totalSeconds / 3600);
+		totalSeconds %= 3600;
+		const minutes = Math.floor(totalSeconds / 60);
+		const seconds = totalSeconds % 60;
 
-        return lpad(hours) + ":" + lpad(minutes) + ":" + lpad(seconds);
-    }
+		return lpad(hours) + ":" + lpad(minutes) + ":" + lpad(seconds);
+	}
 
-    render() {
-    	if (this.onRender) {
-    		this.onRender(this.currentTime);
+	render() {
+		if (this.onRender) {
+			this.onRender(this.currentTime);
 		}
 
 		const cssClasses = [];
@@ -159,16 +159,16 @@ class Compteur {
 
 		const text = !this.isStarted ? "--:--:--" : this._formatTime(this.currentTime);
 
-        return `<span class="${ cssClasses.join(" ") }">${ text }</span>`;
-    }
+		return `<span class="${ cssClasses.join(" ") }">${ text }</span>`;
+	}
 
-    renderAndApply() {
-        $(this.selector)
-            .html(this.render())
-            .attr('data-text', this._formatTime(this.currentTime))
-            .toggleClass('alert', this.currentTime && this.currentTime < 300) // 5 mn
-            .toggleClass('finished', this.currentTime && this.currentTime === 0)
-        ;
-    }
+	renderAndApply() {
+		$(this.selector)
+			.html(this.render())
+			.attr('data-text', this._formatTime(this.currentTime))
+			.toggleClass('alert', this.currentTime && this.currentTime < 300) // 5 mn
+			.toggleClass('finished', this.currentTime && this.currentTime === 0)
+		;
+	}
 
 }

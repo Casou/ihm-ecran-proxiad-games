@@ -6,14 +6,14 @@ const receiveTroll = ({ reduceTime, message, videoName }, sendRequest) => {
 
 		displayAndSynthesizeMessage([ message ], 0)
 			.finally(() => {
-			const jqTrollVideo = $('#video video#troll');
-			jqTrollVideo.attr("src", "resources/videos/" + videoName);
-			jqTrollVideo[0].currentTime = 0;
-			jqTrollVideo.show();
-			jqTrollVideo[0].play();
-			sendRequest();
-			COMPTEUR.animateReduceTime(reduceTime)
-				.then(resolve);
+				const jqTrollVideo = $('#video video#troll');
+				jqTrollVideo.attr("src", "resources/videos/" + videoName);
+				jqTrollVideo[0].currentTime = 0;
+				jqTrollVideo.show();
+				jqTrollVideo[0].play();
+				sendRequest();
+				COMPTEUR.animateReduceTime(reduceTime)
+					.then(resolve);
 		});
 	});
 };

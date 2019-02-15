@@ -1,3 +1,24 @@
 body {
     overflow: hidden;
 }
+
+#caid {
+    // display : none;
+    position : absolute;
+    font-family: wedgie, serif;
+    top : 10px;
+    left : 0;
+    width : 100%;
+    text-align: center;
+    color : #c8c8c8;
+    font-size : 30px;
+    font-weight: bold;
+    word-spacing: 15px;
+    z-index : -1;
+}
+
+#caid .initial {
+    color : white;
+    font-size : 50px;
+    padding-right : 10px;
+}
