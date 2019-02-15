@@ -189,6 +189,10 @@ span.connection_status, .disconnected span.connection_status {
     margin-left : 25px;
 }
 
+#rooms .room .boiteMessage textarea {
+    color : white;
+}
+
 #rooms .startButton {
     /*position : absolute;*/
     /*right : 15px;*/

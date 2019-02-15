@@ -31,7 +31,7 @@ class Room {
 								${ this.riddles.map(riddle => {
 									let resolved = this.data.resolvedRiddles.filter(r => r.riddleId === riddle.riddleId).length > 0;
 									return `<i id="room_${this.data.id}_riddle_${riddle.id}" 
-													title="${riddle.name}" 
+													title="${riddle.name} (${riddle.riddleId} / ${riddle.riddlePassword})" 
 													class="tooltip riddle material-icons riddle_${riddle.id} ${ resolved ? "resolved" : "unresolved" }">
 												${ resolved ? "lock_open" : "lock_outline" }
 											</i>`;
