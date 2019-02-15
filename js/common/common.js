@@ -88,3 +88,10 @@ const checkMandatory = () => {
 
     return Promise.all([allVoicesPromise, pingPromise]);
 };
+
+const queuePromise = (promise, callback) => {
+	if (!promise) {
+		return new Promise(callback);
+	}
+	return promise.then(callback);
+};

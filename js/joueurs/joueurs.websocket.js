@@ -74,5 +74,4 @@ const success = () => {
 		jqFinalVideo[0].play();
 		jqFinalVideo.fadeIn(1000);
 	});
-
 };

@@ -4,7 +4,8 @@ const receiveTroll = ({ reduceTime, message, videoName }, sendRequest) => {
 			$('#video video').each((index, video) => { video.pause(); });
 		});
 
-		displayAndSynthesizeMessage([ message ], 0).then(() => {
+		displayAndSynthesizeMessage([ message ], 0)
+			.finally(() => {
 			const jqTrollVideo = $('#video video#troll');
 			jqTrollVideo.attr("src", "resources/videos/" + videoName);
 			jqTrollVideo[0].currentTime = 0;

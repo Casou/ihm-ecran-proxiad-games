@@ -28,6 +28,8 @@ const onTerminalConnect = (userSessionDto) => {
 			readAllMessages([ userSessionDto.message.text ], userSessionDto.message.voice).then(() => {
 				localStorage.setItem("terminalConnectMessageAlreadyRead", "true");
 				resolve();
+			}).catch(() => {
+				incomingMessage([ userSessionDto.message.text ], {});
 			});
 		} else {
 			resolve();
@@ -39,6 +41,10 @@ const resolveRiddle = (unlockDto) => {
 	return new Promise(resolve => {
 		setTimeout(() => {
 			readAllMessages([ unlockDto.message ], unlockDto.voice).then(() => {
+				updateGlitch(unlockDto.nbRiddlesResolved);
+				resolve();
+			}).catch(() => {
+				incomingMessage([ unlockDto.message ], {});
 				updateGlitch(unlockDto.nbRiddlesResolved);
 				resolve();
 			});
