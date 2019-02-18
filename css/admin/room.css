@@ -8,7 +8,7 @@
     flex : 1;
     max-width : 50vw;
     min-width : 300px;
-    min-height: 600px;
+    min-height: 700px;
     height : calc(90vh - 50px);
     margin : 5vh 20px;
 }
@@ -98,6 +98,12 @@ span.refresh_room {
     text-align : center;
 }
 
+#rooms .room h3 {
+    font-size : 16px;
+    font-weight : normal;
+    text-align : center;
+}
+
 #rooms .riddle_icons {
     text-align : center;
     text-shadow: 1px 1px 0 #222, 2px 2px 0 #222;
@@ -162,12 +168,22 @@ span.connection_status, .disconnected span.connection_status {
     vertical-align: middle;
 }
 
+#rooms .room .boiteTaunt,
 #rooms .room .boiteMessage {
     display : inline-block;
     width : calc(100% - 20px);
     margin : 0 10px;
 }
 
+#rooms .room .boiteTaunt h3 {
+    margin : 5px 0 10px 0;
+}
+
+#rooms .room .boiteTaunt {
+    margin-top : 15px;
+}
+
+#rooms .room .boiteTaunt select,
 #rooms .room .boiteMessage div .selectSentences {
     background-color: black;
     color: white;
@@ -208,4 +224,16 @@ span.refresh_room {
     width : 35px;
     cursor : pointer;
     filter: drop-shadow(2px 2px 0 black);
+}
+
+#rooms .room .boiteTaunt .actionButtons {
+    margin-top : 10px;
+}
+
+#rooms .room .boiteTaunt .actionButtons label {
+    color : white;
+}
+
+#rooms .room .boiteTaunt .actionButtons a {
+    float : right;
 }

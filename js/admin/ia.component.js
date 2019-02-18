@@ -1,14 +1,16 @@
 class IAPamameters {
 
-	constructor(selector) {
+	constructor(selector, allTexts) {
 		this.selector = selector;
-		this.sentences = [];
-		this.progressBarTexts = [];
-		this.trollTexts = [];
-		this.enigmaTexts = [];
-		this.trollEndText = null;
-		this.lastEnigmaText = null;
-		this.openTerminalText = null;
+
+		this.sentences = allTexts.filter(text => text.discriminant === "INTRO");
+		this.progressBarTexts = allTexts.filter(text => text.discriminant === "PROGRESS_BAR");
+		this.trollTexts = allTexts.filter(text => text.discriminant === "TROLL");
+		this.trollEndText = allTexts.find(text => text.discriminant === "TROLL_END");
+		this.enigmaTexts = allTexts.filter(text => text.discriminant === "ENIGMA");
+		this.lastEnigmaText = allTexts.find(text => text.discriminant === "LAST_ENIGMA");
+		this.openTerminalText = allTexts.find(text => text.discriminant === "OPEN_TERMINAL");
+		this.tauntTexts = allTexts.filter(text => text.discriminant === "TAUNT");
 	}
 
 	addSentence(newText) {
@@ -21,6 +23,10 @@ class IAPamameters {
 
 	addEnigma(newText) {
 		this.enigmaTexts.push(newText);
+	}
+
+	addTaunt(newText) {
+		this.tauntTexts.push(newText);
 	}
 
 	updateSentence(sentence) {
@@ -46,6 +52,7 @@ class IAPamameters {
 		this.sentences = this.sentences.filter(s => s.id !== textId);
 		this.progressBarTexts = this.progressBarTexts.filter(s => s.id !== textId);
 		this.enigmaTexts = this.enigmaTexts.filter(s => s.id !== textId);
+		this.tauntTexts = this.tauntTexts.filter(s => s.id !== textId);
 		this.renderAndApply();
 	}
 
@@ -57,6 +64,7 @@ class IAPamameters {
 		const enigmes = this._renderReactionsEnigmes();
 		const lastEnigme = this._renderLastEnigme();
 		const terminalOpened = this._renderTerminalOpened();
+		const tauntList = this._renderTaunts();
 
 		return `<section id="sentences" class="card blue-grey darken-3">
 					<h1>Phrases d'introduction de l'IA</h1>
@@ -90,6 +98,11 @@ class IAPamameters {
 					<h1>Dernière énigme résolue</h1>
 					<h2>Synthétise le message sans l'afficher.</h2>
 					${ lastEnigme }
+				</section>
+				<section id="taunt_texts" class="card blue-grey darken-3">
+					<h1>Phrases de provocation préconfigurées</h1>
+					${ tauntList }
+					<a class="waves-effect waves-light blue darken-4 btn-small" onClick="createTauntText();"><i class="material-icons left">add</i>Ajouter une phrase</a>
 				</section>
 		`;
 	}
@@ -239,7 +252,29 @@ class IAPamameters {
 			`;
 	}
 
-  _mapAllVoicesToOptions(selectedVoice) {
+	_renderTaunts() {
+		return `<ul>
+					${ this.tauntTexts.map(sentence => `
+						<li>
+							<div class="input-field">
+								<input type="text"
+										id="taunt_${ sentence.id }" 
+										value="${ sentence.text }"
+										onKeyPress="return preventBadCharacterForSynthetizedText(event)"
+										onChange="updateTauntText(${ sentence.id }, this.value);" />
+							</div>
+							<div class="input-field">
+								<select id="taunt_voice_${ sentence.id }" onChange="updateTauntVoice(${ sentence.id }, this.value);">
+									${ this._mapAllVoicesToOptions(sentence.voice) }							
+								</select>
+							</div>
+							<i class="material-icons delete" onClick="deleteText(${ sentence.id });">delete_forever</i>
+							<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testTaunt(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
+						</li>`).join("") }
+				</ul>`;
+	}
+
+  _mapAllVoicesToOptions(selectedVoice = DEFAULT_VOICE) {
     return ALL_VOICES
       .map(voice => `<option value="${ voice.name }" ${ selectedVoice === voice.name && "selected" }>${ voice.name }</option>`)
       .join("");
@@ -256,6 +291,9 @@ const testSentence = (id) => {
 };
 const testTroll = (id) => {
 	readMessage($("#troll_" + id).val(), $("#troll_voice_" + id).val());
+};
+const testTaunt = (id) => {
+	readMessage($("#taunt_" + id).val(), $("#taunt_voice_" + id).val());
 };
 const testEnigma = (id) => {
 	readMessage($("#enigma_" + id).val(), $("#enigma_voice_" + id).val());

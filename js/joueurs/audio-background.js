@@ -6,7 +6,9 @@ const startAudioBackground = (startTime) => {
 	let interval = null;
 	return new Promise(resolve => {
 		audioBackground.volume = 0;
-		audioBackground.currentTime = startTime;
+		if (startTime) {
+			audioBackground.currentTime = startTime;
+		}
 		audioBackground.play();
 		interval = setInterval(() => raiseVolume(resolve), 100);
 	}).then(() => {

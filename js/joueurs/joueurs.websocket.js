@@ -8,7 +8,7 @@ const subscribeAll = () => {
 		playIntroAndStartTimer(room.remainingTime);
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/message", (messageDto) => {
-		addAction(() => incomingMessage([messageDto.message], messageDto.introSentence));
+		addAction(() => incomingMessage(messageDto, messageDto.introSentence));
 	});
 	WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/pause", () => {
 		COMPTEUR.pauseTime();

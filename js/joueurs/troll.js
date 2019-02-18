@@ -1,11 +1,12 @@
-const receiveTroll = ({ reduceTime, message, videoName }, sendRequest) => {
+const receiveTroll = ({ reduceTime, message, voice, videoName }, sendRequest) => {
+	console.log("troll", message, voice);
 	return new Promise(resolve => {
 		muteAudioBackground();
 		$('#video video').fadeOut(500, () => {
 			$('#video video').each((index, video) => { video.pause(); });
 		});
 
-		displayAndSynthesizeMessage([ message ], 0)
+		displayAndSynthesizeMessage({ message, voice }, 0)
 			.finally(() => {
 				const jqTrollVideo = $('#video video#troll');
 				jqTrollVideo.attr("src", "resources/videos/" + videoName);

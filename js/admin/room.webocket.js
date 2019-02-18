@@ -138,12 +138,17 @@ const testMessage = (roomId) => {
 const sendMessageToRoom = (roomId) => {
 	const messageTextarea = $("#room_" + roomId + " .boiteMessage textarea");
 	const introSentence = IA_PARAMETERS.sentences.find(s => s.id === parseInt($("#room_" + roomId + " .boiteMessage .selectSentences").val()));
-	sendMessageToSynthetize(roomId, messageTextarea.val(), introSentence);
+	sendMessageToSynthetize(roomId, { message : messageTextarea.val() }, introSentence);
     messageTextarea.val("");
 };
 
-const sendMessageToSynthetize = (roomId, message, introSentence) => {
-    WEBSOCKET_CLIENT.send("/room/message", { room  : { id : roomId }, message, introSentence });
+const sendTauntToRoom = (roomId) => {
+	const taunt = IA_PARAMETERS.tauntTexts.find(s => s.id === parseInt($("#taunt_" + roomId).val()));
+	sendMessageToSynthetize(roomId, { message : taunt.text, voice : taunt.voice }, null);
+};
+
+const sendMessageToSynthetize = (roomId, { message, voice }, introSentence) => {
+    WEBSOCKET_CLIENT.send("/room/message", { room  : { id : roomId }, message, voice, introSentence });
 };
 
 const unlockRiddleCallback = (unlockDto) => {

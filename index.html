@@ -104,7 +104,7 @@
                     hideProgressBar();
                 };
 				COMPTEUR.onStart = (time, initialTime) => {
-					const audioStartTime = initialTime - time;
+					const audioStartTime = Math.round(initialTime - time);
 					startAudioBackground(audioStartTime);
 					setTimeout(() => {
 						showProgressBar(time);

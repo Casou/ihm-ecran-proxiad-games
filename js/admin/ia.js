@@ -18,14 +18,7 @@ const retrieveAITexts = () => {
 };
 
 const setAIParameters = (allTexts) => {
-	IA_PARAMETERS = new IAPamameters("#ai");
-	IA_PARAMETERS.sentences = allTexts.filter(text => text.discriminant === "INTRO");
-	IA_PARAMETERS.progressBarTexts = allTexts.filter(text => text.discriminant === "PROGRESS_BAR");
-	IA_PARAMETERS.trollTexts = allTexts.filter(text => text.discriminant === "TROLL");
-	IA_PARAMETERS.trollEndText = allTexts.find(text => text.discriminant === "TROLL_END");
-	IA_PARAMETERS.enigmaTexts = allTexts.filter(text => text.discriminant === "ENIGMA");
-	IA_PARAMETERS.lastEnigmaText = allTexts.find(text => text.discriminant === "LAST_ENIGMA");
-	IA_PARAMETERS.openTerminalText = allTexts.find(text => text.discriminant === "OPEN_TERMINAL");
+	IA_PARAMETERS = new IAPamameters("#ai", allTexts);
 	IA_PARAMETERS.renderAndApply();
 };
 
@@ -70,6 +63,23 @@ const createEnigmaText = () => {
 		contentType: "application/json",
 		success: (newText) => {
 			IA_PARAMETERS.addEnigma(newText);
+			IA_PARAMETERS.renderAndApply();
+		},
+		error: (xmlHttpRequest, textStatus, errorThrown) => {
+			console.error("Status: " + textStatus);
+			console.error("Error: " + errorThrown);
+			reject(textStatus);
+		}
+	});
+};
+
+const createTauntText = () => {
+	$.ajax({
+		url: SERVER_URL + "text/taunt",
+		type: "POST",
+		contentType: "application/json",
+		success: (sentence) => {
+			IA_PARAMETERS.addTaunt(sentence);
 			IA_PARAMETERS.renderAndApply();
 		},
 		error: (xmlHttpRequest, textStatus, errorThrown) => {
@@ -131,6 +141,15 @@ const updateTrollEnd = (id, text) => {
 const updateTrollEndVoice = (id, voice) => {
 	updateSentence({ ...IA_PARAMETERS.trollEndText, voice });
 };
+
+const updateTauntText = (id, text) => {
+	updateSentence({ ...IA_PARAMETERS.tauntTexts.find(sentence => sentence.id === id), text });
+};
+
+const updateTauntVoice = (id, voice) => {
+	updateSentence({ ...IA_PARAMETERS.tauntTexts.find(sentence => sentence.id === id), voice });
+};
+
 
 const updateSentence = (sentence) => {
 	$.ajax({

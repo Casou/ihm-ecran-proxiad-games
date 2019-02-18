@@ -1,31 +1,38 @@
 const MESSAGE_FADE_DURATION = 1000;
 
-const incomingMessage = (messageArray, introSentence) => {
+const incomingMessage = (messageDto, introSentence) => {
+	console.log("incoming message", messageDto, introSentence);
 	return new Promise(resolve => {
-		readMessage(introSentence.text, introSentence.voice)
-			.catch(() => {
-				playJingle(resolve);
-			})
-			.then(() => {
-					setTimeout(() => {
-						displayAndSynthesizeMessage(messageArray).then(resolve);
-					}, 1000);
-			})
+		let introPromise = null;
+		if (introSentence) {
+			introPromise = readMessage(introSentence.text, introSentence.voice)
+				.catch(() => {
+					playJingle(resolve);
+				})
+		} else {
+			introPromise = Promise.resolve();
+		}
+
+		introPromise.then(() => {
+				setTimeout(() => {
+					displayAndSynthesizeMessage(messageDto).then(resolve);
+				}, 1000);
+		})
 	});
 };
 
-const displayAndSynthesizeMessage = (messageArray, waitTimeBeforeHideText = MESSAGE_FADE_DURATION) => {
-	if (!messageArray.length) {
+const displayAndSynthesizeMessage = (messageDto, waitTimeBeforeHideText = MESSAGE_FADE_DURATION) => {
+	console.log("display", messageDto);
+	if (!messageDto.message.length) {
 		return;
 	}
 
 	return new Promise(resolve => {
 		$('main').fadeOut(MESSAGE_FADE_DURATION, () => {
 			setTimeout(() => {
-				const messageText = messageArray.join(" ");
-				showMessage(messageText);
+				showMessage(messageDto.message);
 
-				readAllMessages(messageArray)
+				readAllMessages([ messageDto.message ], messageDto.voice)
 					.then(() => {
 						setTimeout(() => {
 							hideMessage().then(resolve);
@@ -33,7 +40,7 @@ const displayAndSynthesizeMessage = (messageArray, waitTimeBeforeHideText = MESS
 					})
 					.catch(() => {
 						playJingle();
-						const displayTime = calculateMessageDisplayTime(messageText);
+						const displayTime = calculateMessageDisplayTime(messageDto.message);
 						setTimeout(() => {
 							hideMessage().then(resolve);
 						}, displayTime);

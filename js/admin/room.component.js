@@ -1,17 +1,17 @@
 class Room {
 
-    constructor(data, riddles) {
-        this.id = data.id;
-        this.data = data;
-        this.riddles = riddles;
+	constructor(data, riddles) {
+		this.id = data.id;
+		this.data = data;
+		this.riddles = riddles;
 
-        const compteurSeul = (data.startTime && new Compteur('#room_' + this.id + " .raspberry .compteur", parseJavaLocalDateTimeToJsDate(data.startTime), data.statusTime, data.remainingTime)) || null;
+		const compteurSeul = (data.startTime && new Compteur('#room_' + this.id + " .raspberry .compteur", parseJavaLocalDateTimeToJsDate(data.startTime), data.statusTime, data.remainingTime)) || null;
 
-        this.compteur = new CompteurAvecBoutons('#room_' + this.id + " .raspberry .compteurWrapper", compteurSeul, this.id, false,data.statusTime);
-    }
+		this.compteur = new CompteurAvecBoutons('#room_' + this.id + " .raspberry .compteurWrapper", compteurSeul, this.id, false, data.statusTime);
+	}
 
-    render() {
-        return `
+	render() {
+		return `
 			<div id="room_${this.id}" class="col s12 m6">
 				<div class="card blue-grey darken-3 room ${ this.data.terminateStatus }">
 					<div class="card-content">
@@ -31,12 +31,11 @@ class Room {
 								${ this.riddles.map(riddle => {
 									let resolved = this.data.resolvedRiddles.filter(r => r.riddleId === riddle.riddleId).length > 0;
 									return `<i id="room_${this.data.id}_riddle_${riddle.id}" 
-													title="${riddle.name} (${riddle.riddleId} / ${riddle.riddlePassword})" 
-													class="tooltip riddle material-icons riddle_${riddle.id} ${ resolved ? "resolved" : "unresolved" }">
-												${ resolved ? "lock_open" : "lock_outline" }
-											</i>`;
-									}).join(" ") 
-								}
+																			title="${riddle.name} (${riddle.riddleId} / ${riddle.riddlePassword})" 
+																			class="tooltip riddle material-icons riddle_${riddle.id} ${ resolved ? "resolved" : "unresolved" }">
+																		${ resolved ? "lock_open" : "lock_outline" }
+																	</i>`;
+								  }).join(" ") }
 							</div>
 							<div class="riddlePc disconnected">
 								<h2><i class="material-icons connection_status">cast</i> PC énigme</h2>
@@ -64,11 +63,23 @@ class Room {
 									  <textarea id="room_textarea_${this.id}" class="materialize-textarea" disabled placeholder="Synthétiser un message"></textarea>
 									</div>
 									
-									
 									<div class="actionButtons">
 										<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testMessage(${ this.id });"><i class="material-icons left">volume_up</i>Test</a>
 										<a class="waves-effect waves-light blue darken-4 btn-small" onClick="sendMessageToRoom(${ this.id });"><i class="material-icons left">send</i>Envoyer</a>                            
 									</div>
+								</div>
+								<div class="boiteTaunt">
+										<h3>Taunts</h3>
+										<div class="input-field">
+											<select id="taunt_${ this.id }">
+												${ this.renderTauntSelect() }
+											</select>
+										</div>
+										
+										<div class="actionButtons">
+											<label>Dernier : <span></span></label>
+											<a class="waves-effect waves-light blue darken-4 btn-small" onClick="sendTauntToRoom(${ this.id });"><i class="material-icons left">send</i>Envoyer</a>                            
+										</div>
 								</div>
 							</div>
 						</div>
@@ -76,25 +87,29 @@ class Room {
 				</div>
 			</div>
         `;
-    }
+	}
 
-    renderVoicesSelect(sentences) {
-        return sentences.map(sentence => `<option value="${ sentence.id }">${ sentence.text } (${ sentence.voice })</option>`).join("");
-    }
+	renderTauntSelect() {
+		return IA_PARAMETERS.tauntTexts.map(taunt => `<option value="${ taunt.id }">${ taunt.text } (${ taunt.voice })</option>`).join("");
+	}
+
+	renderVoicesSelect(sentences) {
+		return sentences.map(sentence => `<option value="${ sentence.id }">${ sentence.text } (${ sentence.voice })</option>`).join("");
+	}
 
 	renderAndApply() {
-        $("#room_" + this.id).replaceWith(this.render());
+		$("#room_" + this.id).replaceWith(this.render());
 	}
 }
 
 class AddRoom {
-    render() {
-        return `
+	render() {
+		return `
             <section id="addRoom" class="room" onClick="newRoom()">
                 <div>Ajouter</div>
             </section>
         `;
-    }
+	}
 }
 
 const preventBadCharacterForRoomName = (event) => {
