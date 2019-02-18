@@ -60,7 +60,7 @@ class Compteur {
 				this.startedTime = new Date();
 			}
 			if (this.onStart) {
-				this.onStart(this.currentTime);
+				this.onStart(this.currentTime, this.initialTime);
 			}
 		}, 1000);
 	}

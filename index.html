@@ -31,6 +31,7 @@
     </div>
 
     <audio id="incomingMessage"><source src="resources/audio/message.mp3" type="audio/mpeg"></audio>
+    <audio id="audioBackground" preload loop><source src="resources/audio/audio-background.mp3" type="audio/mpeg"></audio>
 
     <main>
         <header id="caid">
@@ -68,6 +69,7 @@
     <script src="js/common/responsiveVoice.js"></script>
     <script src="js/common/synthetesis.js"></script>
     <script src="js/joueurs/actions.js"></script>
+    <script src="js/joueurs/audio-background.js"></script>
     <script src="js/joueurs/joueurs.websocket.js"></script>
     <script src="js/joueurs/index.js"></script>
     <script src="js/joueurs/room.js"></script>
@@ -89,12 +91,21 @@
 
 				COMPTEUR.onEndCount = () => {
 					trollEnd();
+					muteAudioBackground();
 					sendCountEnded(ROOM_ID);
 				};
 				COMPTEUR.onRender = checkProgressBar;
-				COMPTEUR.onPause = hideProgressBar;
-				COMPTEUR.onStop = hideProgressBar;
-				COMPTEUR.onStart = (time) => {
+				COMPTEUR.onPause = () => {
+					pauseAudioBackground();
+					hideProgressBar();
+				};
+				COMPTEUR.onStop = () => {
+                    pauseAudioBackground();
+                    hideProgressBar();
+                };
+				COMPTEUR.onStart = (time, initialTime) => {
+					const audioStartTime = initialTime - time;
+					startAudioBackground(audioStartTime);
 					setTimeout(() => {
 						showProgressBar(time);
 						$('#caid').fadeIn(1000);
