@@ -145,6 +145,7 @@ const sendMessageToRoom = (roomId) => {
 const sendTauntToRoom = (roomId) => {
 	const taunt = IA_PARAMETERS.tauntTexts.find(s => s.id === parseInt($("#taunt_" + roomId).val()));
 	sendMessageToSynthetize(roomId, { message : taunt.text, voice : taunt.voice }, null);
+	$("#room_" + roomId + " .boiteTaunt .tauntLastTime span").html(new Date().toLocaleTimeString());
 };
 
 const sendMessageToSynthetize = (roomId, { message, voice }, introSentence) => {

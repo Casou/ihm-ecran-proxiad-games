@@ -77,7 +77,7 @@ class Room {
 										</div>
 										
 										<div class="actionButtons">
-											<label>Dernier : <span></span></label>
+											<label class="tauntLastTime">Dernier taunt envoyé : <span></span></label>
 											<a class="waves-effect waves-light blue darken-4 btn-small" onClick="sendTauntToRoom(${ this.id });"><i class="material-icons left">send</i>Envoyer</a>                            
 										</div>
 								</div>
