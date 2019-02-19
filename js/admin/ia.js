@@ -189,10 +189,9 @@ const deleteText = (id) => {
 
 const updateSentenceSelects = () => {
 	if (ROOMS.length) {
+		// Toutes les rooms ont les mêmes selects
 		const room = ROOMS[0];
-		retrieveAITexts().then(sentences => {
-			$(".selectSentences").html(room.renderVoicesSelect());
-			$(".selectTaunt").html(room.renderTauntSelect());
-		});
+		$(".selectSentences").html(room.renderVoicesSelect());
+		$(".selectTaunt").html(room.renderTauntSelect());
 	}
 };
