@@ -34,12 +34,6 @@
     <audio id="audioBackground" preload loop><source src="resources/audio/audio-background.mp3" type="audio/mpeg"></audio>
 
     <main>
-        <header id="caid">
-            <span class="initial">C</span>onceptual
-            <span class="initial">A</span>rtificial
-            <span class="initial">I</span>ntelligence
-            <span class="initial">D</span>eveloper
-        </header>
         <section id="compteur" class="glitch cherry stade0" data-text="">
         </section>
     </main>
@@ -108,7 +102,6 @@
 					startAudioBackground(audioStartTime);
 					setTimeout(() => {
 						showProgressBar(time);
-						$('#caid').fadeIn(1000);
 					}, 4000);
 				};
 

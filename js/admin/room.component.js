@@ -71,7 +71,7 @@ class Room {
 								<div class="boiteTaunt">
 										<h3>Taunts</h3>
 										<div class="input-field">
-											<select id="taunt_${ this.id }">
+											<select class="selectTaunt" id="taunt_${ this.id }">
 												${ this.renderTauntSelect() }
 											</select>
 										</div>
@@ -93,8 +93,8 @@ class Room {
 		return IA_PARAMETERS.tauntTexts.map(taunt => `<option value="${ taunt.id }">${ taunt.text } (${ taunt.voice })</option>`).join("");
 	}
 
-	renderVoicesSelect(sentences) {
-		return sentences.map(sentence => `<option value="${ sentence.id }">${ sentence.text } (${ sentence.voice })</option>`).join("");
+	renderVoicesSelect() {
+		return IA_PARAMETERS.sentences.map(sentence => `<option value="${ sentence.id }">${ sentence.text } (${ sentence.voice })</option>`).join("");
 	}
 
 	renderAndApply() {

@@ -46,6 +46,11 @@ class IAPamameters {
 		if (this.trollEndText.id === sentence.id) {
 			this.trollEndText.text = sentence.text;
 		}
+		const tauntToUpdate = this.tauntTexts.find(s => s.id === sentence.id);
+		if (tauntToUpdate) {
+			tauntToUpdate.text = sentence.text;
+			tauntToUpdate.voice = sentence.voice;
+		}
 	}
 
 	removeText(textId) {

@@ -158,8 +158,8 @@ const updateSentence = (sentence) => {
 		data : JSON.stringify(sentence),
 		contentType: "application/json",
 		success: () => {
-			updateSentenceSelects();
 			IA_PARAMETERS.updateSentence(sentence);
+			updateSentenceSelects();
 		},
 		error: (xmlHttpRequest, textStatus, errorThrown) => {
 			console.error("Status: " + textStatus);
@@ -191,7 +191,8 @@ const updateSentenceSelects = () => {
 	if (ROOMS.length) {
 		const room = ROOMS[0];
 		retrieveAITexts().then(sentences => {
-			$(".selectSentences").html(room.renderVoicesSelect(sentences));
+			$(".selectSentences").html(room.renderVoicesSelect());
+			$(".selectTaunt").html(room.renderTauntSelect());
 		});
 	}
 };
