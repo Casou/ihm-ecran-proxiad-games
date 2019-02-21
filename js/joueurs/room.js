@@ -41,6 +41,7 @@ const chooseRoom = (value) => {
 };
 
 $(document).keydown(function(e) {
+  if (!MANDATORY_OK) return;
     if (e.keyCode >= 65 && e.keyCode <= 90) $('#configuration')[0].show();
     if (e.keyCode === 27) $('#configuration')[0].close();
 });

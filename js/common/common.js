@@ -66,23 +66,25 @@ const checkMandatory = () => {
 			}
         }).catch(() => {
             if (!$("#mandatory").length) {
-				$("body").append(`
-                    <div id="mandatory" title="Serveur injoignable">
-                        <p>Corriger l'adresse du serveur :
-                            <input type="text" value="${ SERVER_URL }" onChange="SERVER_URL = this.value; checkMandatory();" /> 
-                        </p>
-                    </div>
-                `);
+							$("body").append(`
+													<div id="mandatory" title="Serveur injoignable">
+															<p>Corriger l'adresse du serveur :
+																	<input type="text" value="${ SERVER_URL }" onChange="SERVER_URL = this.value; checkMandatory();" /> 
+															</p>
+													</div>
+											`);
 
-				$("#mandatory").dialog({
-					resizable: false,
-					height: "auto",
-					width: 600,
-					modal: true,
-					autoOpen: true
-				});
+							$("#mandatory").dialog({
+								resizable: false,
+								height: "auto",
+								width: 600,
+								modal: true,
+								autoOpen: true
+							});
 
-				throw new Error("[checkMandatory] Ping to the server has failed");
+              $("#message").hide();
+
+							throw new Error("[checkMandatory] Ping to the server has failed");
             }
         }).finally(() => setTimeout(hideLoading, 0));
 

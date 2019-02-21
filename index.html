@@ -77,10 +77,12 @@
 		let ROOM_ID = (localStorage.getItem("roomId") && parseInt(localStorage.getItem("roomId"))) || "";
 		let ALL_ROOMS;
 		const COMPTEUR = new Compteur("#compteur");
+		let MANDATORY_OK = false;
 
 		checkMandatory().then(() => {
 			retrieveAITexts().then((allTexts) => {
-				PROGRESS_TEXTS = allTexts.filter(text => text.discriminant === "PROGRESS_BAR");
+                MANDATORY_OK = true;
+                PROGRESS_TEXTS = allTexts.filter(text => text.discriminant === "PROGRESS_BAR");
 				TROLL_END = allTexts.find(text => text.discriminant === "TROLL_END");
 
 				COMPTEUR.onEndCount = () => {
