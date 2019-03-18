@@ -3,26 +3,24 @@ const MESSAGE_FADE_DURATION = 1000;
 const incomingMessage = (messageDto, introSentence) => {
 	console.log("incoming message", messageDto, introSentence);
 	return new Promise(resolve => {
-		let introPromise = null;
-		if (introSentence) {
-			introPromise = readMessage(introSentence.text, introSentence.voice)
-				.catch(() => {
-					playJingle(resolve);
-				})
-		} else {
-			introPromise = Promise.resolve();
-		}
+		playJingle().finally(() => {
+			let introPromise = null;
+			if (introSentence) {
+				introPromise = readMessage(introSentence.text, introSentence.voice);
+			} else {
+				introPromise = Promise.resolve();
+			}
 
-		introPromise.then(() => {
+			introPromise.finally(() => {
 				setTimeout(() => {
-					displayAndSynthesizeMessage(messageDto).then(resolve);
+					displayAndSynthesizeMessage(messageDto).finally(resolve);
 				}, 1000);
-		})
+			});
+		});
 	});
 };
 
 const displayAndSynthesizeMessage = (messageDto, waitTimeBeforeHideText = MESSAGE_FADE_DURATION) => {
-	console.log("display", messageDto);
 	if (!messageDto.message.length) {
 		return;
 	}
@@ -68,13 +66,13 @@ const readAllMessages = (messageArray, language) => {
 };
 
 
-const playJingle = (resolve) => {
-	const messsageAudio = $('#incomingMessage')[0];
-	if (resolve) {
-		messsageAudio.ended = resolve;
-		messsageAudio.onerror = resolve;
-	}
-	messsageAudio.play();
+const playJingle = () => {
+	return new Promise(resolve => {
+		const messageJingle = $('#incomingMessage')[0];
+		messageJingle.onended = () => { console.log("ended"); resolve(); };
+		messageJingle.onerror = resolve;
+		messageJingle.play();
+	});
 };
 
 const showMessage = (message) => {
