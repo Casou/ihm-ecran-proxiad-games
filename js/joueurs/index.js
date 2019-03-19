@@ -7,3 +7,7 @@ const init = () => {
 		retrieveAllRiddles(),
 	]);
 };
+
+const displayAIName = () => {
+	$("#ai_name").removeClass("hide");
+};

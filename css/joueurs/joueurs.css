@@ -1,8 +1,30 @@
-body {
+html, body {
     overflow: hidden;
-
+    cursor : none;
 }
 
-main {
-    cursor : none;
+#ai_name {
+    position: absolute;
+    display : flex;
+    top : 0;
+    width : 100%;
+    height : 150px;
+    align-items: center;
+    justify-content: center;
+    font-size : 45px;
+    font-family: cherry, serif;
+    font-weight : bold;
+    color: #bfbfbf;
+}
+
+#ai_name.hide {
+    display : none;
+}
+
+#ai_name img {
+    height: 100%;
+}
+
+#ai_name .ai_name__initial {
+    color: white;
 }

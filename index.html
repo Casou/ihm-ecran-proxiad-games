@@ -24,6 +24,14 @@
         <div id="message_content"></div>
     </div>
 
+    <div id="ai_name" class="hide">
+        <img src="resources/images/logo-blanc.png" />
+        <span class="ai_name__initial">C</span>aring&nbsp;
+        <span class="ai_name__initial">A</span>rtificial&nbsp;
+        <span class="ai_name__initial">I</span>ntelligence&nbsp;
+        <span class="ai_name__initial">D</span>eity&nbsp;
+    </div>
+
     <div id="video">
         <video id="intro" onended="$(this).hide();" preload="auto"><source src="resources/videos/intro.mp4" type="video/mp4"></video>
         <video id="final" onended="$(this).hide();" preload="auto"><source src="resources/videos/final.mp4" type="video/mp4"></video>
@@ -101,6 +109,7 @@
                 };
 				COMPTEUR.onStart = (time, initialTime) => {
 					const audioStartTime = Math.round(initialTime - time);
+					displayAIName();
 					startAudioBackground(audioStartTime);
 					setTimeout(() => {
 						showProgressBar(time);
