@@ -20,16 +20,14 @@
     <title>IHM Joueurs</title>
 </head>
 <body>
+    <div id="room_name"></div>
+
     <div id="message" class="cherry">
         <div id="message_content"></div>
     </div>
 
-    <div id="ai_name" class="hide">
+    <div id="ai_logo" class="hide">
         <img src="resources/images/logo-blanc.png" />
-        <span class="ai_name__initial">C</span>aring&nbsp;
-        <span class="ai_name__initial">A</span>rtificial&nbsp;
-        <span class="ai_name__initial">I</span>ntelligence&nbsp;
-        <span class="ai_name__initial">D</span>eity&nbsp;
     </div>
 
     <div id="video">
@@ -52,11 +50,12 @@
     </aside>
 
     <dialog id="configuration">
+        <button onClick="retrieveAllRooms()">Refresh rooms</button>
         <label for="configuration_select">Nom de la salle : </label>
         <select id="configuration_select" onChange="chooseRoom(this.value);">
             <option></option>
         </select>
-        <button onClick="retrieveAllRooms()">Refresh</button>
+        <button onClick="$('#configuration')[0].close();">Close</button>
     </dialog>
 
     <script src="js/common/jquery.min.js"></script>
@@ -86,6 +85,10 @@
 		let ALL_ROOMS;
 		const COMPTEUR = new Compteur("#compteur");
 		let MANDATORY_OK = false;
+
+		if (!ROOM_ID) {
+          $('#configuration')[0].show();
+        }
 
 		checkMandatory().then(() => {
 			retrieveAITexts().then((allTexts) => {

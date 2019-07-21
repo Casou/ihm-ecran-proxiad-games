@@ -9,5 +9,5 @@ const init = () => {
 };
 
 const displayAIName = () => {
-	$("#ai_name").removeClass("hide");
+	$("#ai_logo").removeClass("hide");
 };

@@ -3,12 +3,12 @@ html, body {
     cursor : none;
 }
 
-#ai_name {
+#ai_logo {
     position: absolute;
     display : flex;
     top : 0;
     width : 100%;
-    height : 150px;
+    height : 100%;
     align-items: center;
     justify-content: center;
     font-size : 45px;
@@ -17,14 +17,59 @@ html, body {
     color: #bfbfbf;
 }
 
-#ai_name.hide {
+#ai_logo.hide {
     display : none;
 }
 
-#ai_name img {
+#ai_logo img {
     height: 100%;
+    animation: random_opacity 60s linear alternate infinite;
 }
 
-#ai_name .ai_name__initial {
-    color: white;
+@keyframes random_opacity {
+    0% { opacity: 0.16; }
+    2% { opacity: 0.24; }
+    3% { opacity: 0.45; }
+    5% { opacity: 0.39; }
+    9% { opacity: 0.58; }
+    13% { opacity: 0.13; }
+    16% { opacity: 0.46; }
+    17% { opacity: 0.33; }
+    19% { opacity: 0.17; }
+    22% { opacity: 0.4; }
+    24% { opacity: 0.24; }
+    29% { opacity: 0.4; }
+    30% { opacity: 0.2; }
+    35% { opacity: 0.2; }
+    40% { opacity: 0.44; }
+    44% { opacity: 0.56; }
+    45% { opacity: 0.43; }
+    48% { opacity: 0.38; }
+    52% { opacity: 0.23; }
+    53% { opacity: 0.19; }
+    55% { opacity: 0.35; }
+    60% { opacity: 0.48; }
+    64% { opacity: 0.22; }
+    69% { opacity: 0.25; }
+    72% { opacity: 0.4; }
+    73% { opacity: 0.12; }
+    77% { opacity: 0.42; }
+    81% { opacity: 0.3; }
+    84% { opacity: 0.18; }
+    87% { opacity: 0.19; }
+    92% { opacity: 0.48; }
+    94% { opacity: 0.28; }
+    98% { opacity: 0.55; }
+    100% { opacity: 0.11; }
+}
+
+#room_name {
+    position : absolute;
+    top : 0;
+    right : 0;
+    z-index : -1;
+    font-size : 8vw;
+    color : #333;
+    font-family: unispace, serif;
+    font-weight : bold;
 }
