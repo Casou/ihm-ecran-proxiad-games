@@ -10,7 +10,6 @@ const retrieveAllRooms = () => {
 
         const room = rooms.filter(r => r.id === ROOM_ID) && rooms.filter(r => r.id === ROOM_ID)[0];
 
-        $("#room_name").html(room.name);
         $("#configuration_select")
           .append(rooms.map(room => `<option value="${ room.id }" ${ room.id === ROOM_ID && "selected" }>${ room.name }</option>`)
             .join("")
@@ -19,6 +18,7 @@ const retrieveAllRooms = () => {
         if (!room) {
           ROOM_ID = null;
         } else {
+          $("#room_name").html(room.name);
           updateGlitch(room.resolvedRiddles.length);
         }
 
@@ -44,11 +44,19 @@ const chooseRoom = (value) => {
 $(document).keydown(function (e) {
   if (!MANDATORY_OK) return;
   // Any letter
-  if (e.keyCode >= 65 && e.keyCode <= 90) $('#configuration')[0].show();
+  if (e.keyCode >= 65 && e.keyCode <= 90) showRoomConfiguration();
   // Escape
-  if (e.keyCode === 27) $('#configuration')[0].close();
+  if (e.keyCode === 27) hideRoomConfiguration();
 });
 
+const showRoomConfiguration = () => {
+  $('body').addClass("show_cursor");
+  $('#configuration')[0].show();
+};
+const hideRoomConfiguration = () => {
+  $('body').removeClass("show_cursor");
+  $('#configuration')[0].close();
+};
 
 const updateCurrentRoomData = () => {
   if (!ROOM_ID) {

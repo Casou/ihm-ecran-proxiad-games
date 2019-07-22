@@ -1,128 +1,136 @@
 <!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="shortcut icon" href="resources/images/icone.png">
+  <link rel="shortcut icon" href="resources/images/icone.png">
 
-    <link rel="stylesheet" href="css/jquery-ui.min.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/joueurs/joueurs.css">
-    <link rel="stylesheet" href="css/joueurs/compteur.css">
-    <link rel="stylesheet" href="css/joueurs/text-glitch.css">
-    <link rel="stylesheet" href="css/joueurs/message.css">
-    <link rel="stylesheet" href="css/joueurs/video.css">
-    <link rel="stylesheet" href="css/joueurs/progress-bar.css">
+  <link rel="stylesheet" href="css/jquery-ui.min.css">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/joueurs/joueurs.css">
+  <link rel="stylesheet" href="css/joueurs/compteur.css">
+  <link rel="stylesheet" href="css/joueurs/text-glitch.css">
+  <link rel="stylesheet" href="css/joueurs/message.css">
+  <link rel="stylesheet" href="css/joueurs/video.css">
+  <link rel="stylesheet" href="css/joueurs/progress-bar.css">
 
-    <title>IHM Joueurs</title>
+  <title>IHM Joueurs</title>
 </head>
 <body>
-    <div id="room_name"></div>
+<div id="room_name"></div>
 
-    <div id="message" class="cherry">
-        <div id="message_content"></div>
-    </div>
+<div id="message" class="cherry">
+  <div id="message_content"></div>
+</div>
 
-    <div id="ai_logo" class="hide">
-        <img src="resources/images/logo-blanc.png" />
-    </div>
+<div id="ai_logo" class="hide">
+  <img src="resources/images/logo-blanc.png"/>
+</div>
 
-    <div id="video">
-        <video id="intro" onended="$(this).hide();" preload="auto"><source src="resources/videos/intro.mp4" type="video/mp4"></video>
-        <video id="final" onended="$(this).hide();" preload="auto"><source src="resources/videos/final.mp4" type="video/mp4"></video>
-        <video id="troll" onended="$(this).hide();"></video>
-    </div>
+<div id="video">
+  <video id="intro" onended="$(this).hide();" preload="auto">
+    <source src="resources/videos/intro.mp4" type="video/mp4">
+  </video>
+  <video id="final" onended="$(this).hide();" preload="auto">
+    <source src="resources/videos/final.mp4" type="video/mp4">
+  </video>
+  <video id="troll" onended="$(this).hide();"></video>
+</div>
 
-    <audio id="incomingMessage"><source src="resources/audio/message.mp3" type="audio/mpeg"></audio>
-    <audio id="audioBackground" preload loop><source src="resources/audio/audio-background.mp3" type="audio/mpeg"></audio>
+<audio id="incomingMessage">
+  <source src="resources/audio/message.mp3" type="audio/mpeg">
+</audio>
+<audio id="audioBackground" preload loop>
+  <source src="resources/audio/audio-background.mp3" type="audio/mpeg">
+</audio>
 
-    <main>
-        <section id="compteur" class="glitch cherry stade0" data-text="">
-        </section>
-    </main>
+<main>
+  <section id="compteur" class="glitch cherry stade0" data-text="">
+  </section>
+</main>
 
-    <aside id="progress_bar">
-        <span id="progress_bar_text"></span>
-        <div id="progress"></div>
-    </aside>
+<aside id="progress_bar">
+  <span id="progress_bar_text"></span>
+  <div id="progress"></div>
+</aside>
 
-    <dialog id="configuration">
-        <button onClick="retrieveAllRooms()">Refresh rooms</button>
-        <label for="configuration_select">Nom de la salle : </label>
-        <select id="configuration_select" onChange="chooseRoom(this.value);">
-            <option></option>
-        </select>
-        <button onClick="$('#configuration')[0].close();">Close</button>
-    </dialog>
+<dialog id="configuration">
+  <button onClick="retrieveAllRooms()">Refresh rooms</button>
+  <label for="configuration_select">Nom de la salle : </label>
+  <select id="configuration_select" onChange="chooseRoom(this.value);">
+    <option></option>
+  </select>
+  <button onClick="hideRoomConfiguration();">Close</button>
+</dialog>
 
-    <script src="js/common/jquery.min.js"></script>
-    <script src="js/common/jquery-ui.min.js"></script>
-    <script src="js/common/common.js"></script>
+<script src="js/common/jquery.min.js"></script>
+<script src="js/common/jquery-ui.min.js"></script>
+<script src="js/common/common.js"></script>
 
-    <script src="js/websocket/sockjs.js"></script>
-    <script src="js/websocket/stomp.js"></script>
-    <script src="js/websocket/websocketClient.js"></script>
+<script src="js/websocket/sockjs.js"></script>
+<script src="js/websocket/stomp.js"></script>
+<script src="js/websocket/websocketClient.js"></script>
 
-    <script src="js/common/compteur.js"></script>
-    <script src="js/common/responsiveVoice.js"></script>
-    <script src="js/common/synthetesis.js"></script>
-    <script src="js/joueurs/actions.js"></script>
-    <script src="js/joueurs/audio-background.js"></script>
-    <script src="js/joueurs/joueurs.websocket.js"></script>
-    <script src="js/joueurs/index.js"></script>
-    <script src="js/joueurs/room.js"></script>
-    <script src="js/joueurs/messages.js"></script>
-    <script src="js/joueurs/troll.js"></script>
-    <script src="js/joueurs/riddles.js"></script>
-    <script src="js/joueurs/glitch.js"></script>
-    <script src="js/joueurs/progress.js"></script>
+<script src="js/common/compteur.js"></script>
+<script src="js/common/responsiveVoice.js"></script>
+<script src="js/common/synthetesis.js"></script>
+<script src="js/joueurs/actions.js"></script>
+<script src="js/joueurs/audio-background.js"></script>
+<script src="js/joueurs/joueurs.websocket.js"></script>
+<script src="js/joueurs/index.js"></script>
+<script src="js/joueurs/room.js"></script>
+<script src="js/joueurs/messages.js"></script>
+<script src="js/joueurs/troll.js"></script>
+<script src="js/joueurs/riddles.js"></script>
+<script src="js/joueurs/glitch.js"></script>
+<script src="js/joueurs/progress.js"></script>
 
-    <script>
-		let ROOM_ID = (localStorage.getItem("roomId") && parseInt(localStorage.getItem("roomId"))) || "";
-		let ALL_ROOMS;
-		const COMPTEUR = new Compteur("#compteur");
-		let MANDATORY_OK = false;
+<script>
+  let ROOM_ID = (localStorage.getItem("roomId") && parseInt(localStorage.getItem("roomId"))) || "";
+  let ALL_ROOMS;
+  const COMPTEUR = new Compteur("#compteur");
+  let MANDATORY_OK = false;
 
-		if (!ROOM_ID) {
-          $('#configuration')[0].show();
-        }
+  if (!ROOM_ID) {
+    showRoomConfiguration();
+  }
 
-		checkMandatory().then(() => {
-			retrieveAITexts().then((allTexts) => {
-                MANDATORY_OK = true;
-                PROGRESS_TEXTS = allTexts.filter(text => text.discriminant === "PROGRESS_BAR");
-				TROLL_END = allTexts.find(text => text.discriminant === "TROLL_END");
+  checkMandatory().then(() => {
+    retrieveAITexts().then((allTexts) => {
+      MANDATORY_OK = true;
+      PROGRESS_TEXTS = allTexts.filter(text => text.discriminant === "PROGRESS_BAR");
+      TROLL_END = allTexts.find(text => text.discriminant === "TROLL_END");
 
-				COMPTEUR.onEndCount = () => {
-					trollEnd();
-					muteAudioBackground();
-					sendCountEnded(ROOM_ID);
-				};
-				COMPTEUR.onRender = checkProgressBar;
-				COMPTEUR.onPause = () => {
-					pauseAudioBackground();
-					hideProgressBar();
-				};
-				COMPTEUR.onStop = () => {
-                    pauseAudioBackground();
-                    hideProgressBar();
-                };
-				COMPTEUR.onStart = (time, initialTime) => {
-					const audioStartTime = Math.round(initialTime - time);
-					displayAIName();
-					startAudioBackground(audioStartTime);
-					setTimeout(() => {
-						showProgressBar(time);
-					}, 4000);
-				};
+      COMPTEUR.onEndCount = () => {
+        trollEnd();
+        muteAudioBackground();
+        sendCountEnded(ROOM_ID);
+      };
+      COMPTEUR.onRender = checkProgressBar;
+      COMPTEUR.onPause = () => {
+        pauseAudioBackground();
+        hideProgressBar();
+      };
+      COMPTEUR.onStop = () => {
+        pauseAudioBackground();
+        hideProgressBar();
+      };
+      COMPTEUR.onStart = (time, initialTime) => {
+        const audioStartTime = Math.round(initialTime - time);
+        displayAIName();
+        startAudioBackground(audioStartTime);
+        setTimeout(() => {
+          showProgressBar(time);
+        }, 4000);
+      };
 
-				init().then(glitchize);
-            });
-		});
+      init().then(glitchize);
+    });
+  });
 
-    </script>
+</script>
 </body>
 </html>

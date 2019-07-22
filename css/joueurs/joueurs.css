@@ -3,6 +3,10 @@ html, body {
     cursor : none;
 }
 
+body.show_cursor {
+    cursor : default;
+}
+
 #ai_logo {
     position: absolute;
     display : flex;
