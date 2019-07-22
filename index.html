@@ -105,7 +105,7 @@
       TROLL_END = allTexts.find(text => text.discriminant === "TROLL_END");
 
       COMPTEUR.onEndCount = () => {
-        trollEnd();
+        trollEndOfGame();
         muteAudioBackground();
         sendCountEnded(ROOM_ID);
       };

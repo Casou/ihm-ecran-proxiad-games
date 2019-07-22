@@ -25,7 +25,7 @@ class Riddle {
                         </div>
                     </li>
                 </ul>
-                <a class="waves-effect waves-light red lighten-2 btn-small" onClick="deleteRiddle(${ this.id });"><i class="material-icons left">delete_forever</i>Supprimer</a>
+                <a class="waves-effect waves-light red lighten-2 btn-small icon_button" onClick="deleteRiddle(${ this.id });"><i class="material-icons left">delete_forever</i>Supprimer</a>
             </div>
         </div>
         `;

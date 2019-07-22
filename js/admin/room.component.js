@@ -16,7 +16,7 @@ class Room {
 				<div class="card blue-grey darken-3 room ${ this.data.terminateStatus }">
 					<div class="card-content">
 						<header>
-							<span class="reinit_room" title="Réinitialiser la salle" onClick="reinitRoom(${ this.id });"></span>
+							<span class="reinit_room icon_button" title="Réinitialiser la salle" onClick="reinitRoom(${ this.id });"></span>
 							<div class="input-field">
 							  <input type="text" 
 									class="room_name" 
@@ -24,7 +24,7 @@ class Room {
 									onKeyPress="return preventBadCharacterForRoomName(event)"
 									onChange="updateRoomName(${ this.id }, this.value)" />
 							</div>
-							<span class="delete_room" title="Supprimer la salle" onClick="deleteRoom(${ this.id });"></span>
+							<span class="delete_room icon_button" title="Supprimer la salle" onClick="deleteRoom(${ this.id });"></span>
 						</header>
 						<div>
 							<div class="riddle_icons">
@@ -47,7 +47,7 @@ class Room {
 								<h2>
 									<i class="material-icons connection_status">cast</i> 
 									IHM joueurs
-									<span class="refresh_room" title="Rafraichir l'affichage des joueurs" onClick="refreshRoom(${ this.id });"></span>
+									<span class="refresh_room icon_button" title="Rafraichir l'affichage des joueurs" onClick="refreshRoom(${ this.id });"></span>
 								</h2>
 								<div class="compteurWrapper">
 									${ this.compteur && this.compteur.render() }
@@ -64,8 +64,8 @@ class Room {
 									</div>
 									
 									<div class="actionButtons">
-										<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testMessage(${ this.id });"><i class="material-icons left">volume_up</i>Test</a>
-										<a class="waves-effect waves-light blue darken-4 btn-small" onClick="sendMessageToRoom(${ this.id });"><i class="material-icons left">send</i>Envoyer</a>                            
+										<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testMessage(${ this.id });"><i class="material-icons left">volume_up</i>Test</a>
+										<a class="waves-effect waves-light blue darken-4 btn-small full_button" onClick="sendMessageToRoom(${ this.id });"><i class="material-icons left">send</i>Envoyer</a>                            
 									</div>
 								</div>
 								<div class="boiteTaunt">
@@ -78,7 +78,7 @@ class Room {
 										
 										<div class="actionButtons">
 											<label class="tauntLastTime">Dernier taunt envoyé : <span></span></label>
-											<a class="waves-effect waves-light blue darken-4 btn-small" onClick="sendTauntToRoom(${ this.id });"><i class="material-icons left">send</i>Envoyer</a>                            
+											<a class="waves-effect waves-light blue darken-4 btn-small full_button" onClick="sendTauntToRoom(${ this.id });"><i class="material-icons left">send</i>Envoyer</a>                            
 										</div>
 								</div>
 							</div>

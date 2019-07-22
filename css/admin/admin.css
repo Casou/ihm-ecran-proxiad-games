@@ -118,3 +118,8 @@ input:not([disabled]) {
     height: 26px;
     vertical-align: middle;
 }
+
+.icon_button:hover,
+.full_button:hover {
+    filter: brightness(120%) drop-shadow(2px 2px 0 black);
+}

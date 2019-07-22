@@ -155,16 +155,19 @@ const updateSentence = (sentence) => {
 	$.ajax({
 		url: SERVER_URL + "text",
 		type: "PATCH",
-		data : JSON.stringify(sentence),
+		data : JSON.stringify({
+			id: sentence.id,
+			text: sentence.text,
+			voice: sentence.voice
+		}),
 		contentType: "application/json",
 		success: () => {
 			IA_PARAMETERS.updateSentence(sentence);
 			updateSentenceSelects();
 		},
 		error: (xmlHttpRequest, textStatus, errorThrown) => {
-			console.error("Status: " + textStatus);
-			console.error("Error: " + errorThrown);
-			reject(textStatus);
+			console.error("Error while updating sentence", sentence, xmlHttpRequest, textStatus, errorThrown);
+			alert(`Error while updating sentence ${ JSON.stringify(sentence) } : \n${ textStatus }`);
 		}
 	});
 };

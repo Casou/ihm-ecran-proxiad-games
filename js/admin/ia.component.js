@@ -75,12 +75,12 @@ class IAPamameters {
 					<h1>Phrases d'introduction de l'IA</h1>
 					<h2>Synthétise le message sans l'afficher.</h2>
 					${ iaIntroductionSentences }
-					<a class="waves-effect waves-light blue darken-4 btn-small" onClick="createSentence();"><i class="material-icons left">add</i>Ajouter une phrase</a>
+					<a class="waves-effect waves-light blue darken-4 btn-small full_button" onClick="createSentence();"><i class="material-icons left">add</i>Ajouter une phrase</a>
 				</section>
 				<section id="progress_bar_texts" class="card blue-grey darken-3">
 					<h1>Textes à afficher sur la progress bar</h1>
 					${ progressBarTextList }
-					<a class="waves-effect waves-light blue darken-4 btn-small" onClick="createProgressBarText();"><i class="material-icons left">add</i>Ajouter une phrase</a>
+					<a class="waves-effect waves-light blue darken-4 btn-small full_button" onClick="createProgressBarText();"><i class="material-icons left">add</i>Ajouter une phrase</a>
 				</section>
 				<section id="troll_text" class="card blue-grey darken-3">
 					<h1>Troll - Messages avec vidéo (clés vérolées)</h1>
@@ -98,7 +98,7 @@ class IAPamameters {
 					<h1>Réactions énigmes (saisie d'un mot de passe correct)</h1>
 					<h2>Synthétise le message sans l'afficher. Boucle sur la dernière vidéo si les programmes sont appelés trop de fois.</h2>
 					${ enigmes }
-					<a class="waves-effect waves-light blue darken-4 btn-small" onClick="createEnigmaText();"><i class="material-icons left">add</i>Ajouter une phrase</a>
+					<a class="waves-effect waves-light blue darken-4 btn-small full_button" onClick="createEnigmaText();"><i class="material-icons left">add</i>Ajouter une phrase</a>
 					
 					<h1>Dernière énigme résolue</h1>
 					<h2>Synthétise le message sans l'afficher.</h2>
@@ -107,7 +107,7 @@ class IAPamameters {
 				<section id="taunt_texts" class="card blue-grey darken-3">
 					<h1>Phrases de provocation préconfigurées</h1>
 					${ tauntList }
-					<a class="waves-effect waves-light blue darken-4 btn-small" onClick="createTauntText();"><i class="material-icons left">add</i>Ajouter une phrase</a>
+					<a class="waves-effect waves-light blue darken-4 btn-small full_button" onClick="createTauntText();"><i class="material-icons left">add</i>Ajouter une phrase</a>
 				</section>
 		`;
 	}
@@ -132,8 +132,8 @@ class IAPamameters {
 									${ this._mapAllVoicesToOptions(sentence.voice) }
 								</select>
 							</div>
-							<i class="material-icons delete" onClick="deleteText(${ sentence.id });">delete_forever</i>
-							<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testSentence(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
+							<i class="material-icons delete icon_button" onClick="deleteText(${ sentence.id });">delete_forever</i>
+							<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testSentence(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
 						</li>`).join("") }
 				</ul>`;
 	}
@@ -152,7 +152,7 @@ class IAPamameters {
 								value="${ text.text }" 
 								onChange="updateProgressBarText(${ text.id }, this.value);" />
 					</div>
-					<i class="material-icons delete" onClick="deleteText(${ text.id });">delete_forever</i>
+					<i class="material-icons delete icon_button" onClick="deleteText(${ text.id });">delete_forever</i>
 				</li>`;
 		}
 		progressBarTextList += '</ul>';
@@ -179,7 +179,7 @@ class IAPamameters {
 									${ this._mapAllVoicesToOptions(sentence.voice) }
 								</select>
 							</div>
-							<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testTroll(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
+							<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testTroll(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
 						</li>`).join("") }
 				</ul>`;
 	}
@@ -197,7 +197,7 @@ class IAPamameters {
 						${ this._mapAllVoicesToOptions(this.trollEndText.voice) }
 					</select>
 				</div>
-				<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testTroll(${ this.trollEndText.id });"><i class="material-icons left">volume_up</i>Tester</a>
+				<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testTroll(${ this.trollEndText.id });"><i class="material-icons left">volume_up</i>Tester</a>
 			`;
 	}
 
@@ -217,8 +217,8 @@ class IAPamameters {
 									${ this._mapAllVoicesToOptions(sentence.voice) }							
 								</select>
 							</div>
-							<i class="material-icons delete" onClick="deleteText(${ sentence.id });">delete_forever</i>
-							<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testEnigma(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
+							<i class="material-icons delete full_button" onClick="deleteText(${ sentence.id });">delete_forever</i>
+							<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testEnigma(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
 						</li>`).join("") }
 				</ul>`;
 	}
@@ -236,7 +236,7 @@ class IAPamameters {
 						${ this._mapAllVoicesToOptions(this.lastEnigmaText.voice) }							
 					</select>
 				</div>
-				<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testTroll(${ this.lastEnigmaText.id });"><i class="material-icons left">volume_up</i>Tester</a>
+				<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testTroll(${ this.lastEnigmaText.id });"><i class="material-icons left">volume_up</i>Tester</a>
 			`;
 	}
 
@@ -253,7 +253,7 @@ class IAPamameters {
 						${ this._mapAllVoicesToOptions(this.openTerminalText.voice) }
 					</select>
 				</div>
-				<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testTroll(${ this.openTerminalText.id });"><i class="material-icons left">volume_up</i>Tester</a>
+				<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testTroll(${ this.openTerminalText.id });"><i class="material-icons left">volume_up</i>Tester</a>
 			`;
 	}
 
@@ -273,8 +273,8 @@ class IAPamameters {
 									${ this._mapAllVoicesToOptions(sentence.voice) }							
 								</select>
 							</div>
-							<i class="material-icons delete" onClick="deleteText(${ sentence.id });">delete_forever</i>
-							<a class="waves-effect waves-light blue lighten-1 btn-small" onClick="testTaunt(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
+							<i class="material-icons delete icon_button" onClick="deleteText(${ sentence.id });">delete_forever</i>
+							<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testTaunt(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
 						</li>`).join("") }
 				</ul>`;
 	}
@@ -288,7 +288,7 @@ class IAPamameters {
 }
 
 const preventBadCharacterForSynthetizedText = (event) => {
-	return event.which !== 34; // Caractère "
+	return event.which !== 34; // Caractère quote (")
 };
 
 const testSentence = (id) => {

@@ -62,6 +62,7 @@ span.reinit_room {
     cursor : pointer;
     filter: drop-shadow(2px 2px 0 black);
 }
+
 span.delete_room {
     right : 10px;
     background: url("../../resources/images/cross.png") no-repeat top left transparent;
