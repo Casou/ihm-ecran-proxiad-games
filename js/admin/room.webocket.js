@@ -90,7 +90,7 @@ const reduceTimerRoomCallback = (roomTrollDto) => {
   const room = ROOMS.filter(r => roomTrollDto.id === r.id)[0];
   if (room) {
     room.compteur.animateReduceTime(roomTrollDto.reduceTime).then(() => {
-      const calculatedRemainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(roomTrollDto.startTime), roomTrollDto.remainingTime);
+      const calculatedRemainingTime = calculateRemainingTime(new Date(roomTrollDto.startTime), roomTrollDto.remainingTime);
       room.compteur.initTimer(calculatedRemainingTime);
     });
   } else {

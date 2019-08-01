@@ -67,7 +67,8 @@ const updateCurrentRoomData = () => {
   const room = ALL_ROOMS.filter(r => r.id === ROOM_ID)[0];
   if (room.startTime) {
     if (room.statusTime === "STARTED") {
-      let startTimeDate = parseJavaLocalDateTimeToJsDate(room.startTime);
+      // let startTimeDate = parseJavaLocalDateTimeToJsDate(room.startTime);
+      let startTimeDate = new Date(room.startTime);
       const remainingTime = calculateRemainingTime(startTimeDate, room.remainingTime);
       COMPTEUR.initTimer(remainingTime, room.remainingTime, startTimeDate);
       COMPTEUR.startTime();

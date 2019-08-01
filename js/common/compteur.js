@@ -24,7 +24,7 @@ class Compteur {
 
 		if (startTime) {
 			if (statusTime === "STARTED") {
-				const calculatedRemainingTime = calculateRemainingTime(parseJavaLocalDateTimeToJsDate(startTime), remainingTime);
+				const calculatedRemainingTime = calculateRemainingTime(new Date(startTime), remainingTime);
 				this.initTimer(calculatedRemainingTime);
 				this.startTime();
 			} else if (statusTime === "PAUSED") {
