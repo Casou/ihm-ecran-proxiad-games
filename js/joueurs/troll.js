@@ -1,5 +1,4 @@
 const receiveTroll = ({ reduceTime, message, voice, videoName }, sendRequestCallback) => {
-	console.debug("troll", message, voice, videoName);
 	return new Promise(resolve => {
 		muteAudioBackground();
 		$('#video video').fadeOut(500, () => {

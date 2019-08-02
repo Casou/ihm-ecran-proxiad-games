@@ -17,8 +17,8 @@ const subscribeAll = () => {
     COMPTEUR.stopTime();
     reinitRoom();
   });
-  WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/terminate", () => {
-    success();
+  WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/terminate", (room) => {
+    success(room);
   });
   WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/unlockRiddle", (unlockDto) => {
     addAction(() => resolveRiddle(unlockDto));
@@ -51,20 +51,23 @@ const refreshAfterTroll = () => {
 };
 
 const playIntroAndStartTimer = (remainingTime) => {
-  const jqIntroVideo = $('#video video#intro');
-  jqIntroVideo[0].currentTime = 0;
-  jqIntroVideo.on('ended', () => {
+  // const jqIntroVideo = $('#video video#intro');
+  // jqIntroVideo[0].currentTime = 0;
+  // jqIntroVideo.on('ended', () => {
     COMPTEUR.initTimer(remainingTime, remainingTime);
     COMPTEUR.startTime();
     WEBSOCKET_CLIENT.send("/room/startTimer", {id: ROOM_ID, startTime: new Date()});
-  });
-  jqIntroVideo.show();
-  jqIntroVideo[0].play();
+  // });
+  // jqIntroVideo.show();
+  // jqIntroVideo[0].play();
 };
 
-const success = () => {
+const success = (room) => {
   COMPTEUR.pauseTime();
   $("#compteur").fadeOut(1000, () => {
+    COMPTEUR.currentTime = room.remainingTime;
+    COMPTEUR.renderAndApply();
+
     $('#video video').hide();
     const jqFinalVideo = $('#video video#final');
     jqFinalVideo[0].currentTime = 0;

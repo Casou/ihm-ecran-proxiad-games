@@ -158,17 +158,17 @@ const unlockRiddleCallback = (unlockDto) => {
 };
 
 const successRoomCallback = (room) => {
-  const roomsFiltered = ROOMS.filter(r => room.id === r.id)[0];
-  if (roomsFiltered) {
-    roomsFiltered.compteur.terminate();
+  const currentRoom = ROOMS.find(r => room.id === r.id);
+  if (currentRoom) {
+    currentRoom.compteur.terminate(room.remainingTime);
   }
   $('#room_' + room.id + ' .room').addClass("success");
 };
 
 const failRoomCallback = (room) => {
-  const roomsFiltered = ROOMS.filter(r => room.id === r.id)[0];
-  if (roomsFiltered) {
-    roomsFiltered.compteur.terminate();
+  const currentRoom = ROOMS.find(r => room.id === r.id);
+  if (currentRoom) {
+    currentRoom.compteur.terminate(0);
   }
   $('#room_' + room.id + ' .room').addClass("fail");
 };

@@ -40,8 +40,9 @@ class CompteurAvecBoutons {
 		this.renderAndApply();
 	}
 
-	terminate() {
+	terminate(remainingTime) {
 		this.compteur && this.compteur.pauseTime();
+		this.compteur && (this.compteur.currentTime = remainingTime);
 		this.isTerminated = true;
 		this.renderAndApply();
 	}

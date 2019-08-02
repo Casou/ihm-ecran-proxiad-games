@@ -117,6 +117,8 @@ class Compteur {
 			this.currentTime = 0;
 			this.pauseTime();
 
+			// Render avant le end count pour éviter de rester à 00:00:01 en cas d'exception
+			this.renderAndApply();
 			if (this.onEndCount) {
 				this.onEndCount();
 			}
