@@ -51,15 +51,15 @@ const refreshAfterTroll = () => {
 };
 
 const playIntroAndStartTimer = (remainingTime) => {
-  // const jqIntroVideo = $('#video video#intro');
-  // jqIntroVideo[0].currentTime = 0;
-  // jqIntroVideo.on('ended', () => {
+  const jqIntroVideo = $('#video video#intro');
+  jqIntroVideo[0].currentTime = 0;
+  jqIntroVideo.on('ended', () => {
     COMPTEUR.initTimer(remainingTime, remainingTime);
     COMPTEUR.startTime();
     WEBSOCKET_CLIENT.send("/room/startTimer", {id: ROOM_ID, startTime: new Date()});
-  // });
-  // jqIntroVideo.show();
-  // jqIntroVideo[0].play();
+  });
+  jqIntroVideo.show();
+  jqIntroVideo[0].play();
 };
 
 const success = (room) => {
