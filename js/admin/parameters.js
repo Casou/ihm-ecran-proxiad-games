@@ -84,6 +84,9 @@ const renderInput = (parameter) => {
 											class="${ css }"
 						>${ parameter.value }</textarea>`;
 	}
+	if (parameter.type === 'NUMBER') {
+		return `<input type="number" value="${ parameter.value }" onchange="updateParameter(${ parameter.id }, this.value);" />`;
+	}
 	return `<input type="text" value="${ parameter.value }" onchange="updateParameter(${ parameter.id }, this.value);" />`;
 };
 

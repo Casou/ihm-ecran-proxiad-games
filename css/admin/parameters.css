@@ -32,6 +32,10 @@
 #params .parameter_value .input-field {
     width: 100%;
 }
+#params .parameter_value .input-field textarea:focus {
+    border: 2px solid yellow !important;
+    box-shadow: 0 1px 0 0 yellow !important;
+}
 
 #params input {
     width: 450px;
