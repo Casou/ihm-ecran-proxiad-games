@@ -41,7 +41,7 @@ const updateServerURL = (newValue) => {
 const retrieveServerParameters = () => {
 	return new Promise(resolve => {
 		$.ajax({
-			url: SERVER_URL + "parametres",
+			url: SERVER_URL + "parametre",
 			type: "GET",
 			success: (parametres) => {
 				PARAMETERS = [];
@@ -76,8 +76,8 @@ const renderParameters = (parameters) => {
 
 const updateParameter = (id, value) => {
 	$.ajax({
-		url: SERVER_URL + "parametres",
-		type: "POST",
+		url: SERVER_URL + "parametre",
+		type: "PATCH",
 		data : JSON.stringify({ id, value }),
 		contentType: "application/json",
 		success: () => {

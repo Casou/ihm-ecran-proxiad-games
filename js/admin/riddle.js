@@ -1,7 +1,7 @@
 const retrieveRiddlesData = () => {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: SERVER_URL + "riddles",
+            url: SERVER_URL + "riddle",
             type: "GET",
             success: (riddles) => {
                 riddles.sort((a, b) => a.name.localeCompare(b.name));
@@ -66,7 +66,7 @@ const newRiddle = () => {
 const updateRiddleName = (id, value) => {
     $.ajax({
         url: SERVER_URL + "riddle/" + id + "/name",
-        type: "POST",
+        type: "PATCH",
         data : JSON.stringify({ name : value }),
         contentType: "application/json",
         success: (newRiddle) => {
@@ -89,7 +89,7 @@ const updateRiddleName = (id, value) => {
 const updateRiddleId = (id, riddleId) => {
     $.ajax({
         url: SERVER_URL + "riddle/" + id + "/riddleId",
-        type: "POST",
+        type: "PATCH",
         data : JSON.stringify({ riddleId }),
         contentType: "application/json",
         success: () => {

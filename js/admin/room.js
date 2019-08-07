@@ -1,7 +1,7 @@
 const retrieveRoomsData = () => {
     return new Promise((resolve, reject) => {
         $.ajax({
-            url: SERVER_URL + "rooms",
+            url: SERVER_URL + "room",
             type: "GET",
             success: (rooms) => {
                 resolve(rooms);
@@ -107,7 +107,7 @@ const reinitRoom = (id) => {
 
 const reinitRoomAjax = (id) => {
 	$.ajax({
-		url: SERVER_URL + "room/" + id,
+		url: SERVER_URL + "room/" + id + "/reinit",
 		type: "PATCH",
 		contentType: "application/json",
 		success: (room) => {

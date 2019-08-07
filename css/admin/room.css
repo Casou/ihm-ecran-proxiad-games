@@ -108,6 +108,7 @@ span.refresh_room {
 #rooms .riddle_icons {
     text-align : center;
     text-shadow: 1px 1px 0 #222, 2px 2px 0 #222;
+    cursor : help;
 }
 #rooms .connection_status {
     display: inline-block;

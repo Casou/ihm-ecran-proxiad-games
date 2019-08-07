@@ -3,7 +3,7 @@ let ALL_RIDDLES = [];
 const retrieveAllRiddles = () => {
 	return new Promise((resolve, reject) => {
 		$.ajax({
-			url: SERVER_URL + "riddles",
+			url: SERVER_URL + "riddle",
 			type: "GET",
 			success: (riddles) => {
 				ALL_RIDDLES = riddles;
