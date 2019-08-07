@@ -17,8 +17,8 @@
 }
 
 #params table th.parameter_id, #params table td.parameter_id {
-    width: 200px;
-    max-width: 200px;
+    width: 265px;
+    max-width: 265px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

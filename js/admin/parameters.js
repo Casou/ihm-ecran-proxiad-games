@@ -63,7 +63,7 @@ const renderParameters = (parameters) => {
 	parameters.forEach((param) => {
 		$("#server_params table tbody").append(`
 		<tr>
-			<td class="parameter_id" title="${ param.key }" class="tooltip">${ param.key }</td>
+			<td class="parameter_id tooltip" title="${ param.key }">${ param.key }</td>
 			<td class="parameter_description">${ param.description }</td>
 			<td class="parameter_value">
 				<div class="input-field">
