@@ -63,15 +63,28 @@ const renderParameters = (parameters) => {
 	parameters.forEach((param) => {
 		$("#server_params table tbody").append(`
 		<tr>
-			<td>${ param.key }</td>
-			<td>${ param.description }</td>
-			<td>
+			<td class="parameter_id" title="${ param.key }" class="tooltip">${ param.key }</td>
+			<td class="parameter_description">${ param.description }</td>
+			<td class="parameter_value">
 				<div class="input-field">
-					<input type="text" value="${ param.value }" onchange="updateParameter(${ param.id }, this.value);" />
+					${ renderInput(param) }
 				</div>
 			</td>
 		</tr>`)
 	});
+
+	$("#server_params .tooltip").tooltipster();
+};
+
+const renderInput = (parameter) => {
+	if (parameter.type === 'FIELDSET') {
+		const css = parameter.optionals === 'terminal-style' ? 'terminal' : "";
+
+		return `<textarea onchange="updateParameter(${ parameter.id }, this.value);"
+											class="${ css }"
+						>${ parameter.value }</textarea>`;
+	}
+	return `<input type="text" value="${ parameter.value }" onchange="updateParameter(${ parameter.id }, this.value);" />`;
 };
 
 const updateParameter = (id, value) => {
@@ -87,7 +100,7 @@ const updateParameter = (id, value) => {
 		error: (xmlHttpRequest, textStatus, errorThrown) => {
 			console.error("Status: " + textStatus);
 			console.error("Error: " + errorThrown);
-			alertDialog(textStatus);
+			errorDialog(textStatus);
 		}
 	});
 };

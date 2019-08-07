@@ -1,155 +1,163 @@
 <!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <link rel="shortcut icon" href="resources/images/icone.png">
+  <link rel="shortcut icon" href="resources/images/icone.png">
 
-    <!-- Compiled and minified CSS -->
-    <link href="css/fonts/google-font-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/materialize/css/materialize.min.css">
+  <!-- Compiled and minified CSS -->
+  <link href="css/fonts/google-font-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/materialize/css/materialize.min.css">
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="css/materialize/js/materialize.min.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="css/materialize/js/materialize.min.js"></script>
 
-    <link rel="stylesheet" href="css/tooltipster.bundle.min.css">
-    <link rel="stylesheet" href="css/jquery-ui.min.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/admin/admin.css">
-    <link rel="stylesheet" href="css/admin/admin-materialize.css">
-    <link rel="stylesheet" href="css/admin/confimDialog.css">
-    <link rel="stylesheet" href="css/admin/compteur.css">
-    <link rel="stylesheet" href="css/admin/header.css">
-    <link rel="stylesheet" href="css/admin/room.css">
-    <link rel="stylesheet" href="css/admin/riddle.css">
-    <link rel="stylesheet" href="css/admin/parameters.css">
-    <link rel="stylesheet" href="css/admin/ia.css">
+  <link rel="stylesheet" href="css/tooltipster.bundle.min.css">
+  <link rel="stylesheet" href="css/jquery-ui.min.css">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/admin/admin.css">
+  <link rel="stylesheet" href="css/admin/admin-materialize.css">
+  <link rel="stylesheet" href="css/admin/compteur.css">
+  <link rel="stylesheet" href="css/admin/dialog.css">
+  <link rel="stylesheet" href="css/admin/header.css">
+  <link rel="stylesheet" href="css/admin/room.css">
+  <link rel="stylesheet" href="css/admin/riddle.css">
+  <link rel="stylesheet" href="css/admin/parameters.css">
+  <link rel="stylesheet" href="css/admin/ia.css">
 
-    <title>Admin - Proxiad Games</title>
+  <title>Admin - Proxiad Games</title>
 </head>
 <body class="grey darken-4">
-    <!--
-    TODO List :
-    - Bug si tous les trolls sont envoyés en même temps
-    - Corriger les vidéos (mettre les version 30s)
+<!--
+TODO List :
+- Bug si tous les trolls sont envoyés en même temps
+- Corriger les vidéos (mettre les version 30s)
 
-    - bug time = 0 : fail non déclenché (resté 00:00:01 sur l'admin) - Bug aléatoire
-    - Bug (secondaire) : si on refresh l'ihm joueurs pendant la lecture de la vidéo d'intro, l'admin est toujours en train d'afficher "Playing intro"
-    - Bug (secondaire) : lancer le jeu puis appuyer sur pause après quelques secondes, refresh l'ihm joueurs => le compteur est revenu à 1:00:00
-    - Bug (secondaire) : la génération de profil ne pioche pas de nom après la lettre F (possiblement pareil pour les prénoms)
+- bug time = 0 : fail non déclenché (resté 00:00:01 sur l'admin) - Bug aléatoire
+- Bug (secondaire) : si on refresh l'ihm joueurs pendant la lecture de la vidéo d'intro, l'admin est toujours en train d'afficher "Playing intro"
+- Bug (secondaire) : lancer le jeu puis appuyer sur pause après quelques secondes, refresh l'ihm joueurs => le compteur est revenu à 1:00:00
+- Bug (secondaire) : la génération de profil ne pioche pas de nom après la lettre F (possiblement pareil pour les prénoms)
 
-    - Doc d'install : supprimer la mise en veille de la télé
-    - QR code : mettre un sens + faire un QR code plein
-    - Raspberry avec double connexion (éthernet pour le réseau fermé, wifi pour internet) : https://www.raspberrypi.org/forums/viewtopic.php?t=213957)
-    - Synthèse de texte offline
-    -->
+- Doc d'install : supprimer la mise en veille de la télé
+- QR code : mettre un sens + faire un QR code plein
+- Raspberry avec double connexion (éthernet pour le réseau fermé, wifi pour internet) : https://www.raspberrypi.org/forums/viewtopic.php?t=213957)
+- Synthèse de texte offline
+-->
 
-    <div id="content">
-        <nav class="grey darken-4">
-            <div class="nav-wrapper grey darken-4">
-                <ul class="left grey darken-4">
-                    <li tab="rooms_tab"><button>Salles</button></li>
-                    <li tab="riddles"><button>Enigmes</button></li>
-                    <li tab="ai"><button>IA</button></li>
-                    <li tab="params"><button>Paramètres</button></li>
-                </ul>
-            </div>
-        </nav>
-
-        <main>
-            <div id="rooms_tab" class="tab">
-                <div id="rooms" class="row"></div>
-            </div>
-            <div id="riddles" class="tab"></div>
-            <div id="ai" class="tab"></div>
-            <div id="params" class="tab">
-                <section id="local_params" class="card blue-grey darken-3">
-                    <h1>Paramètres locaux</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Paramètre</th>
-                                <th>Valeur</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </section>
-                <section id="server_params" class="card blue-grey darken-3">
-                    <h1>Paramètres serveur</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Paramètre</th>
-                                <th>Valeur</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </section>
-            </div>
-        </main>
+<div id="content">
+  <nav class="grey darken-4">
+    <div class="nav-wrapper grey darken-4">
+      <ul class="left grey darken-4">
+        <li tab="rooms_tab">
+          <button>Salles</button>
+        </li>
+        <li tab="riddles">
+          <button>Enigmes</button>
+        </li>
+        <li tab="ai">
+          <button>IA</button>
+        </li>
+        <li tab="params">
+          <button>Paramètres</button>
+        </li>
+      </ul>
     </div>
+  </nav>
 
-    <div id="confirmDialog" title="Confirmation" style="display : none;">
+  <main>
+    <div id="rooms_tab" class="tab">
+      <div id="rooms" class="row"></div>
     </div>
+    <div id="riddles" class="tab"></div>
+    <div id="ai" class="tab"></div>
+    <div id="params" class="tab">
+      <section id="local_params" class="card blue-grey darken-3">
+        <h1>Paramètres locaux</h1>
+        <table>
+          <thead>
+          <tr>
+            <th>Paramètre</th>
+            <th>Valeur</th>
+          </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </section>
+      <section id="server_params" class="card blue-grey darken-3">
+        <h1>Paramètres serveur</h1>
+        <table>
+          <thead>
+          <tr>
+            <th class="parameter_id">Id</th>
+            <th class="parameter_description">Paramètre</th>
+            <th class="parameter_value">Valeur</th>
+          </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+</div>
 
-    <script src="js/common/jquery.min.js"></script>
-    <script src="js/common/jquery-ui.min.js"></script>
-    <script src="js/common/dialogs.js"></script>
-    <script src="js/common/tooltipster.bundle.min.js"></script>
+<div id="confirmDialog" title="Confirmation" style="display : none;">
+</div>
 
-    <script src="js/websocket/sockjs.js"></script>
-    <script src="js/websocket/stomp.js"></script>
-    <script src="js/websocket/websocketClient.js"></script>
+<script src="js/common/jquery.min.js"></script>
+<script src="js/common/jquery-ui.min.js"></script>
+<script src="js/common/dialogs.js"></script>
+<script src="js/common/tooltipster.bundle.min.js"></script>
 
-    <script src="js/common/common.js"></script>
-    <script src="js/common/compteur.js"></script>
-    <script src="js/common/responsiveVoice.js"></script>
-    <script src="js/common/synthetesis.js"></script>
-    <script src="js/admin/admin.js"></script>
-    <script src="js/admin/room.component.js"></script>
-    <script src="js/admin/room.js"></script>
-    <script src="js/admin/room.webocket.js"></script>
-    <script src="js/admin/riddle.component.js"></script>
-    <script src="js/admin/riddle.js"></script>
-    <script src="js/admin/riddle.webocket.js"></script>
-    <script src="js/admin/compteurAvecBoutons.js"></script>
-    <script src="js/admin/parameters.js"></script>
-    <script src="js/admin/ia.component.js"></script>
-    <script src="js/admin/ia.js"></script>
+<script src="js/websocket/sockjs.js"></script>
+<script src="js/websocket/stomp.js"></script>
+<script src="js/websocket/websocketClient.js"></script>
 
-    <script>
-		checkMandatory().then(() => {
-			initWebSocket();
+<script src="js/common/common.js"></script>
+<script src="js/common/compteur.js"></script>
+<script src="js/common/responsiveVoice.js"></script>
+<script src="js/common/synthetesis.js"></script>
+<script src="js/admin/admin.js"></script>
+<script src="js/admin/room.component.js"></script>
+<script src="js/admin/room.js"></script>
+<script src="js/admin/room.webocket.js"></script>
+<script src="js/admin/riddle.component.js"></script>
+<script src="js/admin/riddle.js"></script>
+<script src="js/admin/riddle.webocket.js"></script>
+<script src="js/admin/compteurAvecBoutons.js"></script>
+<script src="js/admin/parameters.js"></script>
+<script src="js/admin/ia.component.js"></script>
+<script src="js/admin/ia.js"></script>
 
-			retrieveAITexts()
-                .then(setAIParameters)
-                .then(() => {
-					Promise.all([
-						retrieveRoomsData().then(setRooms),
-						retrieveRiddlesData().then(setRiddles),
-						retrieveLocalParameters(),
-						retrieveServerParameters().then(renderParameters)
-					]).then(() => {
-						showTab("rooms_tab");
-						retrieveConnectedRooms();
-						retrieveConnectedUsers();
-					}).catch(error => {
-						alertDialog(error.message);
-					});
+<script>
+  checkMandatory().then(() => {
+    initWebSocket();
 
-					$(document).ready(function() {
-						$('.tooltip').tooltipster();
-					});
-                });
+    retrieveAITexts()
+      .then(setAIParameters)
+      .then(() => {
+        Promise.all([
+          retrieveRoomsData().then(setRooms),
+          retrieveRiddlesData().then(setRiddles),
+          retrieveLocalParameters(),
+          retrieveServerParameters().then(renderParameters)
+        ]).then(() => {
+          showTab("rooms_tab");
+          retrieveConnectedRooms();
+          retrieveConnectedUsers();
+        }).catch(error => {
+          errorDialog(error.message);
         });
-    </script>
+
+        $(document).ready(function () {
+          $('.tooltip').tooltipster();
+        });
+      });
+  });
+</script>
 </body>
 </html>

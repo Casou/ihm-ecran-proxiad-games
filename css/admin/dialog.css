@@ -1,0 +1,7 @@
+.error-dialog, .error-dialog .ui-dialog-buttonpane {
+    background-color: #fff1f0;
+}
+
+.error-dialog .ui-widget-header {
+    background-color: #ffb2b2;
+}

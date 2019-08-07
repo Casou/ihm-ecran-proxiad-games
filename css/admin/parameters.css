@@ -1,34 +1,70 @@
 #params section {
-    margin : 5vh 20px;
+    margin: 5vh 20px;
     padding: 20px;
 }
 
 #params section h1 {
-    font-size : 24px;
-    margin-bottom : 10px;
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
 #params table tr {
-    border-bottom: 1px solid rgba(255,255,255,0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 #params table td, #params table th {
     padding: 5px 15px;
 }
 
+#params table th.parameter_id, #params table td.parameter_id {
+    width: 200px;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#params table th.parameter_description {
+    width: 400px;
+    max-width: 400px;
+}
+
+#params .parameter_value .input-field {
+    width: 100%;
+}
+
 #params input {
-    width : 450px;
-    height : 30px;
+    width: 450px;
+    height: 30px;
+}
+
+#params textarea {
+    width: 100%;
+    height : 250px;
+}
+
+#params textarea.terminal {
+    background-color: black;
+    color: #00c200;
+    font-family: Courier New, serif;
+    font-size: 12px;
+    overflow: auto;
 }
 
 #params .icon {
     vertical-align: middle;
-    font-size : 20px;
-    font-weight : bold;
+    font-size: 20px;
+    font-weight: bold;
 }
-#params .icon.ok { color : #5eff5e; }
-#params .icon.ko { color : #ff6262; }
+
+#params .icon.ok {
+    color: #5eff5e;
+}
+
+#params .icon.ko {
+    color: #ff6262;
+}
 
 #local_params span.icon {
-    margin-left : 10px;
+    margin-left: 10px;
 }

@@ -95,8 +95,6 @@ const checkMandatory = () => {
           autoOpen: true
         });
 
-        console.warn("dialog");
-
         $("#message").hide();
 
         throw new Error("[checkMandatory] Ping to the server has failed");
