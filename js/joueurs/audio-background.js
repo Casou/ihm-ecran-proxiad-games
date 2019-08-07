@@ -1,9 +1,11 @@
 const audioBackground = $("#audioBackground")[0];
-const AUDIO_BACKGROUND_VOLUME = 0.10;
-const AUDIO_BACKGROUND_VOLUME_STEP = AUDIO_BACKGROUND_VOLUME / 200;
+let AUDIO_BACKGROUND_VOLUME = 0.10;
+const AUDIO_BACKGROUND_VOLUME_STEP = AUDIO_BACKGROUND_VOLUME / 2;
+let AUDIO_MUTED = false;
 
 const startAudioBackground = (startTime) => {
 	let interval = null;
+	AUDIO_MUTED = false;
 	return new Promise(resolve => {
 		audioBackground.volume = 0;
 		if (startTime) {
@@ -16,12 +18,20 @@ const startAudioBackground = (startTime) => {
 	});
 };
 
+const raiseVolume = (resolve) => {
+	audioBackground.volume += AUDIO_BACKGROUND_VOLUME_STEP;
+	if (audioBackground.volume >= AUDIO_BACKGROUND_VOLUME) {
+		resolve();
+	}
+};
+
 const pauseAudioBackground = () => {
 	return audioBackground.pause();
 };
 
 const muteAudioBackground = () => {
 	let interval = null;
+	AUDIO_MUTED = true;
 	return new Promise(resolve => {
 		interval = setInterval(() => reduceVolume(resolve), 100);
 	}).then(() => {
@@ -37,9 +47,7 @@ const reduceVolume = (resolve) => {
 	}
 };
 
-const raiseVolume = (resolve) => {
-	audioBackground.volume += AUDIO_BACKGROUND_VOLUME_STEP;
-	if (audioBackground.volume >= AUDIO_BACKGROUND_VOLUME) {
-		resolve();
-	}
+const adjustVolume = (newVolume) => {
+	audioBackground.volume = newVolume;
+	AUDIO_BACKGROUND_VOLUME = newVolume;
 };

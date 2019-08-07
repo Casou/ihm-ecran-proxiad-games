@@ -55,11 +55,14 @@ const disconnectedRoomCallback = (room) => {
   }
 };
 
-const startRoomCallback = (room) => {
-  $('#room_' + room.id + ' .raspberry .pauseButton').removeClass('disabled');
-  $('#room_' + room.id + ' .raspberry .startButton').addClass('disabled');
+const startRoomCallback = (startedRoom) => {
+  $('#room_' + startedRoom.id + ' .raspberry .pauseButton').removeClass('disabled');
+  $('#room_' + startedRoom.id + ' .raspberry .startButton').addClass('disabled');
 
-  const compteurWrapper = ROOMS.find(r => room.id === r.id).compteur;
+  const room = ROOMS.find(r => startedRoom.id === r.id);
+  room.volume = startedRoom.audioBackgroundVolume;
+  const compteurWrapper = room.compteur;
+  compteurWrapper.volume = room.volume;
   compteurWrapper.playIntro();
   compteurWrapper.renderAndApply();
 };
@@ -69,7 +72,9 @@ const startTimerRoomCallback = (room) => {
   compteur.initTimer(room.remainingTime, room.remainingTime);
   compteur.startTime();
 
-  const compteurWrapper = new CompteurAvecBoutons('#room_' + room.id + " .raspberry .compteurWrapper", compteur, room.id, "STARTED");
+  console.log(room.audioBackgroundVolume);
+
+  const compteurWrapper = new CompteurAvecBoutons('#room_' + room.id + " .raspberry .compteurWrapper", compteur, room.audioBackgroundVolume, room.id, "STARTED");
 
   $('#room_' + room.id + " .raspberry .pauseButton").removeClass("disabled");
   $('#room_' + room.id + " .raspberry .startButton").addClass("disabled");
@@ -128,6 +133,10 @@ const stopTimer = (id) => {
 };
 const stopTimerWS = (id) => {
   WEBSOCKET_CLIENT.send("/room/pause", {id});
+};
+
+const updateVolume = (id, volume) => {
+  WEBSOCKET_CLIENT.send("/room/volume", {id, audioBackgroundVolume : volume});
 };
 
 const testMessage = (roomId) => {

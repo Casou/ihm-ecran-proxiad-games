@@ -4,10 +4,11 @@ class Room {
 		this.id = data.id;
 		this.data = data;
 		this.riddles = riddles;
+		this.volume = data.audioBackgroundVolume || 0.0;
 
 		const compteurSeul = (data.startTime && new Compteur('#room_' + this.id + " .raspberry .compteur", new Date(data.startTime), data.statusTime, data.remainingTime)) || null;
 
-		this.compteur = new CompteurAvecBoutons('#room_' + this.id + " .raspberry .compteurWrapper", compteurSeul, this.id, false, data.statusTime);
+		this.compteur = new CompteurAvecBoutons('#room_' + this.id + " .raspberry .compteurWrapper", compteurSeul, this.volume, this.id, false, data.statusTime);
 	}
 
 	render() {

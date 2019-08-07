@@ -69,7 +69,7 @@ const readAllMessages = (messageArray, language) => {
 const playJingle = () => {
 	return new Promise(resolve => {
 		const messageJingle = $('#incomingMessage')[0];
-		messageJingle.onended = () => { console.log("ended"); resolve(); };
+		messageJingle.onended = resolve;
 		messageJingle.onerror = resolve;
 		messageJingle.play();
 	});

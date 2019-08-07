@@ -60,7 +60,8 @@ const retrieveServerParameters = () => {
 const renderParameters = (parameters) => {
 	$("#server_params table tbody").html("");
 
-	parameters.forEach((param) => {
+	parameters.sort((a, b) => a.id - b.id)
+		.forEach((param) => {
 		$("#server_params table tbody").append(`
 		<tr>
 			<td class="parameter_id tooltip" title="${ param.key }">${ param.key }</td>

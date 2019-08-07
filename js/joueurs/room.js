@@ -8,7 +8,7 @@ const retrieveAllRooms = () => {
 
         $("#configuration_select").html("<option value=''>Choisir une salle</option>");
 
-        const room = rooms.filter(r => r.id === ROOM_ID) && rooms.filter(r => r.id === ROOM_ID)[0];
+        const room = rooms.find(r => r.id === ROOM_ID);
 
         $("#configuration_select")
           .append(rooms.map(room => `<option value="${ room.id }" ${ room.id === ROOM_ID && "selected" }>${ room.name }</option>`)
@@ -18,8 +18,7 @@ const retrieveAllRooms = () => {
         if (!room) {
           ROOM_ID = null;
         } else {
-          $("#room_name").html(room.name);
-          updateGlitch(room.resolvedRiddles.length);
+          updateWithRoom(room);
         }
 
         resolve(rooms);
@@ -35,10 +34,26 @@ const retrieveAllRooms = () => {
 
 const chooseRoom = (value) => {
   ROOM_ID = parseInt(value);
+
+  const room = ALL_ROOMS.find(r => r.id === ROOM_ID);
+  if (!room) {
+    ROOM_ID = null;
+    WEBSOCKET_CLIENT.headers = {"Room": ROOM_ID};
+    localStorage.removeItem("roomId");
+    return;
+  }
   WEBSOCKET_CLIENT.headers = {"Room": ROOM_ID};
   localStorage.setItem("roomId", ROOM_ID);
 
+  updateWithRoom(room);
+
   WEBSOCKET_CLIENT.restart();
+};
+
+const updateWithRoom = (room) => {
+  $("#room_name").html(room.name);
+  AUDIO_BACKGROUND_VOLUME = room.audioBackgroundVolume;
+  updateGlitch(room.resolvedRiddles.length);
 };
 
 $(document).keydown(function (e) {

@@ -28,6 +28,5 @@ const receiveTroll = ({ reduceTime, message, voice, videoName }, sendRequestCall
 
 let TROLL_END = null;
 const trollEndOfGame = () => {
-	muteAudioBackground();
 	readAllMessages([ TROLL_END.text ]);
 };

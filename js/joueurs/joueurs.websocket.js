@@ -5,7 +5,7 @@ const initWebSocket = () => {
 
 const subscribeAll = () => {
   WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/start", (room) => {
-    playIntroAndStartTimer(room.remainingTime);
+    playIntroAndStartTimer(room.remainingTime, room.audioBackgroundVolume);
   });
   WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/message", (messageDto) => {
     addAction(() => incomingMessage(messageDto, messageDto.introSentence));
@@ -32,6 +32,9 @@ const subscribeAll = () => {
   WEBSOCKET_CLIENT.subscribe("/topic/refresh/" + ROOM_ID, () => {
     window.location.reload(false);
   });
+  WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/volume", (roomDto) => {
+    adjustVolume(roomDto.audioBackgroundVolume);
+  });
 };
 
 const sendCountEnded = (id) => {
@@ -50,7 +53,9 @@ const refreshAfterTroll = () => {
   });
 };
 
-const playIntroAndStartTimer = (remainingTime) => {
+const playIntroAndStartTimer = (remainingTime, audioBackgroundVolume) => {
+  AUDIO_BACKGROUND_VOLUME = audioBackgroundVolume;
+
   const jqIntroVideo = $('#video video#intro');
   jqIntroVideo[0].currentTime = 0;
   jqIntroVideo.on('ended', () => {

@@ -1,12 +1,13 @@
 class CompteurAvecBoutons {
 
-  constructor(selector, compteur, id, isConnected = false, statusTime = "PAUSED") {
+  constructor(selector, compteur, volume, id, isConnected = false, statusTime = "PAUSED") {
     this.selector = selector;
     this.compteur = compteur;
     this.id = id;
     this.isTerminated = false;
     this.isConnected = isConnected;
     this.forceText = statusTime === "INITIALIZING" ? this._getIntroPlayingText() : null;
+    this.volume = volume;
     if (!id) debugger;
   }
 
@@ -69,7 +70,16 @@ class CompteurAvecBoutons {
 			<p class="compteur ${!this.isConnected ? 'disabled' : ''}">
 				${compteurRender}
 			</p>
-        `;
+			
+			<div class="volume ${!this.isConnected ? 'disabled' : ''}">
+			  <span class="tooltip" title="Volume de la musique de fond">Volume :</span> 
+			  <input type="number" 
+			        value="${ this.volume }"
+			        min="0" max="1" step="0.05"
+			         ${!this.isConnected ? 'disabled' : ''}
+			        onChange="updateVolume(${ this.id }, this.value);" />
+      </div>
+      `;
   }
 
   renderAndApply() {

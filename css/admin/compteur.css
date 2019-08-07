@@ -1,40 +1,78 @@
 .compteurWrapper {
-    text-align : center;
-    margin : 5px 0;
+    text-align: center;
+    margin: 5px 0;
 }
 
 .compteur {
-    display : inline-block;
-    font-size : 18px;
+    display: inline-block;
+    font-size: 18px;
 }
 
 .compteur.alert {
     animation: blinkRed 0.5s linear infinite;
 }
+
 .compteur.finished {
     animation: none;
-    color : red;
+    color: red;
 }
 
 @keyframes blinkRed {
-    0% { color : white; }
-    49% { color : white; }
-    50% { color : red; }
-    99% { color : red; }
+    0% {
+        color: white;
+    }
+    49% {
+        color: white;
+    }
+    50% {
+        color: red;
+    }
+    99% {
+        color: red;
+    }
 }
 
 
+.volume.disabled,
 .compteur.disabled,
 .compteurWrapper button.disabled {
-    cursor : default;
-    opacity : 0.5;
+    cursor: default;
+    opacity: 0.5;
 }
 
 
-@keyframes blink { 50% { opacity: 0.0; } }
-@-webkit-keyframes blink { 50% { opacity: 0.0; } }
+@keyframes blink {
+    50% {
+        opacity: 0.0;
+    }
+}
+
+@-webkit-keyframes blink {
+    50% {
+        opacity: 0.0;
+    }
+}
+
 .blink {
     animation: blink 1.5s step-start 0s infinite;
     -webkit-animation: blink 1.5s step-start 0s infinite;
 }
 
+.compteurWrapper .volume {
+    display: inline-block;
+    margin-left : 5px;
+}
+
+.compteurWrapper .volume input,
+.compteurWrapper .volume input[disabled] {
+    border: none;
+    width : 45px;
+    max-width : 45px;
+    margin : 0;
+    padding : 0;
+    text-align : center;
+    color : white;
+    height : auto;
+    transition : none;
+    font-size : 14px;
+}

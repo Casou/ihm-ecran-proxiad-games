@@ -108,8 +108,8 @@
         COMPTEUR.currentTime = 0;
         COMPTEUR.renderAndApply();
 
-        trollEndOfGame();
         muteAudioBackground();
+        trollEndOfGame();
         sendCountEnded(ROOM_ID);
       };
       COMPTEUR.onRender = checkProgressBar;
