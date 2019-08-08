@@ -2,7 +2,7 @@
     padding-left : 75px;
 }
 
-#content > nav button {
+#content > nav a {
     display : inline-block;
     border : none;
 

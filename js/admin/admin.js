@@ -10,7 +10,7 @@ const showTab = (tab) => {
     $("#" + tab).show();
 };
 
-$("#content > nav button").click(function() {
+$("#content > nav a").click(function() {
     showTab($(this).parent().attr("tab"));
 });
 
