@@ -279,7 +279,7 @@ class IAPamameters {
 				</ul>`;
 	}
 
-  _mapAllVoicesToOptions(selectedVoice = DEFAULT_VOICE) {
+  _mapAllVoicesToOptions(selectedVoice = DEFAULT_VOICE_NAME) {
     return ALL_VOICES
       .map(voice => `<option value="${ voice.name }" ${ selectedVoice === voice.name && "selected" }>${ voice.name }</option>`)
       .join("");
@@ -292,14 +292,14 @@ const preventBadCharacterForSynthetizedText = (event) => {
 };
 
 const testSentence = (id) => {
-	readMessage($("#sentence_" + id).val(), $("#sentence_voice_" + id).val());
+	readMessage($("#sentence_" + id).val(), getVoice($("#sentence_voice_" + id).val()));
 };
 const testTroll = (id) => {
-	readMessage($("#troll_" + id).val(), $("#troll_voice_" + id).val());
+	readMessage($("#troll_" + id).val(), getVoice($("#troll_voice_" + id).val()));
 };
 const testTaunt = (id) => {
-	readMessage($("#taunt_" + id).val(), $("#taunt_voice_" + id).val());
+	readMessage($("#taunt_" + id).val(), getVoice($("#taunt_voice_" + id).val()));
 };
 const testEnigma = (id) => {
-	readMessage($("#enigma_" + id).val(), $("#enigma_voice_" + id).val());
+	readMessage($("#enigma_" + id).val(), getVoice($("#enigma_voice_" + id).val()));
 };

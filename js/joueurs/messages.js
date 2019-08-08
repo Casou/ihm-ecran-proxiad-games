@@ -1,7 +1,7 @@
 const MESSAGE_FADE_DURATION = 1000;
 
 const incomingMessage = (messageDto, introSentence) => {
-	console.log("incoming message", messageDto, introSentence);
+	console.debug("incoming message", messageDto, introSentence);
 	return new Promise(resolve => {
 		playJingle().finally(() => {
 			let introPromise = null;
@@ -55,11 +55,11 @@ const calculateMessageDisplayTime = (message) => {
 				: nbWords * 1250;
 };
 
-const readAllMessages = (messageArray, language) => {
+const readAllMessages = (messageArray, voice) => {
 	return new Promise((resolve, reject) => {
 		let promise = null;
 		for (let i = 0; i < messageArray.length; i++) {
-			promise = queuePromise(promise, (resolve, reject) => readMessage(messageArray[i], language).then(resolve).catch(reject));
+			promise = queuePromise(promise, (resolve, reject) => readMessage(messageArray[i], voice).then(resolve).catch(reject));
 		}
 		promise.then(resolve).catch(reject);
 	});
