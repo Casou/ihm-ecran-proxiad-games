@@ -96,11 +96,11 @@ class Room {
 	}
 
 	renderTauntSelect() {
-		return IA_PARAMETERS.tauntTexts.map(taunt => `<option value="${ taunt.id }">${ taunt.text } (${ taunt.voice })</option>`).join("");
+		return IA_PARAMETERS.tauntTexts.map(taunt => `<option value="${ taunt.id }">${ taunt.text } (${ taunt.voice.name })</option>`).join("");
 	}
 
 	renderVoicesSelect() {
-		return IA_PARAMETERS.sentences.map(sentence => `<option value="${ sentence.id }">${ sentence.text } (${ sentence.voice })</option>`).join("");
+		return IA_PARAMETERS.sentences.map(sentence => `<option value="${ sentence.id }">${ sentence.text } (${ sentence.voice.name })</option>`).join("");
 	}
 
 	renderAndApply() {

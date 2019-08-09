@@ -50,7 +50,6 @@ class IAPamameters {
 		}
 		const tauntToUpdate = this.tauntTexts.find(s => s.id === sentence.id);
 		if (tauntToUpdate) {
-			console.log(3);
 			tauntToUpdate.text = sentence.text;
 			tauntToUpdate.voiceName = sentence.voiceName;
 		}
@@ -146,12 +145,14 @@ class IAPamameters {
 	}
 
 	_renderProgressBarTextList() {
+		const initTime = PARAMETERS["INIT_TIME"] ? parseInt(PARAMETERS["INIT_TIME"].value) : 3600;
+		const duration = PARAMETERS["PROGRESS_BAR_DURATION"] ? parseInt(PARAMETERS["PROGRESS_BAR_DURATION"].value) : 300;
 		let progressBarTextList = '<ul>';
 		for (let i = 0; i < this.progressBarTexts.length; i++) {
 			const text = this.progressBarTexts[i];
 			progressBarTextList +=
 				`<li>
-					<span class="progress_bar_timer">${ i * 5 } mn</span>
+					<span class="progress_bar_timer">${ this._formatTime(initTime - duration * i) }</span>
 					<div class="input-field">
 						<input type="text"
 								maxlength="80"
@@ -164,6 +165,20 @@ class IAPamameters {
 		}
 		progressBarTextList += '</ul>';
 		return progressBarTextList;
+	}
+
+	_formatTime(time) {
+		if (time < 0) {
+			return "<span class='error'>Out</span>";
+		}
+
+		let totalSeconds = time;
+		const hours = Math.floor(totalSeconds / 3600);
+		totalSeconds %= 3600;
+		const minutes = Math.floor(totalSeconds / 60);
+		const seconds = totalSeconds % 60;
+
+		return lpad(hours) + ":" + lpad(minutes) + ":" + lpad(seconds);
 	}
 
 	_renderTrollTexts() {

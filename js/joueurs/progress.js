@@ -1,4 +1,5 @@
 let PROGRESS_TEXTS = [];
+let IS_PROGRESS_BAR_VISIBLE = false;
 
 const retrieveAITexts = () => {
 	return new Promise((resolve, reject) => {
@@ -17,39 +18,72 @@ const retrieveAITexts = () => {
 	});
 };
 
+const playProgressBarJingle = () => {
+	return new Promise(resolve => {
+		const messageJingle = $('#progressBarMessage')[0];
+		messageJingle.onended = resolve;
+		messageJingle.onerror = resolve;
+		messageJingle.play();
+	});
+};
+
+function getProgressBarDuration() {
+	return (PARAMETERS["PROGRESS_BAR_DURATION"] && parseInt(PARAMETERS["PROGRESS_BAR_DURATION"].value))
+		|| 300;
+}
+
+function getCurrentProgressText(time) {
+	const initialTime = parseInt(PARAMETERS["INIT_TIME"].value) || 3600;
+	const duration = getProgressBarDuration();
+	let index = Math.floor(Math.abs((initialTime - time) / duration)) % PROGRESS_TEXTS.length;
+	return PROGRESS_TEXTS[index];
+}
+
 const checkProgressBar = (time) => {
+	const duration = getProgressBarDuration();
 	if (time === 0) {
 		hideProgressBar();
-	} else if ((time % 300) === 0) {
-		const index = Math.abs(PROGRESS_TEXTS.length - Math.round(time / 300)) % PROGRESS_TEXTS.length;
-		const textDto = PROGRESS_TEXTS[index];
+	} else if ((time % duration) === 0) {
+		const textDto = getCurrentProgressText(time);
 		if (textDto) {
+			readProgressMessage(textDto);
 			updateProgressBar(textDto.text);
 		}
+	}
+};
+
+const readProgressMessage = (textDto) => {
+	if (IS_PROGRESS_BAR_VISIBLE && PARAMETERS["PROGRESS_BAR_SYNTHESIS"].value === "true") {
+		playProgressBarJingle().then(() => readMessage(textDto.text, getVoice(DEFAULT_VOICE_NAME)));
 	}
 };
 
 const showProgressBar = (time) => {
 	if (!$('#progress_bar_text').html()) {
 		if (time >= 300) {
-			const index = Math.abs(PROGRESS_TEXTS.length - Math.round(time / 300)) % PROGRESS_TEXTS.length;
-			const textDto = PROGRESS_TEXTS[index];
+			const textDto = getCurrentProgressText(time);
 			if (textDto) {
 				updateProgressBar(textDto.text);
 			}
 		}
 	}
 	$('#progress_bar').fadeIn(500);
+	IS_PROGRESS_BAR_VISIBLE = true;
 };
 
 const updateProgressBar = (text) => {
 	$('#progress_bar').removeClass("animated");
 	$('#progress_bar_text').html(text);
-	setTimeout(() => $('#progress_bar').addClass("animated"), 30);
+	setTimeout(() => {
+		const progressBarDuration = getProgressBarDuration();
+		$('#progress_bar').addClass("animated");
+		$('#progress_bar #progress').css("animation-duration", progressBarDuration + "s");
+	}, 30);
 };
 
 const hideProgressBar = () => {
 	$('#progress_bar').fadeOut(500, () => {
 		$('#progress_bar').removeClass("animated");
 	});
+	IS_PROGRESS_BAR_VISIBLE = false;
 };

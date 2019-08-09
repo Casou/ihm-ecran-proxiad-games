@@ -6,6 +6,7 @@ const retrieveAITexts = () => {
 			url: SERVER_URL + "text",
 			type: "GET",
 			success: (allTexts) => {
+				allTexts.forEach(text => text.voice = getVoice(text.voiceName));
 				resolve(allTexts);
 			},
 			error: (xmlHttpRequest, textStatus, errorThrown) => {
@@ -152,7 +153,6 @@ const updateTauntVoice = (id, voiceName) => {
 
 
 const updateSentence = (sentence) => {
-	console.log("update sentence WS", sentence);
 	$.ajax({
 		url: SERVER_URL + "text",
 		type: "PATCH",

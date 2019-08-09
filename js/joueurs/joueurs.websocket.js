@@ -62,6 +62,8 @@ const playIntroAndStartTimer = (remainingTime, audioBackgroundVolume) => {
     COMPTEUR.initTimer(remainingTime, remainingTime);
     COMPTEUR.startTime();
     WEBSOCKET_CLIENT.send("/room/startTimer", {id: ROOM_ID, startTime: new Date()});
+
+    setTimeout(() => readProgressMessage(getCurrentProgressText(remainingTime)), 5500);
   });
   jqIntroVideo.show();
   jqIntroVideo[0].play();

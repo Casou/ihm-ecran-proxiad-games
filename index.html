@@ -32,7 +32,7 @@
 
 <div id="video">
   <video id="intro" onended="$(this).hide();" preload="auto">
-    <source src="resources/videos/intro.mp4" type="video/mp4">
+    <source src="resources/videos/intro.mp4?zefezgq" type="video/mp4">
   </video>
   <video id="final" onended="$(this).hide();" preload="auto">
     <source src="resources/videos/final.mp4" type="video/mp4">
@@ -42,6 +42,9 @@
 
 <audio id="incomingMessage">
   <source src="resources/audio/message.mp3" type="audio/mpeg">
+</audio>
+<audio id="progressBarMessage">
+  <source src="resources/audio/progress-bar-message.mp3" type="audio/mpeg">
 </audio>
 <audio id="audioBackground" preload loop>
   <source src="resources/audio/audio-background.mp3" type="audio/mpeg">
@@ -125,9 +128,7 @@
         const audioStartTime = Math.round(initialTime - time);
         displayAIName();
         startAudioBackground(audioStartTime);
-        setTimeout(() => {
-          showProgressBar(time);
-        }, 4000);
+        setTimeout(() => showProgressBar(time), 4000);
       };
 
       init().then(glitchize);
