@@ -152,6 +152,7 @@ const updateTauntVoice = (id, voiceName) => {
 
 
 const updateSentence = (sentence) => {
+	console.log("update sentence WS", sentence);
 	$.ajax({
 		url: SERVER_URL + "text",
 		type: "PATCH",

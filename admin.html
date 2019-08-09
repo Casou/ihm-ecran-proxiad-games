@@ -141,7 +141,7 @@ TODO List :
 <script>
   const showCurrentTab = () => {
     const hash = window.location.hash.substr(1);
-    hash && showTab(hash);
+    hash ? showTab(hash) : showTab("rooms_tab");
   };
 
   checkMandatory().then(() => {

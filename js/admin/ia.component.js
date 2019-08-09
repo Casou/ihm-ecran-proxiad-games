@@ -33,7 +33,7 @@ class IAPamameters {
 		const sentenceToUpdate = this.sentences.find(s => s.id === sentence.id);
 		if (sentenceToUpdate) {
 			sentenceToUpdate.text = sentence.text;
-			sentenceToUpdate.voice = sentence.voice;
+			sentenceToUpdate.voiceName = sentence.voiceName;
 		}
 		const progressToUpdate = this.progressBarTexts.find(s => s.id === sentence.id);
 		if (progressToUpdate) {
@@ -42,14 +42,21 @@ class IAPamameters {
 		const trollToUpdate = this.trollTexts.find(s => s.id === sentence.id);
 		if (trollToUpdate) {
 			trollToUpdate.text = sentence.text;
+			trollToUpdate.voiceName = sentence.voiceName;
 		}
 		if (this.trollEndText.id === sentence.id) {
 			this.trollEndText.text = sentence.text;
+			this.trollEndText.voiceName = sentence.voiceName;
 		}
 		const tauntToUpdate = this.tauntTexts.find(s => s.id === sentence.id);
 		if (tauntToUpdate) {
+			console.log(3);
 			tauntToUpdate.text = sentence.text;
-			tauntToUpdate.voice = sentence.voice;
+			tauntToUpdate.voiceName = sentence.voiceName;
+		}
+		if (this.openTerminalText.id === sentence.id) {
+			this.openTerminalText.text = sentence.text;
+			this.openTerminalText.voiceName = sentence.voiceName;
 		}
 	}
 
@@ -129,7 +136,7 @@ class IAPamameters {
 							</div>
 							<div class="input-field">
 								<select id="sentence_voice_${ sentence.id }" onChange="updateSentenceVoice(${ sentence.id }, this.value);">
-									${ this._mapAllVoicesToOptions(sentence.voice) }
+									${ this._mapAllVoicesToOptions(sentence.voiceName) }
 								</select>
 							</div>
 							<i class="material-icons delete icon_button" onClick="deleteText(${ sentence.id });">delete_forever</i>
@@ -176,7 +183,7 @@ class IAPamameters {
 							</div>
 							<div class="input-field">
 								<select id="troll_voice_${ sentence.id }" onChange="updateTrollVoice(${ sentence.id }, this.value);">
-									${ this._mapAllVoicesToOptions(sentence.voice) }
+									${ this._mapAllVoicesToOptions(sentence.voiceName) }
 								</select>
 							</div>
 							<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testTroll(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
@@ -194,7 +201,7 @@ class IAPamameters {
 				</div>
 				<div class="input-field">
 					<select id="troll_voice_${ this.trollEndText.id }" onChange="updateTrollEndVoice(${ this.trollEndText.id }, this.value);">
-						${ this._mapAllVoicesToOptions(this.trollEndText.voice) }
+						${ this._mapAllVoicesToOptions(this.trollEndText.voiceName) }
 					</select>
 				</div>
 				<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testTroll(${ this.trollEndText.id });"><i class="material-icons left">volume_up</i>Tester</a>
@@ -214,7 +221,7 @@ class IAPamameters {
 							</div>
 							<div class="input-field">
 								<select id="enigma_voice_${ sentence.id }" onChange="updateEnigmaVoice(${ sentence.id }, this.value);">
-									${ this._mapAllVoicesToOptions(sentence.voice) }							
+									${ this._mapAllVoicesToOptions(sentence.voiceName) }							
 								</select>
 							</div>
 							<i class="material-icons delete full_button" onClick="deleteText(${ sentence.id });">delete_forever</i>
@@ -233,7 +240,7 @@ class IAPamameters {
 				</div>
 				<div class="input-field">
 					<select id="troll_voice_${ this.lastEnigmaText.id }" onChange="updateLastEnigmaVoice(${ this.lastEnigmaText.id }, this.value);">
-						${ this._mapAllVoicesToOptions(this.lastEnigmaText.voice) }							
+						${ this._mapAllVoicesToOptions(this.lastEnigmaText.voiceName) }							
 					</select>
 				</div>
 				<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testTroll(${ this.lastEnigmaText.id });"><i class="material-icons left">volume_up</i>Tester</a>
@@ -250,7 +257,7 @@ class IAPamameters {
 				</div>
 				<div class="input-field">
 					<select id="troll_voice_${ this.openTerminalText.id }" onChange="updateOpenTerminalVoice(${ this.openTerminalText.id }, this.value);">
-						${ this._mapAllVoicesToOptions(this.openTerminalText.voice) }
+						${ this._mapAllVoicesToOptions(this.openTerminalText.voiceName) }
 					</select>
 				</div>
 				<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testTroll(${ this.openTerminalText.id });"><i class="material-icons left">volume_up</i>Tester</a>
@@ -270,7 +277,7 @@ class IAPamameters {
 							</div>
 							<div class="input-field">
 								<select id="taunt_voice_${ sentence.id }" onChange="updateTauntVoice(${ sentence.id }, this.value);">
-									${ this._mapAllVoicesToOptions(sentence.voice) }							
+									${ this._mapAllVoicesToOptions(sentence.voiceName) }							
 								</select>
 							</div>
 							<i class="material-icons delete icon_button" onClick="deleteText(${ sentence.id });">delete_forever</i>
