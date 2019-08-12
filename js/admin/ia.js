@@ -6,6 +6,7 @@ const retrieveAITexts = () => {
 			url: SERVER_URL + "text",
 			type: "GET",
 			success: (allTexts) => {
+				allTexts.forEach(text => text.voice = getVoice(text.voiceName));
 				resolve(allTexts);
 			},
 			error: (xmlHttpRequest, textStatus, errorThrown) => {
@@ -90,12 +91,10 @@ const createTauntText = () => {
 	});
 };
 
+
+/* Update texts */
 const updateSentenceText = (id, text) => {
 	updateSentence({ ...IA_PARAMETERS.sentences.find(sentence => sentence.id === id), text });
-};
-
-const updateSentenceVoice = (id, voice) => {
-	updateSentence({ ...IA_PARAMETERS.sentences.find(sentence => sentence.id === id), voice });
 };
 
 const updateProgressBarText = (id, text) => {
@@ -118,37 +117,48 @@ const updateOpenTerminalText = (id, text) => {
 	updateSentence({ ...IA_PARAMETERS.openTerminalText, text });
 };
 
-const updateLastEnigmaVoice = (id, voice) => {
-	updateSentence({ ...IA_PARAMETERS.lastEnigmaText, voice });
-};
-
-const updateOpenTerminalVoice = (id, voice) => {
-	updateSentence({ ...IA_PARAMETERS.openTerminalText, voice });
-};
-
-const updateTrollVoice = (id, voice) => {
-	updateSentence({ ...IA_PARAMETERS.trollTexts.find(t => t.id === id), voice });
-};
-
-const updateEnigmaVoice = (id, voice) => {
-	updateSentence({ ...IA_PARAMETERS.enigmaTexts.find(t => t.id === id), voice });
-};
-
 const updateTrollEnd = (id, text) => {
 	updateSentence({ ...IA_PARAMETERS.trollEndText, text });
-};
-
-const updateTrollEndVoice = (id, voice) => {
-	updateSentence({ ...IA_PARAMETERS.trollEndText, voice });
 };
 
 const updateTauntText = (id, text) => {
 	updateSentence({ ...IA_PARAMETERS.tauntTexts.find(sentence => sentence.id === id), text });
 };
 
-const updateTauntVoice = (id, voice) => {
-	updateSentence({ ...IA_PARAMETERS.tauntTexts.find(sentence => sentence.id === id), voice });
+
+/* Update voices */
+const updateSentenceVoice = (id, voiceName) => {
+	updateSentence({ ...IA_PARAMETERS.sentences.find(sentence => sentence.id === id), voiceName });
 };
+
+const updateLastEnigmaVoice = (id, voiceName) => {
+	updateSentence({ ...IA_PARAMETERS.lastEnigmaText, voiceName });
+};
+
+const updateOpenTerminalVoice = (id, voiceName) => {
+	updateSentence({ ...IA_PARAMETERS.openTerminalText, voiceName });
+};
+
+const updateTrollVoice = (id, voiceName) => {
+	updateSentence({ ...IA_PARAMETERS.trollTexts.find(t => t.id === id), voiceName });
+};
+
+const updateEnigmaVoice = (id, voiceName) => {
+	updateSentence({ ...IA_PARAMETERS.enigmaTexts.find(t => t.id === id), voiceName });
+};
+
+const updateProgressBarVoice = (id, voiceName) => {
+	updateSentence({ ...IA_PARAMETERS.progressBarTexts.find(t => t.id === id), voiceName });
+};
+
+const updateTrollEndVoice = (id, voiceName) => {
+	updateSentence({ ...IA_PARAMETERS.trollEndText, voiceName });
+};
+
+const updateTauntVoice = (id, voiceName) => {
+	updateSentence({ ...IA_PARAMETERS.tauntTexts.find(sentence => sentence.id === id), voiceName });
+};
+
 
 
 const updateSentence = (sentence) => {
@@ -158,7 +168,7 @@ const updateSentence = (sentence) => {
 		data : JSON.stringify({
 			id: sentence.id,
 			text: sentence.text,
-			voice: sentence.voice
+			voiceName: sentence.voiceName
 		}),
 		contentType: "application/json",
 		success: () => {

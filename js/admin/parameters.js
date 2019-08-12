@@ -1,23 +1,9 @@
 let PARAMETERS = [];
+let PARAMETERS_COMPONENT = null;
 
-const retrieveLocalParameters = () => {
-	return new Promise(resolve => {
-		$('#local_params table tbody').html("");
-
-		$('#local_params table tbody').append(`
-		<tr id="local_params__server_url">
-			<td>URL du serveur</td>
-			<td>
-				<div class="input-field">
-					<input type="text" value="${ SERVER_URL }" onChange="updateServerURL(this.value);" />
-					<i class="material-icons icon status"></i>
-				</div>
-			</td>
-		</tr>`);
-		updateServerURL(SERVER_URL);
-
-		resolve();
-	});
+const setParameters = (serverParameters) => {
+	PARAMETERS_COMPONENT = new Pamameters("#params", serverParameters);
+	PARAMETERS_COMPONENT.renderAndApply();
 };
 
 const updateServerURL = (newValue) => {
@@ -57,40 +43,6 @@ const retrieveServerParameters = () => {
 	});
 };
 
-const renderParameters = (parameters) => {
-	$("#server_params table tbody").html("");
-
-	parameters.sort((a, b) => a.id - b.id)
-		.forEach((param) => {
-		$("#server_params table tbody").append(`
-		<tr>
-			<td class="parameter_id tooltip" title="${ param.key }">${ param.key }</td>
-			<td class="parameter_description">${ param.description }</td>
-			<td class="parameter_value">
-				<div class="input-field">
-					${ renderInput(param) }
-				</div>
-			</td>
-		</tr>`)
-	});
-
-	$("#server_params .tooltip").tooltipster();
-};
-
-const renderInput = (parameter) => {
-	if (parameter.type === 'FIELDSET') {
-		const css = parameter.optionals === 'terminal-style' ? 'terminal' : "";
-
-		return `<textarea onchange="updateParameter(${ parameter.id }, this.value);"
-											class="${ css }"
-						>${ parameter.value }</textarea>`;
-	}
-	if (parameter.type === 'NUMBER') {
-		return `<input type="number" value="${ parameter.value }" onchange="updateParameter(${ parameter.id }, this.value);" />`;
-	}
-	return `<input type="text" value="${ parameter.value }" onchange="updateParameter(${ parameter.id }, this.value);" />`;
-};
-
 const updateParameter = (id, value) => {
 	$.ajax({
 		url: SERVER_URL + "parametre",
@@ -98,8 +50,10 @@ const updateParameter = (id, value) => {
 		data : JSON.stringify({ id, value }),
 		contentType: "application/json",
 		success: () => {
-			const key = Object.values(PARAMETERS).find(p => p.id === 1).key;
+			const key = Object.values(PARAMETERS).find(p => p.id === id).key;
 			PARAMETERS[key].value = value;
+
+			IA_PARAMETERS.renderAndApply();
 		},
 		error: (xmlHttpRequest, textStatus, errorThrown) => {
 			console.error("Status: " + textStatus);

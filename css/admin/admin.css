@@ -7,6 +7,10 @@ h1, h2, h3 {
     text-shadow: 1px 1px 0 black, 2px 2px 0 black;
 }
 
+.error {
+    color : #ff6868;
+}
+
 .tab {
     display: none;
 }

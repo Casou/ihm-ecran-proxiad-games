@@ -1,29 +1,35 @@
 const confirmDialog = (text, confirmCallback) => {
-  $("#confirmDialog").attr("title", "Confirmation").html(text).dialog({
-    resizable: false,
-    height: "auto",
-    minHeight: 250,
-    width: 600,
-    modal: true,
-    autoOpen: true,
-    buttons: {
-      "Cancel": function () {
-        $(this).dialog("close").dialog("destroy");
+  alertDialog(text, "Confirmation", "info-dialog", [
+      {
+        text: "Annuler",
+        click: function () {
+          $(this).dialog("close").dialog("destroy");
+        }
       },
-      "OK": function () {
-        confirmCallback();
-        $(this).dialog("close").dialog("destroy");
+      {
+        text: "OK",
+        'class': "default-button",
+        click: function () {
+          confirmCallback();
+          $(this).dialog("close").dialog("destroy");
+        }
       }
-    }
-  });
+    ]
+  );
 };
 
 const errorDialog = (text) => {
-  alertDialog(text, "Erreur", "error-dialog")
+  alertDialog(text, "Erreur", "error-dialog", [{
+      text: "OK",
+      click: function () {
+        $(this).dialog("close").dialog("destroy");
+      }
+    }]
+  );
 };
 
 
-const alertDialog = (text, title = "Information", dialogClass = "info") => {
+const alertDialog = (text, title = "Information", dialogClass = "info", buttons = []) => {
   $("#confirmDialog").attr("title", title).html(text).dialog({
     resizable: false,
     height: "auto",
@@ -31,11 +37,14 @@ const alertDialog = (text, title = "Information", dialogClass = "info") => {
     width: 600,
     modal: true,
     autoOpen: true,
-    dialogClass,
-    buttons: {
-      "OK": function () {
-        $(this).dialog("close").dialog("destroy");
-      }
+    dialogClass: "custom-dialog " + dialogClass,
+    buttons,
+    open: function () {
+      $(this).parent()
+        .children(".ui-dialog-buttonpane")
+        .children(".ui-dialog-buttonset")
+        .children("button:last-of-type")
+        .focus();
     }
   });
 };

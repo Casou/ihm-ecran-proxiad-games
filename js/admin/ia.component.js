@@ -33,7 +33,7 @@ class IAPamameters {
 		const sentenceToUpdate = this.sentences.find(s => s.id === sentence.id);
 		if (sentenceToUpdate) {
 			sentenceToUpdate.text = sentence.text;
-			sentenceToUpdate.voice = sentence.voice;
+			sentenceToUpdate.voiceName = sentence.voiceName;
 		}
 		const progressToUpdate = this.progressBarTexts.find(s => s.id === sentence.id);
 		if (progressToUpdate) {
@@ -42,14 +42,20 @@ class IAPamameters {
 		const trollToUpdate = this.trollTexts.find(s => s.id === sentence.id);
 		if (trollToUpdate) {
 			trollToUpdate.text = sentence.text;
+			trollToUpdate.voiceName = sentence.voiceName;
 		}
 		if (this.trollEndText.id === sentence.id) {
 			this.trollEndText.text = sentence.text;
+			this.trollEndText.voiceName = sentence.voiceName;
 		}
 		const tauntToUpdate = this.tauntTexts.find(s => s.id === sentence.id);
 		if (tauntToUpdate) {
 			tauntToUpdate.text = sentence.text;
-			tauntToUpdate.voice = sentence.voice;
+			tauntToUpdate.voiceName = sentence.voiceName;
+		}
+		if (this.openTerminalText.id === sentence.id) {
+			this.openTerminalText.text = sentence.text;
+			this.openTerminalText.voiceName = sentence.voiceName;
 		}
 	}
 
@@ -96,7 +102,7 @@ class IAPamameters {
 					${ terminalOpened }
 					
 					<h1>Réactions énigmes (saisie d'un mot de passe correct)</h1>
-					<h2>Synthétise le message sans l'afficher. Boucle sur la dernière vidéo si les programmes sont appelés trop de fois.</h2>
+					<h2>Synthétise le message sans l'afficher. Représente l'IA qui réagit au fait qu'on débloque des énigmes.</h2>
 					${ enigmes }
 					<a class="waves-effect waves-light blue darken-4 btn-small full_button" onClick="createEnigmaText();"><i class="material-icons left">add</i>Ajouter une phrase</a>
 					
@@ -129,7 +135,7 @@ class IAPamameters {
 							</div>
 							<div class="input-field">
 								<select id="sentence_voice_${ sentence.id }" onChange="updateSentenceVoice(${ sentence.id }, this.value);">
-									${ this._mapAllVoicesToOptions(sentence.voice) }
+									${ this._mapAllVoicesToOptions(sentence.voiceName) }
 								</select>
 							</div>
 							<i class="material-icons delete icon_button" onClick="deleteText(${ sentence.id });">delete_forever</i>
@@ -139,12 +145,14 @@ class IAPamameters {
 	}
 
 	_renderProgressBarTextList() {
+		const initTime = PARAMETERS["INIT_TIME"] ? parseInt(PARAMETERS["INIT_TIME"].value) : 3600;
+		const duration = PARAMETERS["PROGRESS_BAR_DURATION"] ? parseInt(PARAMETERS["PROGRESS_BAR_DURATION"].value) : 300;
 		let progressBarTextList = '<ul>';
 		for (let i = 0; i < this.progressBarTexts.length; i++) {
 			const text = this.progressBarTexts[i];
 			progressBarTextList +=
 				`<li>
-					<span class="progress_bar_timer">${ i * 5 } mn</span>
+					<span class="progress_bar_timer">${ this._formatTime(initTime - duration * i) }</span>
 					<div class="input-field">
 						<input type="text"
 								maxlength="80"
@@ -152,11 +160,31 @@ class IAPamameters {
 								value="${ text.text }" 
 								onChange="updateProgressBarText(${ text.id }, this.value);" />
 					</div>
+					<div class="input-field">
+						<select id="sentence_voice_${ text.id }" onChange="updateProgressBarVoice(${ text.id }, this.value);">
+							${ this._mapAllVoicesToOptions(text.voiceName) }
+						</select>
+					</div>
 					<i class="material-icons delete icon_button" onClick="deleteText(${ text.id });">delete_forever</i>
+					<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testSentence(${ text.id });"><i class="material-icons left">volume_up</i>Tester</a>
 				</li>`;
 		}
 		progressBarTextList += '</ul>';
 		return progressBarTextList;
+	}
+
+	_formatTime(time) {
+		if (time < 0) {
+			return "<span class='error'>Out</span>";
+		}
+
+		let totalSeconds = time;
+		const hours = Math.floor(totalSeconds / 3600);
+		totalSeconds %= 3600;
+		const minutes = Math.floor(totalSeconds / 60);
+		const seconds = totalSeconds % 60;
+
+		return lpad(hours) + ":" + lpad(minutes) + ":" + lpad(seconds);
 	}
 
 	_renderTrollTexts() {
@@ -176,7 +204,7 @@ class IAPamameters {
 							</div>
 							<div class="input-field">
 								<select id="troll_voice_${ sentence.id }" onChange="updateTrollVoice(${ sentence.id }, this.value);">
-									${ this._mapAllVoicesToOptions(sentence.voice) }
+									${ this._mapAllVoicesToOptions(sentence.voiceName) }
 								</select>
 							</div>
 							<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testTroll(${ sentence.id });"><i class="material-icons left">volume_up</i>Tester</a>
@@ -194,7 +222,7 @@ class IAPamameters {
 				</div>
 				<div class="input-field">
 					<select id="troll_voice_${ this.trollEndText.id }" onChange="updateTrollEndVoice(${ this.trollEndText.id }, this.value);">
-						${ this._mapAllVoicesToOptions(this.trollEndText.voice) }
+						${ this._mapAllVoicesToOptions(this.trollEndText.voiceName) }
 					</select>
 				</div>
 				<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testTroll(${ this.trollEndText.id });"><i class="material-icons left">volume_up</i>Tester</a>
@@ -214,7 +242,7 @@ class IAPamameters {
 							</div>
 							<div class="input-field">
 								<select id="enigma_voice_${ sentence.id }" onChange="updateEnigmaVoice(${ sentence.id }, this.value);">
-									${ this._mapAllVoicesToOptions(sentence.voice) }							
+									${ this._mapAllVoicesToOptions(sentence.voiceName) }							
 								</select>
 							</div>
 							<i class="material-icons delete full_button" onClick="deleteText(${ sentence.id });">delete_forever</i>
@@ -233,7 +261,7 @@ class IAPamameters {
 				</div>
 				<div class="input-field">
 					<select id="troll_voice_${ this.lastEnigmaText.id }" onChange="updateLastEnigmaVoice(${ this.lastEnigmaText.id }, this.value);">
-						${ this._mapAllVoicesToOptions(this.lastEnigmaText.voice) }							
+						${ this._mapAllVoicesToOptions(this.lastEnigmaText.voiceName) }							
 					</select>
 				</div>
 				<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testTroll(${ this.lastEnigmaText.id });"><i class="material-icons left">volume_up</i>Tester</a>
@@ -250,7 +278,7 @@ class IAPamameters {
 				</div>
 				<div class="input-field">
 					<select id="troll_voice_${ this.openTerminalText.id }" onChange="updateOpenTerminalVoice(${ this.openTerminalText.id }, this.value);">
-						${ this._mapAllVoicesToOptions(this.openTerminalText.voice) }
+						${ this._mapAllVoicesToOptions(this.openTerminalText.voiceName) }
 					</select>
 				</div>
 				<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testTroll(${ this.openTerminalText.id });"><i class="material-icons left">volume_up</i>Tester</a>
@@ -270,7 +298,7 @@ class IAPamameters {
 							</div>
 							<div class="input-field">
 								<select id="taunt_voice_${ sentence.id }" onChange="updateTauntVoice(${ sentence.id }, this.value);">
-									${ this._mapAllVoicesToOptions(sentence.voice) }							
+									${ this._mapAllVoicesToOptions(sentence.voiceName) }							
 								</select>
 							</div>
 							<i class="material-icons delete icon_button" onClick="deleteText(${ sentence.id });">delete_forever</i>
@@ -279,7 +307,7 @@ class IAPamameters {
 				</ul>`;
 	}
 
-  _mapAllVoicesToOptions(selectedVoice = DEFAULT_VOICE) {
+  _mapAllVoicesToOptions(selectedVoice = DEFAULT_VOICE_NAME) {
     return ALL_VOICES
       .map(voice => `<option value="${ voice.name }" ${ selectedVoice === voice.name && "selected" }>${ voice.name }</option>`)
       .join("");
@@ -292,14 +320,14 @@ const preventBadCharacterForSynthetizedText = (event) => {
 };
 
 const testSentence = (id) => {
-	readMessage($("#sentence_" + id).val(), $("#sentence_voice_" + id).val());
+	readMessage($("#sentence_" + id).val(), getVoice($("#sentence_voice_" + id).val()));
 };
 const testTroll = (id) => {
-	readMessage($("#troll_" + id).val(), $("#troll_voice_" + id).val());
+	readMessage($("#troll_" + id).val(), getVoice($("#troll_voice_" + id).val()));
 };
 const testTaunt = (id) => {
-	readMessage($("#taunt_" + id).val(), $("#taunt_voice_" + id).val());
+	readMessage($("#taunt_" + id).val(), getVoice($("#taunt_voice_" + id).val()));
 };
 const testEnigma = (id) => {
-	readMessage($("#enigma_" + id).val(), $("#enigma_voice_" + id).val());
+	readMessage($("#enigma_" + id).val(), getVoice($("#enigma_voice_" + id).val()));
 };

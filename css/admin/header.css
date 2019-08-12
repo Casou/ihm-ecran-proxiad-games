@@ -2,12 +2,12 @@
     padding-left : 75px;
 }
 
-#content > nav button {
+#content > nav a {
     display : inline-block;
     border : none;
 
     height: 35px;
-    width: 125px;
+    min-width: 125px;
     line-height: 29px;
     text-align: center;
     background: none;

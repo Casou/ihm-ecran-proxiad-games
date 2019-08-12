@@ -60,8 +60,13 @@ class Room {
 										</select>
 									</div>
 									
-									<div class="input-field col s12">
+									<div class="input-field col s12 boiteMessage_input_wrapper">
 									  <textarea id="room_textarea_${this.id}" class="materialize-textarea" disabled placeholder="Synthétiser un message"></textarea>
+									  <select class="selectVoice">
+									  	${ ALL_VOICES.map(voice => 
+													`<option ${voice.name === "French Female" && "selected"} value="${voice.name}">${voice.name}</option>` 
+												)}
+									  </select>
 									</div>
 									
 									<div class="actionButtons">
@@ -91,11 +96,11 @@ class Room {
 	}
 
 	renderTauntSelect() {
-		return IA_PARAMETERS.tauntTexts.map(taunt => `<option value="${ taunt.id }">${ taunt.text } (${ taunt.voice })</option>`).join("");
+		return IA_PARAMETERS.tauntTexts.map(taunt => `<option value="${ taunt.id }">${ taunt.text } (${ taunt.voice.name })</option>`).join("");
 	}
 
 	renderVoicesSelect() {
-		return IA_PARAMETERS.sentences.map(sentence => `<option value="${ sentence.id }">${ sentence.text } (${ sentence.voice })</option>`).join("");
+		return IA_PARAMETERS.sentences.map(sentence => `<option value="${ sentence.id }">${ sentence.text } (${ sentence.voice.name })</option>`).join("");
 	}
 
 	renderAndApply() {

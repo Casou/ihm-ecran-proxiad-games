@@ -140,19 +140,23 @@ const updateVolume = (id, volume) => {
 };
 
 const testMessage = (roomId) => {
-  readMessage($("#room_" + roomId + " .boiteMessage textarea").val());
+  readMessage($("#room_" + roomId + " .boiteMessage textarea").val(), getVoice($("#room_" + roomId + " .boiteMessage select.selectVoice").val()));
 };
 
 const sendMessageToRoom = (roomId) => {
   const messageTextarea = $("#room_" + roomId + " .boiteMessage textarea");
   const introSentence = IA_PARAMETERS.sentences.find(s => s.id === parseInt($("#room_" + roomId + " .boiteMessage .selectSentences").val()));
-  sendMessageToSynthetize(roomId, {message: messageTextarea.val()}, introSentence);
+  introSentence.voice = getVoice(introSentence.voice);
+  const voice = getVoice($("#room_" + roomId + " .boiteMessage select.selectVoice").val());
+  console.log(voice);
+  sendMessageToSynthetize(roomId, {message: messageTextarea.val(), voice}, introSentence);
   messageTextarea.val("");
 };
 
 const sendTauntToRoom = (roomId) => {
   const taunt = IA_PARAMETERS.tauntTexts.find(s => s.id === parseInt($("#taunt_" + roomId).val()));
-  sendMessageToSynthetize(roomId, {message: taunt.text, voice: taunt.voice}, null);
+  const voice = getVoice(taunt.voice);
+  sendMessageToSynthetize(roomId, {message: taunt.text, voice}, null);
   $("#room_" + roomId + " .boiteTaunt .tauntLastTime span").html(new Date().toLocaleTimeString());
 };
 

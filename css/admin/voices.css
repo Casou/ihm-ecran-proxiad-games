@@ -1,0 +1,37 @@
+#voices section {
+    margin: 5vh 20px;
+    padding: 20px;
+}
+
+#voices h1 {
+    font-size : 24px;
+}
+
+#voices #voices_test_input {
+    margin-top : 15px;
+    width : 630px;
+}
+
+#voices #voices_test_input input {
+    font-size : 20px;
+    height : 30px;
+}
+
+#voices table input {
+    width : 50px;
+    text-align : center;
+    height : 25px;
+}
+
+#voices th, #voices td {
+    padding : 0;
+}
+
+#voices th:nth-of-type(1) {
+    width : 300px;
+}
+#voices th:nth-of-type(2),
+#voices th:nth-of-type(3),
+#voices th:nth-of-type(4) {
+    width : 75px;
+}

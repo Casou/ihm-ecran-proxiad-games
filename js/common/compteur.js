@@ -111,7 +111,7 @@ class Compteur {
 		});
 	}
 
-	_decreaseTime(secondsToDecrease = 1) {
+	_decreaseTime(secondsToDecrease = 1, bypassRecalculateTime = false) {
 		this.currentTime -= secondsToDecrease;
 		if (this.currentTime <= 0) {
 			this.currentTime = 0;
@@ -122,7 +122,7 @@ class Compteur {
 			if (this.onEndCount) {
 				this.onEndCount();
 			}
-		} else if (this.currentTime % 10 === 0) {
+		} else if (this.currentTime % 10 === 0 && !bypassRecalculateTime) {
 			this._recalculateTime();
 		}
 		this.renderAndApply();
@@ -132,8 +132,17 @@ class Compteur {
 		if (this.animated) {
 			return;
 		}
-		let diff = Math.round((new Date() - this.startedTime) / 1000);
-		this.currentTime = this.initialTime - diff;
+		const timePassed = Math.max(0, Math.round((new Date() - this.startedTime) / 1000));
+		if (!isNaN(timePassed) && this.currentTime !== (this.initialTime - timePassed)) {
+			const diff = this.currentTime - (this.initialTime - timePassed);
+			if (diff < 0) {
+				this.currentTime = this.currentTime - diff;
+			} else {
+				for (let i = 0; i < diff; i++) {
+					setTimeout(() => this._decreaseTime(1, true), 100);
+				}
+			}
+		}
 	}
 
 	_formatTime(time) {
