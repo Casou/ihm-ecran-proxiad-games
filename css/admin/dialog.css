@@ -5,3 +5,8 @@
 .error-dialog .ui-widget-header {
     background-color: #ffb2b2;
 }
+
+.default-button {
+    background-color: #1976d2 !important;
+    color: white !important;;
+}

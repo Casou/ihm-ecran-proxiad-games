@@ -30,7 +30,7 @@ const renderRoomTab = () => {
     .sort((a, b) => a.data.name.localeCompare(b.data.name))
     .map(room => room.render())
     .join(""));
-  $("#rooms .tooltip").tooltipster();
+  $("#rooms .tooltip:not(.tooltipstered)").tooltipster().addClass("tooltipstered");
 
   if (ROOMS.length < 4) {
     $("#rooms").append(new AddRoom().render());

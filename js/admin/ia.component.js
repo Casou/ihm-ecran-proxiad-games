@@ -102,7 +102,7 @@ class IAPamameters {
 					${ terminalOpened }
 					
 					<h1>Réactions énigmes (saisie d'un mot de passe correct)</h1>
-					<h2>Synthétise le message sans l'afficher. Boucle sur la dernière vidéo si les programmes sont appelés trop de fois.</h2>
+					<h2>Synthétise le message sans l'afficher. Représente l'IA qui réagit au fait qu'on débloque des énigmes.</h2>
 					${ enigmes }
 					<a class="waves-effect waves-light blue darken-4 btn-small full_button" onClick="createEnigmaText();"><i class="material-icons left">add</i>Ajouter une phrase</a>
 					
@@ -160,7 +160,13 @@ class IAPamameters {
 								value="${ text.text }" 
 								onChange="updateProgressBarText(${ text.id }, this.value);" />
 					</div>
+					<div class="input-field">
+						<select id="sentence_voice_${ text.id }" onChange="updateProgressBarVoice(${ text.id }, this.value);">
+							${ this._mapAllVoicesToOptions(text.voiceName) }
+						</select>
+					</div>
 					<i class="material-icons delete icon_button" onClick="deleteText(${ text.id });">delete_forever</i>
+					<a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testSentence(${ text.id });"><i class="material-icons left">volume_up</i>Tester</a>
 				</li>`;
 		}
 		progressBarTextList += '</ul>';

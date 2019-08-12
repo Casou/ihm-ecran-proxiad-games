@@ -133,12 +133,12 @@ TODO List :
           retrieveConnectedRooms();
           retrieveConnectedUsers();
         }).catch(error => {
-          console.log(error);
+          console.error(error);
           errorDialog(error.message);
         });
 
         $(document).ready(function () {
-          $('.tooltip').tooltipster();
+          $(".tooltip:not(.tooltipstered)").tooltipster().addClass("tooltipstered");
         });
       });
   });

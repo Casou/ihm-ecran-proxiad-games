@@ -18,6 +18,10 @@ html, body {
     padding: 0;
 }
 
+button:focus {
+    text-decoration: underline;
+}
+
 @font-face {
     font-family: 'cherry';
     src: url('fonts/cherry/cherry_monospace-light-webfont.woff2') format('woff2'),

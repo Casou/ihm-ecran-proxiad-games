@@ -42,7 +42,7 @@ class Pamameters {
 
   renderAndApply() {
     $(this.selector).html(this.render());
-    $(this.selector + " .tooltip").tooltipster();
+    $(this.selector + " .tooltip:not(.tooltipstered)").tooltipster().addClass("tooltipstered");
   }
 
   _renderLocalParameter() {

@@ -91,12 +91,10 @@ const createTauntText = () => {
 	});
 };
 
+
+/* Update texts */
 const updateSentenceText = (id, text) => {
 	updateSentence({ ...IA_PARAMETERS.sentences.find(sentence => sentence.id === id), text });
-};
-
-const updateSentenceVoice = (id, voiceName) => {
-	updateSentence({ ...IA_PARAMETERS.sentences.find(sentence => sentence.id === id), voiceName });
 };
 
 const updateProgressBarText = (id, text) => {
@@ -119,6 +117,20 @@ const updateOpenTerminalText = (id, text) => {
 	updateSentence({ ...IA_PARAMETERS.openTerminalText, text });
 };
 
+const updateTrollEnd = (id, text) => {
+	updateSentence({ ...IA_PARAMETERS.trollEndText, text });
+};
+
+const updateTauntText = (id, text) => {
+	updateSentence({ ...IA_PARAMETERS.tauntTexts.find(sentence => sentence.id === id), text });
+};
+
+
+/* Update voices */
+const updateSentenceVoice = (id, voiceName) => {
+	updateSentence({ ...IA_PARAMETERS.sentences.find(sentence => sentence.id === id), voiceName });
+};
+
 const updateLastEnigmaVoice = (id, voiceName) => {
 	updateSentence({ ...IA_PARAMETERS.lastEnigmaText, voiceName });
 };
@@ -135,21 +147,18 @@ const updateEnigmaVoice = (id, voiceName) => {
 	updateSentence({ ...IA_PARAMETERS.enigmaTexts.find(t => t.id === id), voiceName });
 };
 
-const updateTrollEnd = (id, text) => {
-	updateSentence({ ...IA_PARAMETERS.trollEndText, text });
+const updateProgressBarVoice = (id, voiceName) => {
+	updateSentence({ ...IA_PARAMETERS.progressBarTexts.find(t => t.id === id), voiceName });
 };
 
 const updateTrollEndVoice = (id, voiceName) => {
 	updateSentence({ ...IA_PARAMETERS.trollEndText, voiceName });
 };
 
-const updateTauntText = (id, text) => {
-	updateSentence({ ...IA_PARAMETERS.tauntTexts.find(sentence => sentence.id === id), text });
-};
-
 const updateTauntVoice = (id, voiceName) => {
 	updateSentence({ ...IA_PARAMETERS.tauntTexts.find(sentence => sentence.id === id), voiceName });
 };
+
 
 
 const updateSentence = (sentence) => {

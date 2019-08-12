@@ -7,7 +7,7 @@
     border : none;
 
     height: 35px;
-    width: 125px;
+    min-width: 125px;
     line-height: 29px;
     text-align: center;
     background: none;
