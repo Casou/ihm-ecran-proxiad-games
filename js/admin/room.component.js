@@ -61,7 +61,7 @@ class Room {
 									</div>
 									
 									<div class="input-field col s12 boiteMessage_input_wrapper">
-									  <textarea id="room_textarea_${this.id}" class="materialize-textarea" disabled placeholder="Synthétiser un message"></textarea>
+									  <input id="room_textarea_${this.id}" class="materialize-input" disabled placeholder="Synthétiser un message" />
 									  <select class="selectVoice">
 									  	${ ALL_VOICES.map(voice => 
 													`<option ${voice.name === "French Female" && "selected"} value="${voice.name}">${voice.name}</option>` 

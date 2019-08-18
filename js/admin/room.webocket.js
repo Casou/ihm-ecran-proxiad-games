@@ -140,17 +140,17 @@ const updateVolume = (id, volume) => {
 };
 
 const testMessage = (roomId) => {
-  readMessage($("#room_" + roomId + " .boiteMessage textarea").val(), getVoice($("#room_" + roomId + " .boiteMessage select.selectVoice").val()));
+  readMessage($("#room_" + roomId + " .boiteMessage input").val(), getVoice($("#room_" + roomId + " .boiteMessage select.selectVoice").val()));
 };
 
 const sendMessageToRoom = (roomId) => {
-  const messageTextarea = $("#room_" + roomId + " .boiteMessage textarea");
+  const messageInput = $("#room_" + roomId + " .boiteMessage input");
   const introSentence = IA_PARAMETERS.sentences.find(s => s.id === parseInt($("#room_" + roomId + " .boiteMessage .selectSentences").val()));
   introSentence.voice = getVoice(introSentence.voice);
   const voice = getVoice($("#room_" + roomId + " .boiteMessage select.selectVoice").val());
   console.log(voice);
-  sendMessageToSynthetize(roomId, {message: messageTextarea.val(), voice}, introSentence);
-  messageTextarea.val("");
+  sendMessageToSynthetize(roomId, {message: messageInput.val(), voice}, introSentence);
+  messageInput.val("");
 };
 
 const sendTauntToRoom = (roomId) => {
