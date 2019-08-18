@@ -1,6 +1,7 @@
 .compteurWrapper {
     text-align: center;
     margin: 5px 0;
+    padding-left: 100px;
 }
 
 .compteur {
@@ -60,19 +61,25 @@
 
 .compteurWrapper .volume {
     display: inline-block;
-    margin-left : 5px;
+    margin-left: 5px;
 }
 
 .compteurWrapper .volume input,
 .compteurWrapper .volume input[disabled] {
     border: none;
-    width : 45px;
-    max-width : 45px;
-    margin : 0;
-    padding : 0;
-    text-align : center;
-    color : white;
-    height : auto;
-    transition : none;
-    font-size : 14px;
+    width: 45px;
+    max-width: 45px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    height: auto;
+    transition: none;
+    font-size: 14px;
+}
+
+.compteurWrapper .volume input {
+    color: yellow;
+}
+.compteurWrapper .volume input[disabled] {
+    color: white;
 }
