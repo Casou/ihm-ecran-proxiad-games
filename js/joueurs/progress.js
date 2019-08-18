@@ -54,7 +54,7 @@ const checkProgressBar = (time) => {
 
 const readProgressMessage = (textDto) => {
 	if (IS_PROGRESS_BAR_VISIBLE && PARAMETERS["PROGRESS_BAR_SYNTHESIS"].value === "true") {
-		playProgressBarJingle().then(() => readMessage(textDto.text, getVoice(DEFAULT_VOICE_NAME)));
+		addAction(() => playProgressBarJingle().then(() => readMessage(textDto.text, getVoice(DEFAULT_VOICE_NAME))));
 	}
 };
 
