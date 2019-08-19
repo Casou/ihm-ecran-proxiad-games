@@ -17,7 +17,27 @@
     height : 30px;
 }
 
-#voices table input {
+#voices table {
+    display: inline-block;
+    height: calc(100vh - 250px);
+    overflow: auto;
+    text-align : center;
+}
+
+#voices table th input {
+    width : 150px;
+    height : 23px;
+}
+#voices table th i {
+    vertical-align : middle;
+    color: #9e9e9e;
+}
+#voices table th input::placeholder {
+    color: #afaf00;
+    font-style: italic;
+}
+
+#voices table td input {
     width : 50px;
     text-align : center;
     height : 25px;
