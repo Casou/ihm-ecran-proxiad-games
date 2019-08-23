@@ -1,7 +1,7 @@
 let ALL_VOICES = [];
 const DEFAULT_VOICE_NAME = "French Female";
 
-const readMessage = (message, voice) => {
+const readMessage = (message, voice = getVoice(DEFAULT_VOICE_NAME)) => {
   return new Promise((resolve, reject) => {
     responsiveVoice.speak(message, voice.name, {
       ...voice,

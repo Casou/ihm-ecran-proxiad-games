@@ -12,7 +12,7 @@ const fileExist = (filePath) => {
   return new Promise((resolve, reject) => {
     fs.access(filePath, fs.F_OK, (err) => {
       if (err) {
-        return reject({file: filePath, status: STATUS.KO, error: err});
+        return reject({filePath, status: STATUS.KO, error: err});
       }
       resolve({filePath, status: STATUS.OK});
     })
@@ -27,8 +27,8 @@ const _formatMessage = (message, status = STATUS.OK) => {
   return `${pad(message)}\t${status}`;
 };
 
-function logResults(results) {
-  results.sort((a, b) => a.filePath.localeCompare(b.filePath))
+const logResults = (results) => {
+  results.sort(sortFiles)
     .forEach(file => console.log(_formatMessage(`- ${file.filePath}`, file.status)));
 
   if (results.filter(file => file.status !== STATUS.OK).length > 0) {
@@ -36,7 +36,17 @@ function logResults(results) {
   }
 
   return results;
-}
+};
+
+const sortFiles = (a, b) => {
+  if (!b || !b.filePath) {
+    return 1;
+  }
+  if (!a || !a.filePath) {
+    return -1;
+  }
+  return a.filePath.localeCompare(b.filePath);
+};
 
 const checkFiles = files => {
   console.log(`${colors.bright}Check files${colors.reset}`);
