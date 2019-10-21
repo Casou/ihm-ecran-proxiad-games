@@ -18,15 +18,19 @@ const FILES_TO_CHECK = [
 console.log(`${colors.magenta}******* Starting server *******${colors.reset}`);
 
 const checkPromise = checkFiles(FILES_TO_CHECK);
-checkPromise.then((result) => {
+checkPromise.then(() => {
 
   const app = express();
-  app.get('/', (req, res) => {
+  app.get('/clock', (req, res) => {
     res.sendFile(path.join(__dirname + '/index.html'));
   });
 
   app.get('/regie', (req, res) => {
     res.sendFile(path.join(__dirname + '/admin.html'));
+  });
+
+  app.get('/troll', (req, res) => {
+    res.sendFile(path.join(__dirname + '/troll.html'));
   });
 
   app.use('/js', express.static(__dirname + '/js'));
@@ -36,6 +40,7 @@ checkPromise.then((result) => {
   app.listen(PORT);
 
   console.log(`\n\n${colors.magenta}******* Started on port ${PORT} *******${colors.reset}\n`);
-  console.log(`http://localhost:${PORT} for the clock`);
+  console.log(`http://localhost:${PORT}/clock for the clock`);
   console.log(`http://localhost:${PORT}/regie for the back office`);
+  console.log(`http://localhost:${PORT}/troll for the troll page`);
 });

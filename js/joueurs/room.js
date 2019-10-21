@@ -17,6 +17,7 @@ const retrieveAllRooms = () => {
 
         if (!room) {
           ROOM_ID = null;
+          showRoomConfiguration();
         } else {
           updateWithRoom(room);
         }
@@ -38,6 +39,7 @@ const chooseRoom = (value) => {
   const room = ALL_ROOMS.find(r => r.id === ROOM_ID);
   if (!room) {
     ROOM_ID = null;
+    showRoomConfiguration();
     WEBSOCKET_CLIENT.headers = {"Room": ROOM_ID};
     localStorage.removeItem("roomId");
     return;
