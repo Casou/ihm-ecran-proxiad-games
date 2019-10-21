@@ -61,7 +61,7 @@ const blinkRedLight = () => {
   document.querySelectorAll('.red_led').forEach(img => img.src = 'resources/images/light-black.png');
   setTimeout(() => {
     document.querySelectorAll('.red_led').forEach(img => img.src = 'resources/images/light-red.png');
-    if (BLINK_COUNT < 3) {
+    if (BLINK_COUNT < 30) {
       setTimeout(blinkRedLight, 150);
     } else {
       BLINK_COUNT = null;
