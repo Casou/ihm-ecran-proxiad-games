@@ -29,6 +29,7 @@ class Room {
 						</header>
 						<div>
 							<div class="riddle_icons">
+								<i id="room_${this.data.id}_entry_code" title="Entry code // TODO" class="tooltip riddle material-icons unresolved">exit_to_app</i>
 								${ this.riddles.map(riddle => {
 									let resolved = this.data.resolvedRiddles.filter(r => r.riddleId === riddle.riddleId).length > 0;
 									return `<i id="room_${this.data.id}_riddle_${riddle.id}" 

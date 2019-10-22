@@ -46,6 +46,7 @@ body {
 #digital_screen {
     display: flex;
     flex: 1;
+    max-height: 80px;
 }
 
 #digital_screen div {
