@@ -11,6 +11,11 @@ ul {
     list-style-type: none;
 }
 
+a {
+    color : inherit;
+    text-decoration: none;
+}
+
 html, body {
     background-color: black;
     color: white;

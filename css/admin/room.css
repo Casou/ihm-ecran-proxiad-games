@@ -108,7 +108,6 @@ span.refresh_room {
 #rooms .riddle_icons {
     text-align : center;
     text-shadow: 1px 1px 0 #222, 2px 2px 0 #222;
-    cursor : help;
 }
 #rooms .connection_status {
     display: inline-block;
@@ -118,9 +117,13 @@ span.refresh_room {
     color : #5eff5e;
 }
 
+#rooms .riddle_icons a {
+    cursor : pointer;
+    vertical-align: middle;
+}
 #rooms .disconnected .connection_status    { color : #ff6262; }
-#rooms .riddle_icons .resolved      { color : #5eff5e; }
-#rooms .riddle_icons .unresolved    { color : #ff6262; }
+#rooms .riddle_icons a.resolved      { color : #5eff5e; }
+#rooms .riddle_icons a.unresolved    { color : #ff6262; }
 span.connection_status, .disconnected span.connection_status {
     background-size: contain;
 }

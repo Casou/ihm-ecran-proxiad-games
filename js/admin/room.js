@@ -19,7 +19,7 @@ const setRooms = (rooms_data) => {
   ROOMS = [];
 
   rooms_data.forEach(room => {
-    ROOMS.push(new Room(room, RIDDLES_DATAS));
+    ROOMS.push(new Room(room));
   });
 
   renderRoomTab();
@@ -27,7 +27,7 @@ const setRooms = (rooms_data) => {
 
 const renderRoomTab = () => {
   $("#rooms").html(ROOMS
-    .sort((a, b) => a.data.name.localeCompare(b.data.name))
+    .sort((a, b) => a.room.name.localeCompare(b.room.name))
     .map(room => room.render())
     .join(""));
   $("#rooms .tooltip:not(.tooltipstered)").tooltipster().addClass("tooltipstered");
@@ -43,7 +43,7 @@ const newRoom = () => {
     type: "PUT",
     contentType: "application/json",
     success: (newRoom) => {
-      const room = new Room(newRoom, RIDDLES_DATAS);
+      const room = new Room(newRoom);
       ROOMS.push(room);
       renderRoomTab();
     },
@@ -64,7 +64,7 @@ const updateRoomName = (id, value) => {
     data: JSON.stringify({name: value}),
     contentType: "application/json",
     success: () => {
-      ROOMS.filter(r => r.id === id)[0].data.name = value;
+      ROOMS.filter(r => r.id === id)[0].room.name = value;
       renderRoomTab();
     },
     error: (xmlHttpRequest, textStatus, errorThrown) => {
@@ -115,12 +115,9 @@ const reinitRoomAjax = (id) => {
     contentType: "application/json",
     success: (room) => {
       const roomIndex = ROOMS.findIndex(r => r.id === id);
-      ROOMS[roomIndex].data = room;
+      ROOMS[roomIndex].room = room;
       ROOMS[roomIndex].compteur && ROOMS[roomIndex].compteur.reinitTime();
-      $("#room_" + id + " .room").removeClass("success").removeClass("fail");
-      $("#room_" + id + " .riddle").addClass("unresolved")
-        .removeClass("resolved")
-        .html("lock_outline");
+      renderRoomTab();
     },
     error: (xmlHttpRequest, textStatus, errorThrown) => {
       console.error("xmlHttpRequest: ", xmlHttpRequest);

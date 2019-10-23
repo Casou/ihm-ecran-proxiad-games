@@ -1,9 +1,8 @@
 class Room {
 
-	constructor(data, riddles) {
+	constructor(data) {
 		this.id = data.id;
-		this.data = data;
-		this.riddles = riddles;
+		this.room = data;
 		this.volume = data.audioBackgroundVolume || 0.0;
 
 		const compteurSeul = (data.startTime && new Compteur('#room_' + this.id + " .raspberry .compteur", new Date(data.startTime), data.statusTime, data.remainingTime)) || null;
@@ -14,14 +13,14 @@ class Room {
 	render() {
 		return `
 			<div id="room_${this.id}" class="col s12 m6">
-				<div class="card blue-grey darken-3 room ${ this.data.terminateStatus }">
+				<div class="card blue-grey darken-3 room ${ this.room.terminateStatus }">
 					<div class="card-content">
 						<header>
 							<span class="reinit_room icon_button" title="Réinitialiser la salle" onClick="reinitRoom(${ this.id });"></span>
 							<div class="input-field">
 							  <input type="text" 
 									class="room_name" 
-									value="${ this.data.name }"
+									value="${ this.room.name }"
 									onKeyPress="return preventBadCharacterForRoomName(event)"
 									onChange="updateRoomName(${ this.id }, this.value)" />
 							</div>
@@ -29,14 +28,16 @@ class Room {
 						</header>
 						<div>
 							<div class="riddle_icons">
-								<i id="room_${this.data.id}_entry_code" title="Entry code // TODO" class="tooltip riddle material-icons unresolved">exit_to_app</i>
-								${ this.riddles.map(riddle => {
-									let resolved = this.data.resolvedRiddles.filter(r => r.riddleId === riddle.riddleId).length > 0;
-									return `<i id="room_${this.data.id}_riddle_${riddle.id}" 
-																			title="${riddle.name} (${riddle.riddleId} / ${riddle.riddlePassword})" 
-																			class="tooltip riddle material-icons riddle_${riddle.id} ${ resolved ? "resolved" : "unresolved" }">
-																		${ resolved ? "lock_open" : "lock_outline" }
-																	</i>`;
+								Enigmes :
+								${ this.room.riddles.map(riddle => {
+									const statusClass = !riddle.password ? "unset" : riddle.isResolved ? "resolved" : "unresolved";
+									const icon = riddle.type === "OPEN_DOOR" ? "exit_to_app" : riddle.isResolved ? "lock_open" : "lock_outline";
+									return `<a id="room_${this.room.id}_riddle_${riddle.id}"
+															title="${riddle.type} ${riddle.name} (${riddle.riddleId} / ${riddle.riddlePassword})" 
+															class="tooltip riddle material-icons riddle_${riddle.id} ${statusClass}"
+															onClick="alert('TODO : dialog for riddles');">
+															${icon}
+													</a>`;
 								  }).join(" ") }
 							</div>
 							<div class="riddlePc disconnected">
