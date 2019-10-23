@@ -27,7 +27,7 @@ const setRooms = (rooms_data) => {
 
 const renderRoomTab = () => {
   $("#rooms").html(ROOMS
-    .sort((a, b) => a.room.name.localeCompare(b.room.name))
+    .sort((a, b) => a.roomData.id - b.roomData.id)
     .map(room => room.render())
     .join(""));
   $("#rooms .tooltip:not(.tooltipstered)").tooltipster().addClass("tooltipstered");
@@ -64,7 +64,7 @@ const updateRoomName = (id, value) => {
     data: JSON.stringify({name: value}),
     contentType: "application/json",
     success: () => {
-      ROOMS.filter(r => r.id === id)[0].room.name = value;
+      ROOMS.filter(r => r.id === id)[0].roomData.name = value;
       renderRoomTab();
     },
     error: (xmlHttpRequest, textStatus, errorThrown) => {
@@ -115,7 +115,7 @@ const reinitRoomAjax = (id) => {
     contentType: "application/json",
     success: (room) => {
       const roomIndex = ROOMS.findIndex(r => r.id === id);
-      ROOMS[roomIndex].room = room;
+      ROOMS[roomIndex].roomData = room;
       ROOMS[roomIndex].compteur && ROOMS[roomIndex].compteur.reinitTime();
       renderRoomTab();
     },

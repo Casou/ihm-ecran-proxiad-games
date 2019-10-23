@@ -40,28 +40,28 @@ const renderRiddleTab = () => {
   $("#riddles").append(new AddRiddle().render());
 };
 
-const newRiddle = () => {
-  $.ajax({
-    url: SERVER_URL + "riddle",
-    type: "PUT",
-    contentType: "application/json",
-    success: (newRiddle) => {
-      const riddle = new Riddle(newRiddle);
-      RIDDLES.push(riddle);
-      ROOMS.forEach(room => {
-        room.riddles.push(riddle);
-        room.render();
-      });
-      renderRiddleTab();
-    },
-    error: (xmlHttpRequest, textStatus, errorThrown) => {
-      console.error("xmlHttpRequest: ", xmlHttpRequest);
-      console.error("Status: ", textStatus);
-      console.error("Error: ", errorThrown);
-      errorDialog("Erreur lors de la création de l'énigme " + id + " : " + xmlHttpRequest.responseText);
-    }
-  });
-};
+// const newRiddle = () => {
+//   $.ajax({
+//     url: SERVER_URL + "riddle",
+//     type: "PUT",
+//     contentType: "application/json",
+//     success: (newRiddle) => {
+//       const riddle = new Riddle(newRiddle);
+//       RIDDLES.push(riddle);
+//       ROOMS.forEach(room => {
+//         room.riddles.push(riddle);
+//         room.render();
+//       });
+//       renderRiddleTab();
+//     },
+//     error: (xmlHttpRequest, textStatus, errorThrown) => {
+//       console.error("xmlHttpRequest: ", xmlHttpRequest);
+//       console.error("Status: ", textStatus);
+//       console.error("Error: ", errorThrown);
+//       errorDialog("Erreur lors de la création de l'énigme " + id + " : " + xmlHttpRequest.responseText);
+//     }
+//   });
+// };
 
 const updateRiddleName = (id, value) => {
   $.ajax({
@@ -86,61 +86,61 @@ const updateRiddleName = (id, value) => {
   });
 };
 
-const updateRiddleId = (id, riddleId) => {
-  $.ajax({
-    url: SERVER_URL + "riddle/" + id + "/riddleId",
-    type: "PATCH",
-    data: JSON.stringify({riddleId}),
-    contentType: "application/json",
-    success: () => {
-      RIDDLES.filter(r => r.id === id)[0].data.riddleId = riddleId;
-    },
-    error: (xmlHttpRequest, textStatus, errorThrown) => {
-      console.error("xmlHttpRequest: ", xmlHttpRequest);
-      console.error("Status: ", textStatus);
-      console.error("Error: ", errorThrown);
-      errorDialog("Erreur lors de la mise à jour de l'énigme " + id + " : " + xmlHttpRequest.responseText);
-    }
-  });
-};
+// const updateRiddleId = (id, riddleId) => {
+//   $.ajax({
+//     url: SERVER_URL + "riddle/" + id + "/riddleId",
+//     type: "PATCH",
+//     data: JSON.stringify({riddleId}),
+//     contentType: "application/json",
+//     success: () => {
+//       RIDDLES.filter(r => r.id === id)[0].data.riddleId = riddleId;
+//     },
+//     error: (xmlHttpRequest, textStatus, errorThrown) => {
+//       console.error("xmlHttpRequest: ", xmlHttpRequest);
+//       console.error("Status: ", textStatus);
+//       console.error("Error: ", errorThrown);
+//       errorDialog("Erreur lors de la mise à jour de l'énigme " + id + " : " + xmlHttpRequest.responseText);
+//     }
+//   });
+// };
 
-const updateRiddlePassword = (id, riddlePassword) => {
-  $.ajax({
-    url: SERVER_URL + "riddle/" + id + "/riddlePassword",
-    type: "POST",
-    data: JSON.stringify({riddlePassword}),
-    contentType: "application/json",
-    success: () => {
-      RIDDLES.filter(r => r.id === id)[0].data.riddlePassword = riddlePassword;
-    },
-    error: (xmlHttpRequest, textStatus, errorThrown) => {
-      console.error("xmlHttpRequest: ", xmlHttpRequest);
-      console.error("Status: ", textStatus);
-      console.error("Error: ", errorThrown);
-      errorDialog("Erreur lors de la mise à jour de l'énigme " + id + " : " + xmlHttpRequest.responseText);
-    }
-  });
-};
+// const updateRiddlePassword = (id, riddlePassword) => {
+//   $.ajax({
+//     url: SERVER_URL + "riddle/" + id + "/riddlePassword",
+//     type: "POST",
+//     data: JSON.stringify({riddlePassword}),
+//     contentType: "application/json",
+//     success: () => {
+//       RIDDLES.filter(r => r.id === id)[0].data.riddlePassword = riddlePassword;
+//     },
+//     error: (xmlHttpRequest, textStatus, errorThrown) => {
+//       console.error("xmlHttpRequest: ", xmlHttpRequest);
+//       console.error("Status: ", textStatus);
+//       console.error("Error: ", errorThrown);
+//       errorDialog("Erreur lors de la mise à jour de l'énigme " + id + " : " + xmlHttpRequest.responseText);
+//     }
+//   });
+// };
 
-const deleteRiddle = (id) => {
-  confirmDialog("Etes-vous sûr de vouloir supprimer cette énigme ?", () => deleteRiddleWS(id));
-};
-
-const deleteRiddleWS = (id) => {
-  $.ajax({
-    url: SERVER_URL + "riddle/" + id,
-    type: "DELETE",
-    success: () => {
-      RIDDLES = RIDDLES.filter(r => r.id !== id);
-      $("#riddle_" + id + ", .riddle_" + id).fadeOut(500, function () {
-        $(this).remove()
-      });
-    },
-    error: (xmlHttpRequest, textStatus, errorThrown) => {
-      console.error("xmlHttpRequest: ", xmlHttpRequest);
-      console.error("Status: ", textStatus);
-      console.error("Error: ", errorThrown);
-      errorDialog("Erreur lors de la suppression de l'énigme " + id + " : " + xmlHttpRequest.responseText);
-    }
-  });
-};
+// const deleteRiddle = (id) => {
+//   confirmDialog("Etes-vous sûr de vouloir supprimer cette énigme ?", () => deleteRiddleWS(id));
+// };
+//
+// const deleteRiddleWS = (id) => {
+//   $.ajax({
+//     url: SERVER_URL + "riddle/" + id,
+//     type: "DELETE",
+//     success: () => {
+//       RIDDLES = RIDDLES.filter(r => r.id !== id);
+//       $("#riddle_" + id + ", .riddle_" + id).fadeOut(500, function () {
+//         $(this).remove()
+//       });
+//     },
+//     error: (xmlHttpRequest, textStatus, errorThrown) => {
+//       console.error("xmlHttpRequest: ", xmlHttpRequest);
+//       console.error("Status: ", textStatus);
+//       console.error("Error: ", errorThrown);
+//       errorDialog("Erreur lors de la suppression de l'énigme " + id + " : " + xmlHttpRequest.responseText);
+//     }
+//   });
+// };

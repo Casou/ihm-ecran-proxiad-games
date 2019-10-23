@@ -2,7 +2,7 @@ class Room {
 
 	constructor(data) {
 		this.id = data.id;
-		this.room = data;
+		this.roomData = data;
 		this.volume = data.audioBackgroundVolume || 0.0;
 
 		const compteurSeul = (data.startTime && new Compteur('#room_' + this.id + " .raspberry .compteur", new Date(data.startTime), data.statusTime, data.remainingTime)) || null;
@@ -13,14 +13,14 @@ class Room {
 	render() {
 		return `
 			<div id="room_${this.id}" class="col s12 m6">
-				<div class="card blue-grey darken-3 room ${ this.room.terminateStatus }">
+				<div class="card blue-grey darken-3 room ${ this.roomData.terminateStatus }">
 					<div class="card-content">
 						<header>
 							<span class="reinit_room icon_button" title="Réinitialiser la salle" onClick="reinitRoom(${ this.id });"></span>
 							<div class="input-field">
 							  <input type="text" 
 									class="room_name" 
-									value="${ this.room.name }"
+									value="${ this.roomData.name }"
 									onKeyPress="return preventBadCharacterForRoomName(event)"
 									onChange="updateRoomName(${ this.id }, this.value)" />
 							</div>
@@ -29,13 +29,13 @@ class Room {
 						<div>
 							<div class="riddle_icons">
 								Enigmes :
-								${ this.room.riddles.map(riddle => {
-									const statusClass = !riddle.password ? "unset" : riddle.isResolved ? "resolved" : "unresolved";
+								${ this.roomData.riddles.map(riddle => {
+									const statusClass = !riddle.riddlePassword ? "unset" : riddle.isResolved ? "resolved" : "unresolved";
 									const icon = riddle.type === "OPEN_DOOR" ? "exit_to_app" : riddle.isResolved ? "lock_open" : "lock_outline";
-									return `<a id="room_${this.room.id}_riddle_${riddle.id}"
-															title="${riddle.type} ${riddle.name} (${riddle.riddleId} / ${riddle.riddlePassword})" 
+									return `<a id="room_${this.roomData.id}_riddle_${riddle.id}"
+															title="${riddle.riddleId} / ${riddle.riddlePassword}" 
 															class="tooltip riddle material-icons riddle_${riddle.id} ${statusClass}"
-															onClick="alert('TODO : dialog for riddles');">
+															onClick="openRiddles(${this.roomData.id});">
 															${icon}
 													</a>`;
 								  }).join(" ") }

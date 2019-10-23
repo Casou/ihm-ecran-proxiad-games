@@ -122,8 +122,20 @@ span.refresh_room {
     vertical-align: middle;
 }
 #rooms .disconnected .connection_status    { color : #ff6262; }
+#rooms .riddle_icons a.unset      {
+    color: #EFF0EB;
+    -webkit-animation: blink_unset 2s ease-in-out infinite;
+    -moz-animation: blink_unset 2s ease-in-out infinite;
+    -ms-animation: blink_unset 2s ease-in-out infinite;
+    -o-animation: blink_unset 2s ease-in-out infinite;
+    animation: blink_unset 2s ease-in-out infinite;    }
 #rooms .riddle_icons a.resolved      { color : #5eff5e; }
 #rooms .riddle_icons a.unresolved    { color : #ff6262; }
+@keyframes blink_unset {
+    0% { color: #EFF0EB; }
+    50% { color: #d4a325; }
+    100% { color: #EFF0EB; }
+}
 span.connection_status, .disconnected span.connection_status {
     background-size: contain;
 }
@@ -255,4 +267,30 @@ span.refresh_room {
 
 #rooms .room .boiteTaunt .actionButtons a {
     float : right;
+}
+
+.riddles-dialog * {
+    color : white;
+}
+.riddles-dialog .ui-button:not(.default-button) span {
+    color : black;
+}
+.riddles-dialog .delete-button {
+    cursor : pointer;
+    color : #ff6262;
+}
+.riddles-dialog .ui-widget-content .riddle-icon {
+    color : white;
+    cursor : help;
+}
+.riddles-dialog,
+.riddles-dialog .ui-dialog-buttonpane {
+    background-color:#464646;
+}
+.riddles-dialog .ui-widget-header{
+    background-color:#2f2f2f;
+}
+
+.riddles-dialog input[type=text] {
+    height : 30px;
 }

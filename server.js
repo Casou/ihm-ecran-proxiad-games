@@ -46,6 +46,5 @@ checkPromise.then(() => {
   console.log(`\n\n${colors.magenta}******* Started on port ${PORT} *******${colors.reset}\n`);
   console.log(`http://localhost:${PORT}/clock for the clock`);
   console.log(`http://localhost:${PORT}/regie for the back office`);
-  console.log(`http://localhost:${PORT}/regie for the back office`);
-  console.log(`http://localhost:${PORT}/lock for the initial lock riddle page`);
+  console.log(`http://localhost:${PORT}/lock for the initial riddle lock page`);
 });
