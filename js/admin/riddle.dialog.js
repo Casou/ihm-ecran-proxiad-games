@@ -1,47 +1,5 @@
 let RIDDLE_DIALOG_ROOM_ID = null;
 
-const renderRiddleLine = (riddle) => {
-  const icon = riddle.type === "OPEN_DOOR" ? "exit_to_app" : "lock_outline";
-  return `<tr>
-            <td>
-              <a id="edit_riddle_icon_${riddle.id}"
-                title="Type : ${riddle.type}" 
-                class="material-icons riddle-icon">
-                ${icon}
-              </a>
-            </td>
-            <td>
-              <div class="input-field">
-                ${riddle.type === "OPEN_DOOR" ? 
-                     riddle.riddleId :
-                    `<input type="text"
-                        id="edit_riddle_id_${ riddle.id }" 
-                        value="${ riddle.riddleId }"
-                        placeholder="Id obligatoire"
-                        onChange="updateRiddleId(${RIDDLE_DIALOG_ROOM_ID}, ${riddle.id}, this.value)" />`
-                }
-							</div>
-            </td>
-            <td>
-              <div class="input-field">
-								<input type="text"
-										id="edit_riddle_pwd_${ riddle.id }" 
-										value="${ riddle.riddlePassword || "" }"
-										placeholder="Mot de passe obligatoire"
-										onChange="updateRiddlePassword(${RIDDLE_DIALOG_ROOM_ID}, ${riddle.id}, this.value)" />
-							</div>
-            </td>
-            <td>
-                ${ riddle.type === "OPEN_DOOR" ? "" : 
-                  `<a onClick="deleteRiddle(${riddle.id})" title="Supprimer l'énigme">
-                    <i class="material-icons delete-button full_button">delete_forever</i>
-                  </a>` 
-                }
-            </td>
-          </tr>
-          `;
-};
-
 const updateRiddleId = (roomId, id, riddleId) => {
   $.ajax({
     url: SERVER_URL + "riddle/" + id + "/riddleId",
@@ -123,8 +81,121 @@ const deleteRiddleCallback = (id) => {
   });
 };
 
+
+const renderRiddleLine = (riddle) => {
+  const icon = riddle.type === "OPEN_DOOR" ? "exit_to_app" : "lock_outline";
+  return `<tr>
+            <td>
+              <a id="edit_riddle_icon_${riddle.id}"
+                title="Type : ${riddle.type}" 
+                class="material-icons riddle-icon">
+                ${icon}
+              </a>
+            </td>
+            <td>
+              <div class="input-field">
+                ${riddle.type === "OPEN_DOOR" ?
+                    riddle.riddleId :
+                    `<input type="text"
+                        id="edit_riddle_id_${ riddle.id }" 
+                        value="${ riddle.riddleId }"
+                        placeholder="Id obligatoire"
+                        onChange="updateRiddleId(${RIDDLE_DIALOG_ROOM_ID}, ${riddle.id}, this.value)" />`
+                  }
+							</div>
+            </td>
+            <td>
+              <div class="input-field">
+								<input type="text"
+										id="edit_riddle_pwd_${ riddle.id }" 
+										value="${ riddle.riddlePassword || "" }"
+										placeholder="Mot de passe obligatoire"
+										onChange="updateRiddlePassword(${RIDDLE_DIALOG_ROOM_ID}, ${riddle.id}, this.value)" />
+							</div>
+            </td>
+            <td>
+                ${ riddle.type === "OPEN_DOOR" ? "" :
+                    `<a onClick="deleteRiddle(${riddle.id})" title="Supprimer l'énigme">
+                    <i class="material-icons delete-button full_button">delete_forever</i>
+                  </a>`
+                }
+            </td>
+          </tr>
+          `;
+};
+
+const renderPlayerLine = () => {
+  return `<tr>
+            <td>
+              <div class="input-field">
+                <input type="text"
+                       value="Mon job"
+                       onChange=""
+                        />
+              </div>
+            </td>
+            <td>
+              <div class="input-field">
+                <input type="text"
+                       value="Mon nom"
+                       onChange=""
+                        />
+              </div>
+            </td>
+          </tr>
+          `;
+};
+
+const changeRiddleDialogTab = (tabName) => {
+  $(`#riddleDialog header li[tab=${tabName}]`).addClass("selected");
+  $(`#riddleDialog header li:not([tab=${tabName}])`).removeClass("selected");
+  $('.riddle_dialog_tab').addClass("hidden");
+  $(`#riddle_dialog_${tabName}`).removeClass("hidden");
+};
+
 const renderRiddleDialog = (room) => {
-  $('#riddleDialog').html(
+  const open_door_riddle = room.riddles.find(r => r.type === "OPEN_DOOR");
+  changeRiddleDialogTab('open_door_tab');
+
+  const openDoorPlayerLines = [];
+  for(let i = 0; i < 6; i++) {
+    openDoorPlayerLines.push(renderPlayerLine());
+  }
+  $('#riddle_dialog_open_door_tab')
+    .html(
+    `<div class="input-field">
+            <input type="text"
+                   id="open_riddle_password"
+                   value="${ open_door_riddle.riddlePassword }"
+                   placeholder="Password porte (chiffres uniquement)"
+                   onChange=""
+                    />
+        </div>
+        <div class="input-field">
+            <input type="text"id="open_riddle_suggested_password"
+                    readonly="readonly" 
+                    placeholder="Code généré"
+                    class="materialize-textarea"/>
+            <i id="open_riddle_copy_suggested_password"
+                title="Copier le code généré" 
+                class="material-icons prefix">
+              vertical_align_top
+            </i>
+        </div>
+        <table>
+          <thead>
+            <tr>
+                <th>Job</th>
+                <th>Nom</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${ openDoorPlayerLines.join("\n") }
+          </tbody>
+      </table>`
+  );
+  $('#riddle_dialog_game_tab')
+    .html(
     `<table>
         <thead>
           <tr>
@@ -137,6 +208,7 @@ const renderRiddleDialog = (room) => {
         <tbody>
           ${ room.riddles && 
               room.riddles
+                .filter(r => r.type === "GAME")
                 .sort((a, b) => a.id - b.id)
                 .map(renderRiddleLine).join("") }
         </tbody>
@@ -176,6 +248,7 @@ const openRiddles = (roomId) => {
       }
     ],
     open: function () {
+      $(this).parent().children(".ui-dialog-titlebar").hide();
       $(this).parent()
         .children(".ui-dialog-buttonpane")
         .children(".ui-dialog-buttonset")

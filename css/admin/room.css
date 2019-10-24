@@ -268,29 +268,3 @@ span.refresh_room {
 #rooms .room .boiteTaunt .actionButtons a {
     float : right;
 }
-
-.riddles-dialog * {
-    color : white;
-}
-.riddles-dialog .ui-button:not(.default-button) span {
-    color : black;
-}
-.riddles-dialog .delete-button {
-    cursor : pointer;
-    color : #ff6262;
-}
-.riddles-dialog .ui-widget-content .riddle-icon {
-    color : white;
-    cursor : help;
-}
-.riddles-dialog,
-.riddles-dialog .ui-dialog-buttonpane {
-    background-color:#464646;
-}
-.riddles-dialog .ui-widget-header{
-    background-color:#2f2f2f;
-}
-
-.riddles-dialog input[type=text] {
-    height : 30px;
-}

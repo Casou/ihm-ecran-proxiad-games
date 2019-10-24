@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="css/admin/dialog.css">
     <link rel="stylesheet" href="css/admin/header.css">
     <link rel="stylesheet" href="css/admin/room.css">
-    <link rel="stylesheet" href="css/admin/riddle.css">
+    <link rel="stylesheet" href="css/admin/riddle-dialog.css">
     <link rel="stylesheet" href="css/admin/parameters.css">
     <link rel="stylesheet" href="css/admin/ia.css">
     <link rel="stylesheet" href="css/admin/voices.css">
@@ -81,6 +81,20 @@ TODO List :
 <div id="confirmDialog" title="Confirmation" style="display : none;">
 </div>
 <div id="riddleDialog" title="Enigmes" style="display : none;">
+    <header>
+        <ul>
+            <li tab="open_door_tab" onClick="changeRiddleDialogTab('open_door_tab')"><i class="material-icons">exit_to_app</i> Open door</li>
+            <li tab="game_tab" onClick="changeRiddleDialogTab('game_tab')"><i class="material-icons">lock_outline</i> Enigmes</li>
+        </ul>
+    </header>
+    <div id="riddleDialog_content">
+        <div id="riddle_dialog_open_door_tab" class="riddle_dialog_tab hidden">
+
+        </div>
+        <div id="riddle_dialog_game_tab" class="riddle_dialog_tab hidden">
+
+        </div>
+    </div>
 </div>
 
 <script src="js/common/jquery.min.js"></script>

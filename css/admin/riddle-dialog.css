@@ -1,0 +1,74 @@
+.riddles-dialog * {
+    color : white;
+}
+.riddles-dialog .ui-button:not(.default-button) span {
+    color : black;
+}
+
+.riddles-dialog header {
+    border-bottom: 1px solid white;
+}
+
+.riddles-dialog ul {
+    margin-left : 10px;
+}
+
+.riddles-dialog li {
+    display : inline-block;
+    border: 1px solid white;
+    background-color: #2c2c2c;
+    margin-bottom: -1px;
+    padding : 2px 7px;
+    cursor: pointer;
+}
+
+.riddles-dialog li i {
+    vertical-align: bottom;
+}
+
+.riddles-dialog li.selected {
+    background-color: #464646;
+    border-bottom: 1px solid #464646;
+}
+
+.riddles-dialog .riddle_dialog_tab.hidden {
+    display : none;
+}
+
+.riddles-dialog .delete-button {
+    cursor : pointer;
+    color : #ff6262;
+}
+.riddles-dialog .ui-widget-content .riddle-icon {
+    color : white;
+    cursor : help;
+}
+.riddles-dialog,
+.riddles-dialog .ui-dialog-buttonpane {
+    background-color:#464646;
+}
+
+.riddles-dialog #riddleDialog_content {
+    padding : 10px;
+}
+
+.riddles-dialog #riddle_dialog_open_door_tab div.input-field {
+    width : 100%;
+}
+.riddles-dialog #riddle_dialog_open_door_tab div.input-field input {
+    height : 25px;
+    text-align : center;
+}
+
+.riddles-dialog #riddle_dialog_open_door_tab div.input-field i {
+    position: absolute;
+    top: 0;
+    font-size: 25px;
+}
+.riddles-dialog input[type=text] {
+    height : 30px;
+}
+
+#open_riddle_copy_suggested_password {
+    cursor : pointer;
+}
