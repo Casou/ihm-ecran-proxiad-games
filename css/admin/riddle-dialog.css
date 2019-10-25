@@ -55,9 +55,28 @@
 .riddles-dialog #riddle_dialog_open_door_tab div.input-field {
     width : 100%;
 }
+
+.riddles-dialog #riddle_dialog_open_door_tab .open_door_letter,
+.riddles-dialog #riddle_dialog_open_door_tab .open_door_position {
+    text-align : center;
+    font-weight : bold;
+}
+
 .riddles-dialog #riddle_dialog_open_door_tab div.input-field input {
     height : 25px;
+}
+
+.riddles-dialog #riddle_dialog_open_door_tab #riddle_dialog_open_door_code_div input {
     text-align : center;
+}
+
+#open_riddle_suggested_password {
+    color: #cccccc;
+}
+
+.riddles-dialog #riddle_dialog_open_door_tab div.input-field input.error {
+    color : #ff5a5a;
+    border-bottom-color : #ff5a5a;
 }
 
 .riddles-dialog #riddle_dialog_open_door_tab div.input-field i {
