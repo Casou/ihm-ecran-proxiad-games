@@ -167,15 +167,18 @@ const updateOpenDoorProfileClasses = (id, value) => {
   const input = $('#open_door_input_' + id);
   const letterTd = $('#open_door_letter_' + id);
   const positionTd = $('#open_door_position_' + id);
+  const copyButton = $('#open_riddle_copy_suggested_password');
   if (!OPEN_DOOR_INPUT_REGEX.test(value)) {
     input.addClass("error");
     letterTd.html("?");
     positionTd.html("?");
+    copyButton.attr("disabled", true);
     return false;
   }
   input.removeClass("error");
   letterTd.html(value.substring(value.indexOf("*") + 1, value.lastIndexOf("*")).toUpperCase());
   positionTd.html(value.indexOf("*") + 1);
+  copyButton.attr("disabled", false);
 
   return true;
 };

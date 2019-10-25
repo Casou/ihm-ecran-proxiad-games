@@ -90,4 +90,9 @@
 
 #open_riddle_copy_suggested_password {
     cursor : pointer;
+    color : yellow;
+}
+#open_riddle_copy_suggested_password[disabled] {
+    color : grey;
+    cursor : not-allowed;
 }
