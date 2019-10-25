@@ -212,6 +212,13 @@ const generateCode = () => {
   $("#open_riddle_suggested_password").val(code);
 };
 
+const copyCode = () => {
+  if ($("#open_riddle_copy_suggested_password").attr("disabled")) {
+    return;
+  }
+  $("#open_riddle_password").val($("#open_riddle_suggested_password").val());
+};
+
 const changeRiddleDialogTab = (tabName) => {
   $(`#riddleDialog header li[tab=${tabName}]`).addClass("selected");
   $(`#riddleDialog header li:not([tab=${tabName}])`).removeClass("selected");
@@ -269,7 +276,9 @@ const renderRiddleDialog = (roomData) => {
                     class="materialize-textarea"/>
             <i id="open_riddle_copy_suggested_password"
                 title="Copier le code généré" 
-                class="material-icons prefix">
+                class="material-icons prefix"
+                onClick="copyCode()"
+                >
               vertical_align_top
             </i>
         </div>
