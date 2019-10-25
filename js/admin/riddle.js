@@ -29,16 +29,16 @@ const setRiddles = (riddleDatas) => {
     RIDDLES.push(new Riddle(riddle));
   });
 
-  renderRiddleTab();
+  // renderRiddleTab();
 };
 
-const renderRiddleTab = () => {
-  $("#riddles").html(RIDDLES
-    .sort((a, b) => a.data.name.localeCompare(b.data.name))
-    .map(riddle => riddle.render())
-    .join(""));
-  $("#riddles").append(new AddRiddle().render());
-};
+// const renderRiddleTab = () => {
+//   $("#riddles").html(RIDDLES
+//     .sort((a, b) => a.data.name.localeCompare(b.data.name))
+//     .map(riddle => riddle.render())
+//     .join(""));
+//   $("#riddles").append(new AddRiddle().render());
+// };
 
 // const newRiddle = () => {
 //   $.ajax({
@@ -75,7 +75,7 @@ const updateRiddleName = (id, value) => {
         .tooltipster();
       RIDDLES.filter(r => r.id === id)[0].data.name = value;
 
-      renderRiddleTab();
+      // renderRiddleTab();
     },
     error: (xmlHttpRequest, textStatus, errorThrown) => {
       console.error("xmlHttpRequest: ", xmlHttpRequest);
