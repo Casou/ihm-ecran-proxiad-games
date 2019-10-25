@@ -117,20 +117,23 @@ span.refresh_room {
     color : #5eff5e;
 }
 
-#rooms .riddle_icons a {
-    cursor : pointer;
+#rooms .riddle_icons i {
+    cursor : help;
     vertical-align: middle;
 }
+#rooms .riddle_icons a i {
+    cursor : pointer;
+}
 #rooms .disconnected .connection_status    { color : #ff6262; }
-#rooms .riddle_icons a.unset      {
+#rooms .riddle_icons i.unset      {
     color: #EFF0EB;
     -webkit-animation: blink_unset 2s ease-in-out infinite;
     -moz-animation: blink_unset 2s ease-in-out infinite;
     -ms-animation: blink_unset 2s ease-in-out infinite;
     -o-animation: blink_unset 2s ease-in-out infinite;
     animation: blink_unset 2s ease-in-out infinite;    }
-#rooms .riddle_icons a.resolved      { color : #5eff5e; }
-#rooms .riddle_icons a.unresolved    { color : #ff6262; }
+#rooms .riddle_icons i.resolved      { color : #5eff5e; }
+#rooms .riddle_icons i.unresolved    { color : #ff6262; }
 @keyframes blink_unset {
     0% { color: #EFF0EB; }
     50% { color: #d4a325; }

@@ -32,13 +32,13 @@ class Room {
 								${ this.roomData.riddles.map(riddle => {
 									const statusClass = !riddle.riddlePassword ? "unset" : riddle.isResolved ? "resolved" : "unresolved";
 									const icon = riddle.type === "OPEN_DOOR" ? "exit_to_app" : riddle.isResolved ? "lock_open" : "lock_outline";
-									return `<a id="room_${this.roomData.id}_riddle_${riddle.id}"
+									return `<i id="room_${this.roomData.id}_riddle_${riddle.id}"
 															title="${riddle.riddleId} / ${riddle.riddlePassword}" 
-															class="tooltip riddle material-icons riddle_${riddle.id} ${statusClass}"
-															onClick="openRiddles(${this.roomData.id});">
+															class="tooltip riddle material-icons riddle_${riddle.id} ${statusClass}">
 															${icon}
-													</a>`;
+													</i>`;
 								  }).join(" ") }
+								<a onClick="openRiddles(${this.roomData.id});"><i class="material-icons">settings</i></a>
 							</div>
 							<div class="riddlePc disconnected">
 								<h2><i class="material-icons connection_status">cast</i> PC énigme</h2>
