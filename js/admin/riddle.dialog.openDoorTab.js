@@ -139,12 +139,21 @@ const renderOpenDoorTab = (roomData) => {
                    placeholder="Password porte (chiffres uniquement)"
                    onChange=""
                     />
+            <a id="open_riddle_go_to_badges"
+                title="Aller à page de génération des badges" 
+                class="material-icons prefix"
+                href="/badge?roomId=${roomData.id}"
+                target="__blank"
+                >
+              open_in_new
+            </a>
         </div>
         <div class="input-field">
-            <input type="text"id="open_riddle_suggested_password"
-                    readonly="readonly" 
-                    placeholder="Code généré"
-                    class="materialize-textarea"/>
+            <input type="text"
+                   id="open_riddle_suggested_password"
+                   readonly="readonly" 
+                   placeholder="Code généré"
+                   class="materialize-textarea"/>
             <i id="open_riddle_copy_suggested_password"
                 title="Copier le code généré" 
                 class="material-icons prefix"

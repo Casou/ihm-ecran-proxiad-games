@@ -1,0 +1,109 @@
+@font-face {
+    font-family: 'gobold_outline';
+    src: url('/css/fonts/gobold/gobold_hollow_bold_italic-webfont.woff2') format('woff2'),
+    url('/css/fonts/gobold/gobold_hollow_bold_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gobold';
+    src: url('/css/fonts/gobold/gobold_bold_italic-webfont.woff2') format('woff2'),
+    url('/css/fonts/gobold/gobold_bold_italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --badge-height: 5.4cm;
+    --badge-width: 8.55cm;
+    --badge-job-top: 0.35cm;
+    --badge-job-height: 1.4cm;
+    /*--badge-height: 7.4cm;*/
+    /*--badge-width: 11cm;*/
+    /*--badge-job-top: 0.55cm;*/
+    /*--badge-job-height: 1.72cm;*/
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.important  {
+    color : red;
+    font-weight: bold;
+}
+main {
+    /*display : flex;*/
+    /*flex-wrap: wrap;*/
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    padding : var(--badge-job-top);
+    border : 1px solid black;
+    color : white;
+    text-align: center;
+    box-shadow: 5px 5px 10px #888;
+}
+main.portrait {
+    height : 29.7cm;
+    width : 21cm;
+}
+main.landscape {
+    height : 21cm;
+    width : 29.7cm;
+}
+
+.badge {
+    /** Displaying with inline-block instead of flex because flex doesn't handle page breaks correctly */
+    /*flex: 0 0 var(--badge-width);*/
+    display : inline-block;
+    width : var(--badge-width);
+    height: var(--badge-height);
+    border: 1px solid gray;
+    background: url(/resources/images/badge.jpg) center center no-repeat;
+    background-size: cover;
+    margin: 15px;
+}
+
+.badge.add {
+    opacity : 0.8;
+    line-height: var(--badge-height);
+    font-size : 60px;
+    font-weight : bold;
+    cursor : pointer;
+}
+
+.badge .job {
+    display: table;
+    padding-top: 0.35cm;
+    font-family: gobold_outline, serif;
+    font-size: 20px;
+    text-align: center;
+    width : 100%;
+}
+
+.badge .job p {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+    margin: 0 auto;
+    height: var(--badge-job-height);
+    cursor : pointer;
+}
+.badge .job input {
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+    margin: 0 auto;
+    height: var(--badge-job-height);
+    text-align: center;
+    font-size: 22px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.badge .job .outline {
+    font-family: gobold, serif;
+}

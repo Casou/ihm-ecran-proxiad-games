@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="css/badge.css">
+    <link rel="stylesheet" type="text/css" href="css/badge-print.css" media="print">
+
+    <link rel="shortcut icon" href="resources/images/icone.png">
+    <title>Génération des badges</title>
+</head>
+<body>
+    <header>
+        <p class="important">Important : Utiliser Chrome pour imprimer les badges (pour l'impression du background des badges)</p>
+        <p>Les changements appliqués sur les libellés ne sont pas répercutés sur la BDD.</p>
+        <select id="rooms" onChange="changeRoom(this.value)">
+            <option value="">Sélectionner une salle</option>
+        </select>
+        <select id="orientations" onChange="changeOrientation(this.value)">
+            <option value="portrait">Portrait</option>
+            <option value="landscape">Paysage</option>
+        </select>
+    </header>
+
+    <main class="portrait">
+
+    </main>
+
+    <script src="js/common/jquery.min.js"></script>
+    <script src="js/common/common.js"></script>
+    <script src="js/badge.js"></script>
+</body>
+</html>

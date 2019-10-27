@@ -16,9 +16,9 @@ const hideLoading = () => {
   $("#loading").hide();
 };
 
-const makeid = (length = 9) => {
+const makeid = ({length = 9, onlyIntegers = false}) => {
   let text = "";
-  const possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  const possible = onlyIntegers ? "123456789" : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
   for (let i = 0; i < length; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -109,4 +109,20 @@ const queuePromise = (promise, callback) => {
     return new Promise(callback);
   }
   return promise.then(callback);
+};
+
+
+const getQueryParameters = () => {
+  if (!window.location.search) {
+    return []
+  }
+  const queryParamStrings = window.location.search.substring(1).split("&");
+  const params = [];
+
+  queryParamStrings.forEach(p => {
+    const parts = p.split("=");
+    params[parts[0]] = parts[1];
+  });
+
+  return params;
 };

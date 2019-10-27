@@ -1,0 +1,14 @@
+header, .badge.add {
+    display : none;
+}
+
+main {
+    border : none;
+    box-shadow : none;
+    -webkit-print-color-adjust: exact;
+}
+
+.badge {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
