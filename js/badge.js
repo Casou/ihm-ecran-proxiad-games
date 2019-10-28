@@ -35,8 +35,11 @@ const retrieveRoomsData = () => {
 
 const changeRoom = roomId => {
   window.history.pushState("", "", "?roomId=" + roomId);
-  PLAYER_PROFILES = ROOMS.find(r => r.id === roomId).playerProfiles;
-  generateBadges();
+  const room = ROOMS.find(r => r.id === parseInt(roomId));
+  if (room) {
+    PLAYER_PROFILES = room.playerProfiles;
+    generateBadges();
+  }
 };
 
 const generateBadges = () => {
