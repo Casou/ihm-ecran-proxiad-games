@@ -1,11 +1,13 @@
 let ROOM_ID = null;
 const OUTLINE_REGEX = /\*.\*/;
 let PLAYER_PROFILES = [];
+let ROOMS = [];
 
 const init = () => {
   retrieveRoomsData()
     .then(rooms => {
-      rooms.forEach(room => {
+      ROOMS = rooms;
+      ROOMS.forEach(room => {
         $('select#rooms').append(`<option value="${room.id}">${room.name}</option>`)
         if (ROOM_ID) {
           $('select#rooms').val(ROOM_ID).change();
@@ -33,14 +35,7 @@ const retrieveRoomsData = () => {
 
 const changeRoom = roomId => {
   window.history.pushState("", "", "?roomId=" + roomId);
-  PLAYER_PROFILES = [
-    {id: 354351534, name: 'Testeur *f*ou'},
-    {id: 83743654, name: 'Coach agile Wa*t*erfall'},
-    {id: 5735438, name: 'Dévelop*p*eur novice'},
-    {id: 64341350, name: 'PO drog*u*é au café'},
-    {id: 5435035, name: 'Chef de proj*e*t paniqué'},
-    {id: 254214235, name: 'Scrum M*y*stère'}
-  ];
+  PLAYER_PROFILES = ROOMS.find(r => r.id === roomId).playerProfiles;
   generateBadges();
 };
 

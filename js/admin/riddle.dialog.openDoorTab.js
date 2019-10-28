@@ -1,4 +1,3 @@
-let RIDDLE_DIALOG_ROOM_ID = null;
 const OPEN_DOOR_INPUT_REGEX = new RegExp("^[^\\*]*\\*[^,;]\\*[^\\*]*$"); // Check if the input is "Some word with one letter between *s*tars"
 const OPEN_DOOR_CHAR_TO_NUMBERS = {
   "A" : "2",
@@ -30,12 +29,14 @@ const OPEN_DOOR_CHAR_TO_NUMBERS = {
 };
 
 const updateOpenDoorProfile = (id, value) => {
-  if (updateOpenDoorProfileClasses(id, value)) {
-    updatePlayerProfilesData(id, value);
-    generateCode();
-  } else {
-    $("#open_riddle_suggested_password").val("ERROR");
-  }
+  updateProfile(id, value).then(() => {
+    if (updateOpenDoorProfileClasses(id, value)) {
+      updatePlayerProfilesData(id, value);
+      generateCode();
+    } else {
+      $("#open_riddle_suggested_password").val("ERROR");
+    }
+  });
 };
 
 const updateOpenDoorProfileClasses = (id, value) => {
@@ -86,6 +87,9 @@ const formatPlayerProfile = (roomData, profile) => {
 const generateCode = () => {
   const roomData = ROOMS.find(r => r.id === RIDDLE_DIALOG_ROOM_ID).roomData;
   const playerProfiles = roomData.playerProfiles;
+  if (!playerProfiles) {
+    return;
+  }
   const code = playerProfiles.sort((a, b) => a.position - b.position)
     .map(profile => OPEN_DOOR_CHAR_TO_NUMBERS[profile.letter])
     .join("");
@@ -112,6 +116,11 @@ const renderPlayerLine = (playerProfile) => {
             </td>
             <td id="open_door_letter_${playerProfile.id}" class="open_door_letter"></td>
             <td id="open_door_position_${playerProfile.id}" class="open_door_position"></td>
+            <td id="open_door_delete_${playerProfile.id}">
+              <a onClick="deleteProfile(${playerProfile.id})" title="Supprimer le profil">
+                <i class="material-icons delete-button full_button">delete_forever</i>
+              </a>
+            </td>
           </tr>
           `;
 };
@@ -119,15 +128,12 @@ const renderPlayerLine = (playerProfile) => {
 const renderOpenDoorTab = (roomData) => {
   const open_door_riddle = roomData.riddles.find(r => r.type === "OPEN_DOOR");
   const roomIndex = ROOMS.findIndex(r => r.id === roomData.id);
-  roomData.playerProfiles = [
-    { id: 354351534, name : 'Testeur *f*ou' },
-    { id: 83743654, name : 'Coach agile Wa*t*erfall' },
-    { id: 5735438, name : 'Dévelop*p*eur novice' },
-    { id: 64341350, name : 'PO drog*u*é au café' },
-    { id: 5435035, name : 'Chef de proj*e*t paniqué' },
-    { id: 254214235, name : 'Scrum M*y*stère' }
-  ];
-  ROOMS[roomIndex].roomData = roomData;
+
+  if (!roomData.playerProfiles) {
+    errorDialog("Erreur : la salle ne contient pas de profil de joueurs (playerProfiles). La liste est nulle");
+    return;
+  }
+
   $('#riddle_dialog_open_door_tab')
     .html(
     `
@@ -182,4 +188,72 @@ const renderOpenDoorTab = (roomData) => {
     formatPlayerProfile(roomData, profile);
   });
   generateCode();
+};
+
+const newProfile = (roomId) => {
+  $.ajax({
+    url: SERVER_URL + "player-profile",
+    type: "PUT",
+    data: JSON.stringify({roomId}),
+    contentType: "application/json",
+    success: (newRiddle) => {
+      const roomData = ROOMS.find(r => r.id === RIDDLE_DIALOG_ROOM_ID).roomData;
+      roomData.playerProfiles.push(newRiddle);
+      renderOpenDoorTab(roomData);
+    },
+    error: (xmlHttpRequest, textStatus, errorThrown) => {
+      console.error("xmlHttpRequest: ", xmlHttpRequest);
+      console.error("Status: ", textStatus);
+      console.error("Error: ", errorThrown);
+      errorDialog("Erreur lors de la création d'un nouveau profil : " + xmlHttpRequest.responseText);
+    }
+  });
+};
+
+const updateProfile = (id, name) => {
+  $('.ui-dialog-buttonset button').attr('disabled', true);
+  return $.ajax({
+    url: SERVER_URL + "player-profile/" + id,
+    type: "PATCH",
+    data: JSON.stringify({name}),
+    contentType: "application/json",
+    success: () => {
+      const roomData = ROOMS.find(r => r.id === RIDDLE_DIALOG_ROOM_ID).roomData;
+      const profileIndex = roomData.playerProfiles.findIndex(r => r.id === id);
+      roomData.playerProfiles[profileIndex].name = name;
+    },
+    error: (xmlHttpRequest, textStatus, errorThrown) => {
+      console.error("xmlHttpRequest: ", xmlHttpRequest);
+      console.error("Status: ", textStatus);
+      console.error("Error: ", errorThrown);
+      errorDialog("Erreur lors de la mise à jour du profil " + id + " : " + xmlHttpRequest.responseText);
+    },
+    complete: () => {
+      console.log("Always");
+      $('.ui-dialog-buttonset button').attr('disabled', false);
+    }
+  });
+};
+
+
+const deleteProfile = (id) => {
+  confirmDialog("Etes-vous sûr de vouloir supprimer ce profil ?", () => deleteProfileCallback(id));
+};
+
+const deleteProfileCallback = (id) => {
+  $.ajax({
+    url: SERVER_URL + "player-profile/" + id,
+    type: "DELETE",
+    success: () => {
+      const roomData = ROOMS.find(r => r.id === RIDDLE_DIALOG_ROOM_ID).roomData;
+      roomData.playerProfiles = roomData.playerProfiles.filter(r => r.id !== id);
+      renderOpenDoorTab(roomData);
+    },
+    error: (xmlHttpRequest, textStatus, errorThrown) => {
+      console.error("xmlHttpRequest: ", xmlHttpRequest);
+      console.error("Status: ", textStatus);
+      console.error("Error: ", errorThrown);
+      errorDialog("Erreur lors de la suppression du profil " + id + " : " + xmlHttpRequest.responseText);
+    }
+  });
 };

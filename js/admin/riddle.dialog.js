@@ -1,14 +1,26 @@
+let RIDDLE_DIALOG_ROOM_ID = null;
+let RIDDLE_DIALOG_TAB = null;
+
 const changeRiddleDialogTab = (tabName) => {
   $(`#riddleDialog header li[tab=${tabName}]`).addClass("selected");
   $(`#riddleDialog header li:not([tab=${tabName}])`).removeClass("selected");
   $('.riddle_dialog_tab').addClass("hidden");
   $(`#riddle_dialog_${tabName}`).removeClass("hidden");
+  RIDDLE_DIALOG_TAB = tabName;
 };
 
 const renderRiddleDialog = (roomData) => {
   renderOpenDoorTab(roomData);
   renderRiddleTab(roomData);
-  changeRiddleDialogTab('open_door_tab');
+  changeRiddleDialogTab("open_door_tab");
+};
+
+const addProfileOrRiddle = () => {
+  if (RIDDLE_DIALOG_TAB === "open_door_tab") {
+    newProfile(RIDDLE_DIALOG_ROOM_ID);
+  } else {
+    newRiddle(RIDDLE_DIALOG_ROOM_ID);
+  }
 };
 
 const openRiddles = (roomId) => {
@@ -20,8 +32,8 @@ const openRiddles = (roomId) => {
   $('#riddleDialog').dialog({
     resizable: false,
     height: "auto",
-    minHeight: 450,
-    width: 600,
+    minHeight: 600,
+    width: 800,
     modal: true,
     autoOpen: true,
     dialogClass: "riddles-dialog",
@@ -30,8 +42,8 @@ const openRiddles = (roomId) => {
     },
     buttons: [
       {
-        text: "Ajouter une énigme",
-        click: newRiddle
+        text: "Ajouter",
+        click: addProfileOrRiddle
       },
       {
         text: "Fermer",
