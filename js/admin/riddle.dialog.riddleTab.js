@@ -16,13 +16,14 @@ const updateRiddleId = (roomId, id, riddleId) => {
       console.error("Error: ", errorThrown);
       errorDialog("Erreur lors de la mise à jour de l'énigme " + id + " : " + xmlHttpRequest.responseText);
     },
-    always: () => {
+    complete: () => {
       $('.ui-dialog-buttonset button').attr('disabled', false);
     }
   });
 };
 
 const updateRiddlePassword = (roomId, id, riddlePassword) => {
+  $('.ui-dialog-buttonset button').attr('disabled', true);
   return $.ajax({
     url: SERVER_URL + "riddle/" + id + "/riddlePassword",
     type: "PATCH",
@@ -39,7 +40,7 @@ const updateRiddlePassword = (roomId, id, riddlePassword) => {
       console.error("Error: ", errorThrown);
       errorDialog("Erreur lors de la mise à jour de l'énigme " + id + " : " + xmlHttpRequest.responseText);
     },
-    always: () => {
+    complete: () => {
       $('.ui-dialog-buttonset button').attr('disabled', false);
     }
   });

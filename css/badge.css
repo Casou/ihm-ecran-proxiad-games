@@ -15,10 +15,10 @@
 }
 
 :root {
-    --badge-height: 5.4cm;
-    --badge-width: 8.55cm;
-    --badge-job-top: 0.35cm;
-    --badge-job-height: 1.4cm;
+    --badge-height: 5.1cm;
+    --badge-width: 8.9cm;
+    --badge-job-top: 0.22cm;
+    --badge-job-height: 1.25cm;
     /*--badge-height: 7.4cm;*/
     /*--badge-width: 11cm;*/
     /*--badge-job-top: 0.55cm;*/
@@ -38,7 +38,7 @@ main {
     /*flex-wrap: wrap;*/
     /*justify-content: center;*/
     /*align-items: center;*/
-    padding : var(--badge-job-top);
+    padding : 0.5cm;
     border : 1px solid black;
     color : white;
     text-align: center;
@@ -75,7 +75,7 @@ main.landscape {
 
 .badge .job {
     display: table;
-    padding-top: 0.35cm;
+    padding-top: var(--badge-job-top);
     font-family: gobold_outline, serif;
     font-size: 20px;
     text-align: center;

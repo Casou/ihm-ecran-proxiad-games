@@ -1,6 +1,9 @@
 .riddles-dialog * {
     color : white;
 }
+.riddles-dialog *.error {
+    color : orange;
+}
 .riddles-dialog .ui-button:not(.default-button) span {
     color : black;
 }
@@ -57,6 +60,7 @@
 }
 
 .riddles-dialog #riddle_dialog_open_door_tab .open_door_letter,
+.riddles-dialog #riddle_dialog_open_door_tab .open_door_code,
 .riddles-dialog #riddle_dialog_open_door_tab .open_door_position {
     text-align : center;
     font-weight : bold;
