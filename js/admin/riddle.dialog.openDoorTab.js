@@ -47,7 +47,7 @@ const getOpenDoorInputPosition = value => {
   if (!OPEN_DOOR_INPUT_REGEX.test(value)) {
     return null;
   }
-  return value.indexOf("*") + 1;
+  return value.replace(" ", "").indexOf("*") + 1;
 };
 
 const formatPlayerProfile = (roomData, newProfile) => {
@@ -57,15 +57,14 @@ const formatPlayerProfile = (roomData, newProfile) => {
   profile.letter = getOpenDoorInputLetter(newProfile.name);
   profile.code = profile.letter ? OPEN_DOOR_CHAR_TO_NUMBERS[profile.letter] : null;
   profile.position = getOpenDoorInputPosition(newProfile.name);
-  profile.errorLetter = !OPEN_DOOR_INPUT_REGEX.test(newProfile.name);
-  profile.errorPosition = !profile.position;
 };
 
 const checkErrorsForAllProfiles = () => {
   const roomData = ROOMS.find(r => r.id === RIDDLE_DIALOG_ROOM_ID).roomData;
   roomData.playerProfiles.forEach(profile => {
-    const hasSamePositionProfiles = roomData.playerProfiles.find(p =>
-      profile.id !== p.id && profile.position && profile.position === p.position);
+    profile.errorLetter = !OPEN_DOOR_INPUT_REGEX.test(profile.name);
+    profile.errorPosition = !profile.position;
+    const hasSamePositionProfiles = roomData.playerProfiles.find(p => profile.id !== p.id && profile.position && profile.position === p.position);
     if (hasSamePositionProfiles) {
       profile.errorPosition = true;
       console.warn("Error", profile.letter, profile.position);
