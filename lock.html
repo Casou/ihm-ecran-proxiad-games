@@ -13,7 +13,21 @@
 </head>
 <body>
 
-    <div id="digital_pad" class="mbg1">
+    <div id="settings" class="hidden">
+        <div>
+            <div>
+                <label for="server_url_input">Serveur URL</label>
+                <input id="server_url_input" type="text" />
+            </div>
+            <div>
+                <label for="room_name_input">Nom de la salle</label>
+                <input id="room_name_input" type="text" />
+            </div>
+            <button onClick="testSettings()">Mettre à jour</button>
+        </div>
+    </div>
+
+    <div id="digital_pad" class="mbg1 hidden">
         <div id="digital_screen">
             <div class="leds">
                 <img src="resources/images/light-red.png" class="red_led" />
@@ -43,6 +57,9 @@
         </div>
     </div>
 
+    <script src="js/common/jquery.min.js"></script>
+    <script src="js/common/common.js"></script>
+    <script src="js/admin/room.js"></script>
     <script src="js/lock.js"></script>
 </body>
 </html>

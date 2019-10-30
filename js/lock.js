@@ -1,5 +1,7 @@
 let CODE = "";
 let BLINK_COUNT = null;
+let ROOM_NAME = localStorage.getItem("roomName") || "";
+let ROOM_ID = null;
 
 const addNumber = (number) => {
   CODE += number;
@@ -12,12 +14,18 @@ const backSpace = () => {
 };
 
 const validateCode = () => {
-  // TODO Check API
-  if (Math.random() > 0.5) {
-    successCode();
-  } else {
-    failedCode();
-  }
+  return $.ajax({
+    url: SERVER_URL + "open-door",
+    type: "POST",
+    data: JSON.stringify({roomId: ROOM_ID, riddlePassword: CODE}),
+    contentType: "application/json",
+    success: () => {
+      successCode();
+    },
+    error: () => {
+      failedCode();
+    }
+  });
 };
 
 document.onkeydown = e => {
@@ -40,13 +48,9 @@ document.onkeydown = e => {
 };
 
 const refreshDisplay = () => {
-  const screen = document.getElementById('digital_screen_lcd');
-  if (!CODE) {
-    screen.classList = ['placeholder'];
-  } else {
-    screen.classList = [];
-  }
-  screen.innerHTML = CODE || 'Enter code';
+  $('#digital_screen_lcd')
+    .toggleClass('placeholder', !CODE)
+    .html(CODE || 'Enter code');
 };
 
 const failedCode = () => {
@@ -79,4 +83,48 @@ const successCode = () => {
   refreshDisplay();
 };
 
+const testSettings = () => {
+  SERVER_URL = $('#server_url_input').val();
+  localStorage.setItem("serverUrl", SERVER_URL);
+  ROOM_NAME = $('#room_name_input').val();
+  localStorage.setItem("roomName", ROOM_NAME);
+  ping()
+    .then(() => {
+      retrieveRoomsData().then(rooms => {
+        const roomName = $('#room_name_input').val();
+        const room = rooms.find(r => r.name.toLowerCase() === roomName.toLowerCase());
+        if (room) {
+          ROOM_ID = room.id;
+          $('label[for=room_name_input]').removeClass("error");
+          $('label[for=server_url_input]').removeClass("error");
+          toggleSettings(true);
+        } else {
+          console.error("Error : no room with name.");
+          $('label[for=room_name_input]').addClass("error");
+          toggleSettings(false);
+        }
+      })
+        .catch(() => {
+          console.error("Error while retrieving rooms.");
+          $('label[for=server_url_input]').addClass("error");
+          toggleSettings(false);
+        })
+    })
+    .catch(() => {
+      console.error("Ping failed. You should update the server url.");
+      $('label[for=server_url_input]').addClass("error");
+      toggleSettings(false);
+    });
+};
+
+const toggleSettings = settingsOk => {
+  $('#settings').toggleClass("hidden", settingsOk);
+  $('#digital_pad').toggleClass("hidden", !settingsOk);
+};
+
 refreshDisplay();
+$('#server_url_input').val(SERVER_URL);
+$('#room_name_input').val(ROOM_NAME);
+
+testSettings();
+

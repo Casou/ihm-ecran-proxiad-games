@@ -165,10 +165,11 @@ const sendMessageToSynthetize = (roomId, {message, voice}, introSentence) => {
 };
 
 const unlockRiddleCallback = (unlockDto) => {
-  $("#room_" + unlockDto.roomId + "_riddle_" + unlockDto.id)
-    .removeClass("unresolved")
-    .addClass("resolved")
-    .html("lock_open");
+  const riddleIcon = $("#room_" + unlockDto.roomId + "_riddle_" + unlockDto.id);
+  riddleIcon.removeClass("unresolved").addClass("resolved");
+  if (riddleIcon.html() === 'lock_outline') {
+    riddleIcon.html("lock_open");
+  }
 };
 
 const successRoomCallback = (room) => {
