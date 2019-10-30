@@ -67,7 +67,6 @@ const checkErrorsForAllProfiles = () => {
     const hasSamePositionProfiles = roomData.playerProfiles.find(p => profile.id !== p.id && profile.position && profile.position === p.position);
     if (hasSamePositionProfiles) {
       profile.errorPosition = true;
-      console.warn("Error", profile.letter, profile.position);
     }
   });
 };

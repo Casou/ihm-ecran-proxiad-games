@@ -29,7 +29,7 @@ checkPromise.then(() => {
     res.sendFile(path.join(__dirname + '/admin.html'));
   });
 
-  app.get('/troll', (req, res) => {
+  app.get('/usb', (req, res) => {
     res.sendFile(path.join(__dirname + '/troll.html'));
   });
 
@@ -52,4 +52,5 @@ checkPromise.then(() => {
   console.log(`http://localhost:${PORT}/regie for the back office`);
   console.log(`http://localhost:${PORT}/lock for the initial riddle lock page`);
   console.log(`http://localhost:${PORT}/badge for the badge génération`);
+  console.log(`http://localhost:${PORT}/usb?salle={room name} for the troll page`);
 });
