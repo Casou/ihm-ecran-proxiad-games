@@ -114,8 +114,6 @@ TODO List :
 <script src="js/admin/room.component.js"></script>
 <script src="js/admin/room.js"></script>
 <script src="js/admin/room.webocket.js"></script>
-<script src="js/admin/riddle.component.js"></script>
-<script src="js/admin/riddle.js"></script>
 <script src="js/admin/riddle.webocket.js"></script>
 <script src="js/admin/compteurAvecBoutons.js"></script>
 <script src="js/admin/parameters.component.js"></script>
@@ -146,8 +144,7 @@ TODO List :
           .then(() => {
             Promise.all([
               retrieveAITexts().then(setAIParameters),
-              retrieveRoomsData().then(setRooms),
-              retrieveRiddlesData().then(setRiddles)
+              retrieveRoomsData().then(setRooms)
             ]).then(() => {
               showCurrentTab();
               retrieveConnectedRooms();

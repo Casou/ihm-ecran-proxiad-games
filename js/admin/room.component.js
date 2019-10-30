@@ -30,8 +30,8 @@ class Room {
 							<div class="riddle_icons">
 								Enigmes :
 								${ this.roomData.riddles.map(riddle => {
-									const statusClass = !riddle.riddlePassword ? "unset" : riddle.isResolved ? "resolved" : "unresolved";
-									const icon = riddle.type === "OPEN_DOOR" ? "exit_to_app" : riddle.isResolved ? "lock_open" : "lock_outline";
+									const statusClass = !riddle.riddlePassword ? "unset" : riddle.resolved ? "resolved" : "unresolved";
+									const icon = riddle.type === "OPEN_DOOR" ? "exit_to_app" : riddle.resolved ? "lock_open" : "lock_outline";
 									return `<i id="room_${this.roomData.id}_riddle_${riddle.id}"
 															title="${riddle.riddleId} / ${riddle.riddlePassword}" 
 															class="tooltip riddle material-icons riddle_${riddle.id} ${statusClass}">
