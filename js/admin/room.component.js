@@ -102,7 +102,8 @@ class Room {
 	}
 
 	renderVoicesSelect() {
-		return IA_PARAMETERS.sentences.map(sentence => `<option value="${ sentence.id }">${ sentence.text } (${ sentence.voice.name })</option>`).join("");
+		const allIntroSentences = IA_PARAMETERS.sentences.map(sentence => `<option value="${ sentence.id }">${ sentence.text } (${ sentence.voice.name })</option>`).join("");
+		return "<option value=''>-- Pas d'intro --</option>" + allIntroSentences;
 	}
 
 	renderAndApply() {

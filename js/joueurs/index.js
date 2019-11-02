@@ -1,4 +1,4 @@
-let PARAMETERS = []
+let PARAMETERS = [];
 
 const init = () => {
 	$("#message").hide();
@@ -6,7 +6,6 @@ const init = () => {
 
 	return Promise.all([
 		retrieveAllRooms().then(updateCurrentRoomData),
-		retrieveAllRiddles(),
 		retrieveParameters()
 	]);
 };

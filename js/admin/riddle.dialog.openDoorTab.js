@@ -145,7 +145,7 @@ const renderOpenDoorTab = (roomData) => {
         <div class="input-field">
             <input type="text"
                    id="open_riddle_password"
-                   value="${ open_door_riddle.riddlePassword }"
+                   value="${ open_door_riddle.riddlePassword || ''}"
                    placeholder="Password porte (chiffres uniquement)"
                    onChange="updateOpenDoorCode(this.value)"
                     />
@@ -176,7 +176,7 @@ const renderOpenDoorTab = (roomData) => {
       <table>
         <thead>
           <tr>
-              <th>Job</th>
+              <th>Profil</th>
               <th class="open_door_letter">Lettre</th>
               <th class="open_door_code">Code</th>
               <th class="open_door_position">Position</th>

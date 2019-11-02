@@ -55,7 +55,7 @@ const chooseRoom = (value) => {
 const updateWithRoom = (room) => {
   $("#room_name").html(room.name);
   AUDIO_BACKGROUND_VOLUME = room.audioBackgroundVolume;
-  updateGlitch(room.resolvedRiddles.length);
+  updateGlitch(room.riddles.filter(r => r.type === 'GAME' && r.resolved).length);
 };
 
 $(document).keydown(function (e) {

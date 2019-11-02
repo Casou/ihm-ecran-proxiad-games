@@ -1,23 +1,3 @@
-let ALL_RIDDLES = [];
-
-const retrieveAllRiddles = () => {
-	return new Promise((resolve, reject) => {
-		$.ajax({
-			url: SERVER_URL + "riddle",
-			type: "GET",
-			success: (riddles) => {
-				ALL_RIDDLES = riddles;
-				resolve(riddles);
-			},
-			error: (xmlHttpRequest, textStatus, errorThrown) => {
-				console.error("Status: " + textStatus);
-				console.error("Error: " + errorThrown);
-				reject(textStatus);
-			}
-		});
-	});
-};
-
 let NB_UNLOCKED_RIDDLES = (localStorage.getItem("nbUnlockedRiddle") && parseInt(localStorage.getItem("nbUnlockedRiddle"))) || 0;
 
 const onTerminalConnect = (userSessionDto) => {
@@ -54,7 +34,7 @@ const resolveRiddle = (unlockDto) => {
 
 const updateGlitch = (nbResolvedRiddles) => {
 	let glitch = $(".glitch");
-	for (let i = 0; i <= ALL_RIDDLES.length; i++) {
+	for (let i = 0; i <= nbResolvedRiddles; i++) {
 		glitch.removeClass("stade" + i);
 	}
 	glitch.addClass("stade" + nbResolvedRiddles);

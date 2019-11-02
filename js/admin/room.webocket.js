@@ -72,8 +72,6 @@ const startTimerRoomCallback = (room) => {
   compteur.initTimer(room.remainingTime, room.remainingTime);
   compteur.startTime();
 
-  console.log(room.audioBackgroundVolume);
-
   const compteurWrapper = new CompteurAvecBoutons('#room_' + room.id + " .raspberry .compteurWrapper", compteur, room.audioBackgroundVolume, room.id, "STARTED");
 
   $('#room_' + room.id + " .raspberry .pauseButton").removeClass("disabled");
@@ -145,10 +143,13 @@ const testMessage = (roomId) => {
 
 const sendMessageToRoom = (roomId) => {
   const messageInput = $("#room_" + roomId + " .boiteMessage input");
-  const introSentence = IA_PARAMETERS.sentences.find(s => s.id === parseInt($("#room_" + roomId + " .boiteMessage .selectSentences").val()));
-  introSentence.voice = getVoice(introSentence.voice);
+  const introSentenceId = $("#room_" + roomId + " .boiteMessage .selectSentences").val();
+  let introSentence = null;
+  if (introSentenceId) {
+    introSentence = IA_PARAMETERS.sentences.find(s => s.id === parseInt(introSentenceId));
+    introSentence.voice = getVoice(introSentence.voice);
+  }
   const voice = getVoice($("#room_" + roomId + " .boiteMessage select.selectVoice").val());
-  console.log(voice);
   sendMessageToSynthetize(roomId, {message: messageInput.val(), voice}, introSentence);
   messageInput.val("");
 };
