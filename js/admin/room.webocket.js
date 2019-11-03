@@ -147,7 +147,7 @@ const sendMessageToRoom = (roomId) => {
   let introSentence = null;
   if (introSentenceId) {
     introSentence = IA_PARAMETERS.sentences.find(s => s.id === parseInt(introSentenceId));
-    introSentence.voice = getVoice(introSentence.voice);
+    introSentence.voice = getVoice(introSentence.voiceName);
   }
   const voice = getVoice($("#room_" + roomId + " .boiteMessage select.selectVoice").val());
   sendMessageToSynthetize(roomId, {message: messageInput.val(), voice}, introSentence);
