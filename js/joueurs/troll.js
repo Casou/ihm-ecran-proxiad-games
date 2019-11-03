@@ -12,6 +12,7 @@ const receiveTroll = ({ reduceTime, message, voice, videoName }, sendRequestCall
 				const jqTrollVideo = $('#video video#troll');
 				jqTrollVideo.attr("src", "resources/videos/" + videoName + "?" + makeid());
 				jqTrollVideo[0].currentTime = 0;
+				jqTrollVideo[0].volume = 0.3;
 				jqTrollVideo.show();
 				jqTrollVideo[0].play();
 				jqTrollVideo[0].onended = () => {
