@@ -16,7 +16,7 @@ const hideLoading = () => {
   $("#loading").hide();
 };
 
-const makeid = ({length = 9, onlyIntegers = false}) => {
+const makeid = (length = 9, onlyIntegers = false) => {
   let text = "";
   const possible = onlyIntegers ? "123456789" : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 

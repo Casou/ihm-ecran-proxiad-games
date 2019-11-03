@@ -1,0 +1,42 @@
+.room-add-time-dialog,
+.room-add-time-dialog .ui-widget-content,
+.room-add-time-dialog .ui-dialog-buttonpane {
+    background-color:#464646;
+    color : white;
+}
+
+.room-add-time-dialog .btn-small {
+    color : white;
+}
+
+.room-add-time-dialog .input-field {
+    width : 100%;
+}
+
+.room-add-time-dialog p,
+.room-add-time-dialog #addTimeValue {
+    display : inline-block;
+}
+
+.room-add-time-dialog #addTimeValueWrapper {
+    text-align : center;
+}
+
+.room-add-time-dialog #addTimeValue {
+    width: 100px !important;
+    border: 1px solid green !important;
+    padding: 0 !important;
+    height: 30px !important;
+    background-color: black !important;
+    text-align: center !important;
+    font-family: code_new_roman, Courier New, serif;
+}
+
+.room-add-time-dialog #addTimeValue.error {
+    border: 1px solid red !important;
+}
+
+.room-add-time-dialog .ui-dialog-titlebar {
+    background-color: #2c2c2c;
+    color : white;
+}

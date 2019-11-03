@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="css/admin/dialog.css">
     <link rel="stylesheet" href="css/admin/header.css">
     <link rel="stylesheet" href="css/admin/room.css">
+    <link rel="stylesheet" href="css/admin/room-add-time-dialog.css">
     <link rel="stylesheet" href="css/admin/riddle-dialog.css">
     <link rel="stylesheet" href="css/admin/parameters.css">
     <link rel="stylesheet" href="css/admin/ia.css">
@@ -96,6 +97,17 @@ TODO List :
         </div>
     </div>
 </div>
+<div id="roomAddTimeDialog" title="Ajouter du temps à la salle" style="display : none;">
+    <div id="addTimeValueWrapper">
+        <p>Ajouter / retirer du temps</p>
+        <input type="text" id="addTimeValue" value="00:00:00" onChange="checkAddTimeValue(this.value)" />
+    </div>
+    <div class="input-field">
+        <select class="selectVoice"></select>
+        <input type="text" id="addTimeMessage" placeholder="Ajouter un message (facultatif)" />
+        <a class="waves-effect waves-light blue lighten-1 btn-small full_button" onClick="testAddTimeMessage();"><i class="material-icons left">volume_up</i>Tester</a>
+    </div>
+</div>
 
 <script src="js/common/jquery.min.js"></script>
 <script src="js/common/jquery-ui.min.js"></script>
@@ -114,6 +126,7 @@ TODO List :
 <script src="js/admin/room.component.js"></script>
 <script src="js/admin/room.js"></script>
 <script src="js/admin/room.webocket.js"></script>
+<script src="js/admin/room.dialog.addTime.js"></script>
 <script src="js/admin/riddle.webocket.js"></script>
 <script src="js/admin/compteurAvecBoutons.js"></script>
 <script src="js/admin/parameters.component.js"></script>

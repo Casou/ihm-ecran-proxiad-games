@@ -203,6 +203,7 @@ span.connection_status, .disconnected span.connection_status {
     margin-top : 15px;
 }
 
+.selectVoice,
 #rooms .room .boiteTaunt select,
 #rooms .room .boiteMessage select,
 #rooms .room .boiteMessage div .selectSentences {

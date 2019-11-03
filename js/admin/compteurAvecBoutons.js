@@ -27,11 +27,11 @@ class CompteurAvecBoutons {
     this.compteur && this.compteur.stopTime();
   }
 
-  animateReduceTime(time) {
+  animateModifyTime(time, secondsToAdd = -1) {
     if (!this.compteur) {
       return Promise.reject(new Error('Counter is null'));
     }
-    return this.compteur.animateReduceTime(time);
+    return this.compteur.animateModifyTime(time, secondsToAdd);
   }
 
   reinitTime() {
@@ -59,9 +59,7 @@ class CompteurAvecBoutons {
 
   render() {
     const timerStarted = this.compteur && this.compteur.isStarted && !this.compteur.isPaused;
-    const compteurRender = this.forceText ||
-      (this.compteur && this.compteur.render())
-      || "--:--:--";
+    const compteurRender = this.forceText || (this.compteur && this.compteur.render()) || "--:--:--";
 
     return `
 			<button class="actionButton miniButton pauseButton ${!this.isConnected || this.isTerminated || !this.compteur || !timerStarted ? 'disabled' : ''}" onClick="stopTimer(${this.id})">❚❚</button> 
@@ -70,6 +68,10 @@ class CompteurAvecBoutons {
 			<p class="compteur ${!this.isConnected ? 'disabled' : ''}">
 				${compteurRender}
 			</p>
+			
+			<div class="addTime tooltip ${!this.isConnected ? 'disabled' : ''}" title="Ajouter du temps">
+			  <i class="material-icons addTimeIcon" onClick="openAddTimeDialog(${this.id})">access_time</i>
+      </div>
 			
 			<div class="volume ${!this.isConnected ? 'disabled' : ''}">
 			  <span class="tooltip" title="Volume de la musique de fond">Volume :</span> 

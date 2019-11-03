@@ -35,6 +35,9 @@ const subscribeAll = () => {
   WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/volume", (roomDto) => {
     adjustVolume(roomDto.audioBackgroundVolume);
   });
+  WEBSOCKET_CLIENT.subscribe("/topic/room/" + ROOM_ID + "/modifyTime", (modifyTimeDto) => {
+    addAction(() => receiveModifyTime(modifyTimeDto, () => {})); // );() => sendReduceTime(ROOM_ID, modifyTimeDto.time)).then(refreshAfterTroll));
+  });
 };
 
 const sendCountEnded = (id) => {

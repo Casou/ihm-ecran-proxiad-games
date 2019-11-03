@@ -64,7 +64,7 @@ const generateBadges = () => {
 };
 
 const addBadge = () => {
-  PLAYER_PROFILES.push({id: parseInt(makeid({onlyIntegers: true})), name: '*N*ouveau'});
+  PLAYER_PROFILES.push({id: parseInt(makeid(9, true)), name: '*N*ouveau'});
   generateBadges();
 };
 

@@ -125,6 +125,7 @@ input:not([disabled]), textarea:not([disabled]) {
     text-shadow: 0 -1px 0 #2b665e;
     height: 26px;
     vertical-align: middle;
+    box-shadow: 1px 1px 2px black;
 }
 
 .icon_button:hover,

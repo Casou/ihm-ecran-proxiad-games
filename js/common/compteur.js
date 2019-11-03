@@ -55,7 +55,7 @@ class Compteur {
 		this.isPaused = false;
 		this.renderAndApply();
 		setTimeout(() => {
-			this.timerInterval = setInterval(() => this._decreaseTime(), 1000);
+			this.timerInterval = setInterval(() => this._modifyTime(), 1000);
 			if (!this.startedTime) {
 				this.startedTime = new Date();
 			}
@@ -86,33 +86,33 @@ class Compteur {
 		}
 	}
 
-	animateReduceTime(timeToReduce) {
+	animateModifyTime(timeToReduce, coeff = -1) {
 		return new Promise(resolve => {
 			this.animated = true;
 			const wasStarted = this.isStarted;
 			this.pauseTime();
 
-			let decreasedCount = 0;
+			let modifyCount = 0;
 			const reduceInterval = setInterval(() => {
-				this._decreaseTime(1);
+				this._modifyTime(coeff);
 				this.renderAndApply();
-				decreasedCount++;
+				modifyCount++;
 
-				if (decreasedCount >= timeToReduce) {
+				if (modifyCount >= timeToReduce) {
 					clearInterval(reduceInterval);
 					if (wasStarted) {
 						this.startTime();
 					}
 					this.animated = false;
-					this.initialTime -= timeToReduce;
+					this.initialTime += (timeToReduce * coeff);
 					resolve();
 				}
 			}, 5000 / timeToReduce);
 		});
 	}
 
-	_decreaseTime(secondsToDecrease = 1, bypassRecalculateTime = false) {
-		this.currentTime -= secondsToDecrease;
+	_modifyTime(secondsToAdd = -1, bypassRecalculateTime = false) {
+		this.currentTime += secondsToAdd;
 		if (this.currentTime <= 0) {
 			this.currentTime = 0;
 			this.pauseTime();
@@ -139,7 +139,7 @@ class Compteur {
 				this.currentTime = this.currentTime - diff;
 			} else {
 				for (let i = 0; i < diff; i++) {
-					setTimeout(() => this._decreaseTime(1, true), 100);
+					setTimeout(() => this._modifyTime(-1, true), 100);
 				}
 			}
 		}

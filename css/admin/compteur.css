@@ -33,14 +33,21 @@
     }
 }
 
+.compteurWrapper .addTime {
+    cursor: pointer;
+}
 
+.compteurWrapper .addTimeIcon {
+    text-shadow: 1px 1px 0 black, 2px 2px 0 black;
+}
+
+.addTime.disabled,
 .volume.disabled,
 .compteur.disabled,
 .compteurWrapper button.disabled {
     cursor: default;
     opacity: 0.5;
 }
-
 
 @keyframes blink {
     50% {
@@ -59,9 +66,11 @@
     -webkit-animation: blink 1.5s step-start 0s infinite;
 }
 
+.compteurWrapper .addTime,
 .compteurWrapper .volume {
     display: inline-block;
     margin-left: 5px;
+    vertical-align: text-top;
 }
 
 .compteurWrapper .volume input,

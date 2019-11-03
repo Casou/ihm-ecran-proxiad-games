@@ -8,6 +8,7 @@ const subscribeRooms = () => {
   WEBSOCKET_CLIENT.subscribe("/topic/riddle/unlock", unlockRiddleCallback);
   WEBSOCKET_CLIENT.subscribe("/topic/room/admin/success", successRoomCallback);
   WEBSOCKET_CLIENT.subscribe("/topic/room/admin/fail", failRoomCallback);
+  WEBSOCKET_CLIENT.subscribe("/topic/room/admin/modifyTime", modifyTime);
 };
 
 const retrieveConnectedRooms = () => {
@@ -85,21 +86,21 @@ const startTimerRoomCallback = (room) => {
     roomsFiltered.compteur = compteurWrapper;
   } else {
     console.error("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée", room);
-    errorDialog("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée");
+    errorDialog("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée (logs sur F12)");
   }
 };
 
 const reduceTimerRoomCallback = (roomTrollDto) => {
   const room = ROOMS.filter(r => roomTrollDto.id === r.id)[0];
   if (room) {
-    room.compteur.animateReduceTime(roomTrollDto.reduceTime).then(() => {
+    room.compteur.animateModifyTime(roomTrollDto.reduceTime, -1).then(() => {
       const calculatedRemainingTime = calculateRemainingTime(new Date(roomTrollDto.startTime), roomTrollDto.remainingTime);
       console.warn(calculatedRemainingTime, roomTrollDto.startTime, roomTrollDto.remainingTime);
       room.compteur.initTimer(calculatedRemainingTime);
     });
   } else {
-    console.error(`Requête TROLL reçue mais la salle ${roomTrollDto.id}/${roomTrollDto.name}  n'a pas été trouvée`, roomTrollDto);
-    errorDialog(`Requête TROLL reçue mais la salle ${roomTrollDto.id}/${roomTrollDto.name}  n'a pas été trouvée`);
+    console.error(`Requête TROLL reçue mais la salle ${roomTrollDto.id}/${roomTrollDto.name} n'a pas été trouvée`, roomTrollDto);
+    errorDialog(`Requête TROLL reçue mais la salle ${roomTrollDto.id}/${roomTrollDto.name} n'a pas été trouvée (logs sur F12)`);
   }
 };
 
@@ -112,7 +113,7 @@ const pauseTimerRoomCallback = (room) => {
     $('#room_' + room.id + " .raspberry .startButton").removeClass("disabled");
   } else {
     console.error("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée", room);
-    errorDialog("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée");
+    errorDialog("Requête START TIMER reçue mais la salle " + room.id + " n'a pas été trouvée (logs sur F12)");
   }
 };
 
@@ -129,6 +130,7 @@ const stopTimer = (id) => {
   }
   confirmDialog("Voulez-vous arrêter le timer pour cette salle (il ne sera pas possible de le relancer sans réinitialiser le temps) ?", () => stopTimerWS(id));
 };
+
 const stopTimerWS = (id) => {
   WEBSOCKET_CLIENT.send("/room/pause", {id});
 };
@@ -191,4 +193,18 @@ const failRoomCallback = (room) => {
 
 const sendRefreshCommand = (id) => {
   WEBSOCKET_CLIENT.send("/room/refresh", {id});
+};
+
+const modifyTime = modifyTimeDto => {
+  const room = ROOMS.filter(r => modifyTimeDto.roomId === r.id)[0];
+  if (room) {
+    room.compteur.animateModifyTime(Math.abs(modifyTimeDto.time), modifyTimeDto.time > 0 ? 1 : -1).then(() => {
+      const calculatedRemainingTime = calculateRemainingTime(new Date(modifyTimeDto.startTime), modifyTimeDto.remainingTime);
+      console.warn(calculatedRemainingTime, modifyTimeDto.startTime, modifyTimeDto.remainingTime);
+      room.compteur.initTimer(calculatedRemainingTime);
+    });
+  } else {
+    console.error(`Requête "modify time" reçue mais la salle ${modifyTimeDto.roomId} n'a pas été trouvée`, modifyTimeDto);
+    errorDialog(`Requête "modify time" reçue mais la salle ${modifyTimeDto.roomId} n'a pas été trouvée (logs sur F12)`);
+  }
 };

@@ -20,7 +20,7 @@ const receiveTroll = ({ reduceTime, message, voice, videoName }, sendRequestCall
 					showProgressBar();
 				};
 				sendRequestCallback();
-				COMPTEUR.animateReduceTime(reduceTime)
+				COMPTEUR.animateModifyTime(reduceTime, -1)
 					.then(resolve);
 		});
 	});
@@ -30,3 +30,20 @@ let TROLL_END = null;
 const trollEndOfGame = () => {
 	readAllMessages([ TROLL_END.text ]);
 };
+
+const receiveModifyTime = ({ message, voice, time, startTime, remainingTime }, sendRequestCallback) => {
+	return new Promise(resolve => {
+		let messagePromise = Promise.resolve();
+		if (message) {
+			messagePromise = incomingMessage({ message, voice })
+		}
+
+		messagePromise.then(() => {
+			sendRequestCallback();
+			console.log("animateModifyTime", time, time > 0 ? 1 : -1);
+			COMPTEUR.animateModifyTime(Math.abs(time), time > 0 ? 1 : -1)
+				.then(resolve);
+		});
+	});
+};
+
