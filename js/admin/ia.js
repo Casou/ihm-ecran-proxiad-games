@@ -59,7 +59,7 @@ const createProgressBarText = () => {
 
 const createEnigmaText = () => {
 	$.ajax({
-		url: SERVER_URL + "text/enigma",
+		url: SERVER_URL + "text/riddle",
 		type: "POST",
 		contentType: "application/json",
 		success: (newText) => {
@@ -184,10 +184,8 @@ const updateSentence = (sentence) => {
 
 const deleteText = (id) => {
 	$.ajax({
-		url: SERVER_URL + "text",
+		url: SERVER_URL + "text/" + id,
 		type: "DELETE",
-		data : JSON.stringify({ id }),
-		contentType: "application/json",
 		success: () => {
 			IA_PARAMETERS.removeText(id);
 			updateSentenceSelects();

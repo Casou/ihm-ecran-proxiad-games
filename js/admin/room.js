@@ -60,7 +60,7 @@ const newRoom = () => {
 const updateRoomName = (id, value) => {
   $.ajax({
     url: SERVER_URL + "room/" + id + "/name",
-    type: "POST",
+    type: "PATCH",
     data: JSON.stringify({name: value}),
     contentType: "application/json",
     success: () => {
@@ -111,7 +111,7 @@ const reinitRoom = (id) => {
 const reinitRoomAjax = (id) => {
   $.ajax({
     url: SERVER_URL + "room/" + id + "/reinit",
-    type: "PATCH",
+    type: "POST",
     contentType: "application/json",
     success: (room) => {
       const roomIndex = ROOMS.findIndex(r => r.id === id);
