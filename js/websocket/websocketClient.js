@@ -2,13 +2,14 @@ let RECONNECT_TIMEOUT = 0;
 
 class WebSocketClient {
 
-    constructor(url, headers, onDisconnect) {
+    constructor(url, headers, onDisconnect, onConnect) {
         const sockjs = new SockJS(url);
         this.stompClient = Stomp.over(sockjs);
-		this.stompClient.debug = null;
+		    this.stompClient.debug = null;
 
         this.url = url;
         this.headers = headers || {};
+        this.onConnectCallback = onConnect;
         this.onDisconnectCallback = onDisconnect;
         this.waitingSubscriptions = [];
 
@@ -20,6 +21,7 @@ class WebSocketClient {
         this.stompClient.connect(this.headers, function() {
             RECONNECT_TIMEOUT = 0;
             that.waitingSubscriptions.forEach(subscribtion => that.subscribe(subscribtion.topic, subscribtion.callback));
+            that.onConnectCallback();
         }, function(message) {
             console.log("Disconnected : " + message);
             that.onDisconnect();

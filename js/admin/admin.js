@@ -16,8 +16,13 @@ $("#content > nav a").click(function () {
 
 
 const initWebSocket = () => {
-  WEBSOCKET_CLIENT = new WebSocketClient(SERVER_URL + "ws", {}, initWebSocket);
+  $('#connected_server_icon').html('wifi_off').addClass('disconnected');
+  WEBSOCKET_CLIENT = new WebSocketClient(SERVER_URL + "ws", {}, initWebSocket, notifyConnectToServer);
   subscribeAll();
+};
+
+const notifyConnectToServer = () => {
+  $('#connected_server_icon').html('wifi').removeClass('disconnected');
 };
 
 const subscribeAll = () => {

@@ -132,3 +132,30 @@ input:not([disabled]), textarea:not([disabled]) {
 .full_button:hover {
     filter: brightness(120%) drop-shadow(2px 2px 0 black);
 }
+
+#connected_server_icon {
+    float: right;
+    margin-right : 15px;
+    margin-top: -5px;
+    font-size: 35px;
+    height : 50px;
+    color : #5eff5e;
+}
+
+#connected_server_icon.disconnected {
+    color: #ff6262;
+    animation-duration: 500ms;
+    animation-name: blink-color;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: cubic-bezier(1, 0, 0, 1);
+}
+
+@keyframes blink-color {
+    from {
+        color: #ff6262;
+    }
+    to {
+        color: #532222;
+    }
+}
