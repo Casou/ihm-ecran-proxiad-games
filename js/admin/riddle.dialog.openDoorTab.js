@@ -169,7 +169,7 @@ const renderOpenDoorTab = (roomData) => {
                 class="material-icons prefix"
                 onClick="copyCode()"
                 >
-              vertical_align_top
+              file_copy
             </i>
         </div>
       </div>

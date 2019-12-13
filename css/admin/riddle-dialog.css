@@ -52,7 +52,7 @@
 }
 
 .riddles-dialog #riddleDialog_content {
-    padding : 10px;
+    padding : 10px 0;
 }
 
 .riddles-dialog #riddle_dialog_open_door_tab div.input-field {
@@ -78,6 +78,8 @@
     color : white;
     top: -2px;
     font-size: 1.8rem;
+    right: 0;
+    width: 25px;
 }
 #open_riddle_suggested_password {
     color: #cccccc;
@@ -90,8 +92,10 @@
 
 .riddles-dialog #riddle_dialog_open_door_tab div.input-field i {
     position: absolute;
-    top: 0;
+    top: -2px;
+    right: 0;
     font-size: 25px;
+    width: 25px;
 }
 .riddles-dialog input[type=text] {
     height : 30px;

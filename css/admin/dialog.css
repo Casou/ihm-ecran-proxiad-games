@@ -1,3 +1,7 @@
+.ui-dialog {
+    box-shadow: 4px 4px 4px black;
+}
+
 .error-dialog, .error-dialog .ui-dialog-buttonpane {
     background-color: #fff1f0;
 }
